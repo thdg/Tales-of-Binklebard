@@ -4,9 +4,11 @@ Tales-of-Binklebard
 Tales of Binklebard the Adventurer: The story of the lost princess
 
 Hero:
+
 	Name: Binklebard
 	Ability modifiers,
 Profession,
+
 	Abilities,
 	Controls,
 	Item slots,
@@ -15,6 +17,7 @@ Profession,
 	Energy
 
 Energy:
+
 	Wizard: mana
 	Warrior: fury
 	Rogue: energy
@@ -22,6 +25,7 @@ Energy:
 	Ranger: energy
 
 Profession:
+
 	Warrior,
 	Wizard,
 	Rogue,
@@ -29,24 +33,26 @@ Profession:
 	Cleric,
 
 Ability modifiers:
+
 	Strength,
 	Dex,
 	Wis,
-
 	Spirit,
 
 Monsters:
+
 	Abilities,
-hp,
-Armor,
-Challenge rating,
+	hp,
+	Armor,
+	Challenge rating,
 	Item drops,
 
 Map:
+
 	One big map:
-tree,
-grass,
-water,
+	tree,
+	grass,
+	water,
 	random generated,
 	houses?
 	Caves/dungeons?
@@ -54,20 +60,26 @@ water,
 
 
 Item:
+
 	Weapon:
+	
 		damage,
 		range,
 	Armor:
+	
 		Armor bonus,
-		movement mod
-special?
+		movement mod,
+		special?
+		
 	Consumables:
+	
 		hp mod,
 		mana mod.
 		Scroll?
 		movement speed?
 
 Abilities:
+
 	Ability lvl,
 	mana cost,
 	Target,
