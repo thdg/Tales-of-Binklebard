@@ -22,65 +22,97 @@ var spatialManager = {
 
 _nextSpatialID : 1, // make all valid IDs non-falsey (i.e. don't start at 0)
 
-_entities : [],
+_divider : 600,     // size of each space
+_entities : [[]],   // NxM matrix of lists of entities
+                    // where N is worlds height/divider and M is worlds width/divider
 
 // "PRIVATE" METHODS
-//
-// <none yet>
 
+_findFrame : function(pos) {
+
+    return {
+        i: Math.floor(pos.posX/this._divider),
+        j: Math.floor(pos.posY/this._divider),
+    }
+},
+
+_getFrame : function(frame) {
+
+    if (!this._entities[frame.i]) this._entities[frame.i] = [];
+    if (!this._entities[frame.i][frame.j]) this._entities[frame.i][frame.j] = [];
+
+    return this._entities[frame.i][frame.j] 
+},
+
+_getSurroundingFrames : function(frame1, frame2) {
+
+    var entities = []
+    for (var i = frame1.i; i<=frame2.i; i++) {
+        for (var j = frame1.j; j<=frame2.j; j++) {
+            entities.push.apply(entities,this._getFrame({i: i, j: j}));
+        }
+    }
+
+    return entities;
+},
+
+_getEntities : function(frame) {
+
+    return this._entities[frame.i][frame.j];
+},
 
 // PUBLIC METHODS
 
 getNewSpatialID : function() {
 
-    // TODO: YOUR STUFF HERE!
     return this._nextSpatialID++;
-
 },
 
 register: function(entity) {
-    var pos = entity.getPos();
+
     var spatialID = entity.getSpatialID();
-    
-    // TODO: YOUR STUFF HERE!
-    this._entities.push({
+    var pos = entity.getPos();
+
+    var frame = this._getFrame(this._findFrame(pos));
+    frame.push({
         entity: entity,
         posX: pos.posX,
         posY: pos.posY,
         radius: entity.getRadius()
     });
-
 },
 
 unregister: function(entity) {
-    var spatialID = entity.getSpatialID();
 
-    // TODO: YOUR STUFF HERE!
+    var spatialID = entity.getSpatialID();
+    var pos = entity.getPos();
+
+    var frame = this._getFrame(this._findFrame(pos));
     var i = 0;
-    while (this._entities[i]) {
-        if (this._entities[i].entity.getSpatialID() === spatialID) {
-            this._entities.splice(i,1);
+    while (frame[i]) {
+        if (frame[i].entity.getSpatialID() === spatialID) {
+            frame.splice(i,1);
             break;
         }
         i++;
     }
-
 },
 
 findEntityInRange: function(posX, posY, radius) {
 
-    // TODO: YOUR STUFF HERE!
-    for (var i=0; i<this._entities.length; i++) {
-        var pos = this._entities[i].entity.getPos();
-        var rad = this._entities[i].entity.getRadius();
+    var frame = this._findFrame({posX: posX, posY: posY});
+    var entities = this._getSurroundingFrames({i: frame.i-1, j: frame.j-1},{i: frame.i+1, j: frame.j+1});
+    for (var i=0; i<entities.length; i++) {
+        var pos = entities[i].entity.getPos();
+        var rad = entities[i].entity.getRadius();
         if (this.doCollide(pos, rad, posX, posY, radius)) {
-            return this._entities[i].entity;
+            return entities[i].entity;
         }
     }
-
 },
 
 doCollide: function(pos, rad, posX, posY, radius) {
+
     var dist = util.wrappedDistSq(
         pos.posX, 
         pos.posY, 
@@ -89,16 +121,32 @@ doCollide: function(pos, rad, posX, posY, radius) {
         g_canvas.width, 
         g_canvas.height
     );
+
     return dist < util.square(rad+radius);
 },
 
 render: function(ctx) {
+
     var oldStyle = ctx.strokeStyle;
     ctx.strokeStyle = "red";
     
-    for (var ID in this._entities) {
-        var e = this._entities[ID];
-        util.strokeCircle(ctx, e.posX, e.posY, e.radius);
+    for (var i=0; i<g_canvas.height; i+=this._divider) {
+        util.stroke(ctx,0,i,g_canvas.width,i);
+        util.stroke(ctx,i,0,i,g_canvas.height);
+    }
+
+    for (var i=0; i<this._entities.length; i++) {
+        var col = this._entities[i]
+        if (col) {
+            for (var j=0; j<col.length; j++) {
+                var row = col[j]
+                var frameEntities = row;
+                for (var ID in frameEntities) {
+                    var e = frameEntities[ID];
+                    util.strokeCircle(ctx, e.posX, e.posY, e.radius);
+                }
+            }
+        }
     }
     ctx.strokeStyle = oldStyle;
 }

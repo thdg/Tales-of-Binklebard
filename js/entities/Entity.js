@@ -47,8 +47,10 @@ Entity.prototype.setup = function (descr) {
 };
 
 Entity.prototype.setPos = function (cx, cy) {
+    spatialManager.unregister(this);
     this.cx = cx;
     this.cy = cy;
+    spatialManager.register(this);
 };
 
 Entity.prototype.getPos = function () {
