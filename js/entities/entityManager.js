@@ -2,7 +2,7 @@
 
 entityManager.js
 
-A module which handles arbitrary entity-management for "Asteroids"
+A module which handles arbitrary entity-management for the simulation
 
 
 We create this module as a single global object, and initialise it
@@ -111,7 +111,9 @@ generateRock : function(descr) {
 },
 
 generateShip : function(descr) {
-    this._ships.push(new Ship(descr));
+    var ship = new Ship(descr);
+    this._ships.push(ship);
+    return ship;
 },
 
 killNearestShip : function(xPos, yPos) {
@@ -134,7 +136,7 @@ resetShips: function() {
 
 haltShips: function() {
     this._forEachOf(this._ships, Ship.prototype.halt);
-},	
+},  
 
 toggleRocks: function() {
     this._bShowRocks = !this._bShowRocks;
@@ -167,9 +169,7 @@ update: function(du) {
 },
 
 render: function(ctx) {
-
-    var debugX = 10, debugY = 100;
-
+/*
     for (var c = 0; c < this._categories.length; ++c) {
 
         var aCategory = this._categories[c];
@@ -181,11 +181,10 @@ render: function(ctx) {
         for (var i = 0; i < aCategory.length; ++i) {
 
             aCategory[i].render(ctx);
-            //debug.text(".", debugX + i * 10, debugY);
 
         }
-        debugY += 10;
     }
+*/
 }
 
 }

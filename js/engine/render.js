@@ -16,6 +16,7 @@ var TOGGLE_RENDER = 'R'.charCodeAt(0);
 
 function render(ctx) {
     
+
     // Process various option toggles
     //
     if (eatKey(TOGGLE_CLEAR)) g_doClear = !g_doClear;
@@ -40,8 +41,15 @@ function render(ctx) {
     
     // The core rendering of the actual game / simulation
     //
+    
+    var offsetX = -camera._posX+camera._width/2;
+    var offsetY = -camera._posY+camera._height/2;
+
+    ctx.translate(offsetX,offsetY);
     if (g_doRender) renderSimulation(ctx);
     
+    ctx.translate(-offsetX,-offsetY);
+    ctx.restore();
     
     // This flip-flip mechanism illustrates the pattern of alternation
     // between frames, which provides a crude illustration of whether
@@ -67,6 +75,7 @@ function render(ctx) {
     // to illustrate flicker-proof double-buffering
     //
     if (g_undoBox) ctx.clearRect(200, 200, 50, 50);
+
     
     ++g_frameCounter;
 }

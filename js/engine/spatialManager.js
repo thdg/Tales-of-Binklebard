@@ -22,19 +22,12 @@ var spatialManager = {
 
 _nextSpatialID : 1, // make all valid IDs non-falsey (i.e. don't start at 0)
 
-_divider : 600,     // size of each space
+_divider : 50,     // size of each space
+_collitionMargin : 1, // how many frames from entities frame
 _entities : [[]],   // NxM matrix of lists of entities
                     // where N is worlds height/divider and M is worlds width/divider
 
 // "PRIVATE" METHODS
-
-_findFrame : function(pos) {
-
-    return {
-        i: Math.floor(pos.posX/this._divider),
-        j: Math.floor(pos.posY/this._divider),
-    }
-},
 
 _getFrame : function(frame) {
 
@@ -44,7 +37,31 @@ _getFrame : function(frame) {
     return this._entities[frame.i][frame.j] 
 },
 
-_getSurroundingFrames : function(frame1, frame2) {
+_getEntities : function(frame) {
+
+    return this._entities[frame.i][frame.j];
+},
+
+// PUBLIC METHODS
+
+init : function() {
+    // nothing yet
+},
+
+getNewSpatialID : function() {
+
+    return this._nextSpatialID++;
+},
+
+findFrame : function(pos) {
+
+    return {
+        i: Math.floor(pos.posX/this._divider),
+        j: Math.floor(pos.posY/this._divider),
+    }
+},
+
+getFrames : function(frame1, frame2) {
 
     var entities = []
     for (var i = frame1.i; i<=frame2.i; i++) {
@@ -56,24 +73,12 @@ _getSurroundingFrames : function(frame1, frame2) {
     return entities;
 },
 
-_getEntities : function(frame) {
-
-    return this._entities[frame.i][frame.j];
-},
-
-// PUBLIC METHODS
-
-getNewSpatialID : function() {
-
-    return this._nextSpatialID++;
-},
-
 register: function(entity) {
 
     var spatialID = entity.getSpatialID();
     var pos = entity.getPos();
 
-    var frame = this._getFrame(this._findFrame(pos));
+    var frame = this._getFrame(this.findFrame(pos));
     frame.push({
         entity: entity,
         posX: pos.posX,
@@ -87,7 +92,7 @@ unregister: function(entity) {
     var spatialID = entity.getSpatialID();
     var pos = entity.getPos();
 
-    var frame = this._getFrame(this._findFrame(pos));
+    var frame = this._getFrame(this.findFrame(pos));
     var i = 0;
     while (frame[i]) {
         if (frame[i].entity.getSpatialID() === spatialID) {
@@ -100,8 +105,14 @@ unregister: function(entity) {
 
 findEntityInRange: function(posX, posY, radius) {
 
-    var frame = this._findFrame({posX: posX, posY: posY});
-    var entities = this._getSurroundingFrames({i: frame.i-1, j: frame.j-1},{i: frame.i+1, j: frame.j+1});
+    var frame = this.findFrame({posX: posX, posY: posY});
+    var entities = this.getFrames(
+        {i: frame.i-this._collitionMargin, 
+         j: frame.j-this._collitionMargin},
+        {i: frame.i+this._collitionMargin, 
+         j: frame.j+this._collitionMargin}
+    );
+
     for (var i=0; i<entities.length; i++) {
         var pos = entities[i].entity.getPos();
         var rad = entities[i].entity.getRadius();
@@ -113,7 +124,7 @@ findEntityInRange: function(posX, posY, radius) {
 
 doCollide: function(pos, rad, posX, posY, radius) {
 
-    var dist = util.wrappedDistSq(
+    var dist = util.distSq(
         pos.posX, 
         pos.posY, 
         posX, 
@@ -130,7 +141,7 @@ render: function(ctx) {
     var oldStyle = ctx.strokeStyle;
     ctx.strokeStyle = "red";
     
-    for (var i=0; i<g_canvas.height; i+=this._divider) {
+    for (var i=0; i<=g_canvas.height; i+=this._divider) {
         util.stroke(ctx,0,i,g_canvas.width,i);
         util.stroke(ctx,i,0,i,g_canvas.height);
     }

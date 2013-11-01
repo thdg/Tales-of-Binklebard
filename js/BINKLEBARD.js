@@ -44,10 +44,11 @@ var g_ctx = g_canvas.getContext("2d");
 
 function createInitialShips() {
 
-    entityManager.generateShip({
+    var ship = entityManager.generateShip({
         cx : 200,
         cy : 200
     });
+    camera.centerAt(ship);
     
 }
 
@@ -80,6 +81,7 @@ function updateSimulation(du) {
     processDiagnostics();
     
     entityManager.update(du);
+    camera.update(du);
 
     // Prevent perpetual firing!
     eatKey(Ship.prototype.KEY_FIRE);
@@ -92,7 +94,7 @@ var g_useGravity = false;
 var g_useAveVel = true;
 var g_renderSpatialDebug = false;
 
-var KEY_MIXED   = keyCode('M');;
+var KEY_MIXED   = keyCode('M');
 var KEY_GRAVITY = keyCode('G');
 var KEY_AVE_VEL = keyCode('V');
 var KEY_SPATIAL = keyCode('X');
@@ -159,6 +161,7 @@ function processDiagnostics() {
 function renderSimulation(ctx) {
 
     entityManager.render(ctx);
+    camera.render(ctx);
 
     if (g_renderSpatialDebug) spatialManager.render(ctx);
 }

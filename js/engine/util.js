@@ -93,6 +93,12 @@ strokeCircle: function (ctx, x, y, r) {
     ctx.stroke();
 },
 
+strokeBox: function (ctx, x, y, w, h) {
+    ctx.beginPath();
+    ctx.rect(x, y, w, h);
+    ctx.stroke();
+},
+
 stroke: function (ctx, x1, y1, x2, y2) {
     ctx.beginPath();
     ctx.moveTo(x1, y1);
