@@ -22,7 +22,7 @@ var spatialManager = {
 
 _nextSpatialID : 1, // make all valid IDs non-falsey (i.e. don't start at 0)
 
-_divider : 50,     // size of each space
+_divider : 100,     // size of each space
 _collitionMargin : 1, // how many frames from entities frame
 _entities : [[]],   // NxM matrix of lists of entities
                     // where N is worlds height/divider and M is worlds width/divider
@@ -128,9 +128,7 @@ doCollide: function(pos, rad, posX, posY, radius) {
         pos.posX, 
         pos.posY, 
         posX, 
-        posY, 
-        g_canvas.width, 
-        g_canvas.height
+        posY
     );
 
     return dist < util.square(rad+radius);
@@ -141,9 +139,9 @@ render: function(ctx) {
     var oldStyle = ctx.strokeStyle;
     ctx.strokeStyle = "red";
     
-    for (var i=0; i<=g_canvas.height; i+=this._divider) {
-        util.stroke(ctx,0,i,g_canvas.width,i);
-        util.stroke(ctx,i,0,i,g_canvas.height);
+    for (var i=0; i<=world.height; i+=this._divider) {
+        util.stroke(ctx,0,i,world.width,i);
+        util.stroke(ctx,i,0,i,world.height);
     }
 
     for (var i=0; i<this._entities.length; i++) {

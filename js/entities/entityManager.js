@@ -169,22 +169,7 @@ update: function(du) {
 },
 
 render: function(ctx) {
-/*
-    for (var c = 0; c < this._categories.length; ++c) {
-
-        var aCategory = this._categories[c];
-
-        if (!this._bShowRocks && 
-            aCategory == this._rocks)
-            continue;
-
-        for (var i = 0; i < aCategory.length; ++i) {
-
-            aCategory[i].render(ctx);
-
-        }
-    }
-*/
+    
 }
 
 }

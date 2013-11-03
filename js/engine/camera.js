@@ -25,7 +25,7 @@ _posY: 0,
 _width: 600,
 _height: 600,
 
-_centerAt: undefined,
+_centerdEntity: undefined,
 
 // PUBLIC DATA
 
@@ -38,43 +38,39 @@ _centerAt: undefined,
 centerAt : function(entity) {
 	
 	if (entity.getPos) {
-		this._centerAt = entity
+		this._centerdEntity = entity
 	} else {
 		console.log("Object to center at must have getPos function.");
 	}
 },
 
+isOnCamera: function(pos) {
+    if (this._posX-this._width/2<pos.posX && pos.posX<this._posX+this._width/2 &&
+        this._posY-this._height/2<pos.posY && pos.posY<this._posY+this._height/2)
+            return true;
+    return false;
+},
+
 update : function(du) {
 
-	var pos = this._centerAt.getPos();
-	this._posX = pos.posX;
-	this._posY = pos.posY;
+	var pos = this._centerdEntity.getPos();
+	this._posX = util.keepBetween(
+        pos.posX, 
+        this._width/2, 
+        world.width-this._width/2
+    );
 
-	// TODO: dont let to close to edges
+	this._posY = util.keepBetween(
+        pos.posY, 
+        this._height/2, 
+        world.height-this._height/2
+    );
 },
 
 render : function(ctx) {
 
-	var frame1 = spatialManager.findFrame({ 
-		posX: this._posX-this._width/2,
-        posY: this._posY-this._height/2 
-    });
-
-	var frame2 = spatialManager.findFrame({ 
-		posX: this._posX+this._width/2,
-        posY: this._posY+this._height/2 
-    });
-
-	var entities = spatialManager.getFrames(
-		frame1, frame2
-    );
-
-    for (var i=0; i<entities.length; i++) {
-        entities[i].entity.render(ctx);
-    }
-
-    var margin = 5;
-    var oldStyle = ctx.strokeStyle = "green";
+    var margin = 2;
+    var oldStyle = ctx.strokeStyle = "orange";
     util.strokeBox( 
     	ctx,
     	this._posX-this._width/2+margin,

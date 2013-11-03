@@ -160,9 +160,9 @@ function processDiagnostics() {
 
 function renderSimulation(ctx) {
 
-    entityManager.render(ctx);
+    renderingManager.render(ctx);
+    
     camera.render(ctx);
-
     if (g_renderSpatialDebug) spatialManager.render(ctx);
 }
 
