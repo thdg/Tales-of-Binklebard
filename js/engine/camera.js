@@ -19,15 +19,15 @@ var camera = {
 
 // "PRIVATE" DATA
 
-_posX: 0,
-_posY: 0,
+_posX: 0, // top left corner
+_posY: 0, // relative to wor1ld
 
-_width: 600,
-_height: 600,
+_width: 500,
+_height: 500,
 
 _centerdEntity: undefined,
 
-_margin: 64,
+_margin: 0,
 
 // PUBLIC DATA
 
@@ -49,15 +49,15 @@ centerAt : function(entity) {
 isOnCamera: function(pos) {
 
     var inX = util.isBetween(
-        this._posX,
-        -this._margin,
-        this._width+this._margin
+        pos.posX,
+        this._posX-this._margin,
+        this._posX+this._width+this._margin
     );
 
     var inY = util.isBetween(
-        this._posY,
-        -this._margin,
-        this._height+this._margin
+        pos.posY,
+        this._posY-this._margin,
+        this._posY+this._height+this._margin
     );
 
     if (inX && inY)
