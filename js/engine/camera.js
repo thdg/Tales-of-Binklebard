@@ -22,8 +22,8 @@ var camera = {
 _posX: 0, // top left corner
 _posY: 0, // relative to wor1ld
 
-_width: 500,
-_height: 500,
+_width: 600,
+_height: 600,
 
 _centerdEntity: undefined,
 

@@ -162,8 +162,10 @@ function renderSimulation(ctx) {
 
     renderingManager.render(ctx);
     
-    camera.render(ctx);
-    if (g_renderSpatialDebug) spatialManager.render(ctx);
+    if (g_renderSpatialDebug) {
+        camera.render(ctx);
+        spatialManager.render(ctx);
+    }
 }
 
 

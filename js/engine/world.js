@@ -22,7 +22,7 @@ var region = {
 _map : [],           // ground (grass, water, mud, rocks, hills, ...)
 _staticObjects: [],  // unmoveable objects (trees, houses, ...)
 _dynamicObjects: [], // moveable objects (monsters, mobveable things, stuff, ...) (just for initialation, put into entityManager)
-_heightmap : [],     // 0: empty, 1: occupied
+_heightmap : [],     // 0: empty, 1: occupied -- put circles in spatial manager for every 1 with same center as tile :D
 
 // PUBLIC DATA
 
