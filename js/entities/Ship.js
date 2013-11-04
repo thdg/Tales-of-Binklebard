@@ -133,7 +133,7 @@ Ship.prototype.update = function (du) {
     }
     
     // TODO: YOUR STUFF HERE! --- Unregister and check for death
-    renderingManager.update(this);
+    renderingManager.unregister(this);
     spatialManager.unregister(this);
     if (this._isDeadNow) return entityManager.KILL_ME_NOW;
 
@@ -156,6 +156,7 @@ Ship.prototype.update = function (du) {
     } else {
         spatialManager.register(this);
     }
+    renderingManager.register(this);
 
 };
 

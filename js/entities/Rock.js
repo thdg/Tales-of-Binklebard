@@ -63,7 +63,7 @@ Rock.prototype.update = function (du) {
 
     // TODO: YOUR STUFF HERE! --- Unregister and check for death
     spatialManager.unregister(this);
-    renderingManager.update(this);
+    renderingManager.unregister(this);
     if (this._isDeadNow) return entityManager.KILL_ME_NOW;
 
     this.cx += this.velX * du;
@@ -77,6 +77,7 @@ Rock.prototype.update = function (du) {
     
     // TODO: YOUR STUFF HERE! --- (Re-)Register
     spatialManager.register(this);
+    renderingManager.register(this);
 
 };
 

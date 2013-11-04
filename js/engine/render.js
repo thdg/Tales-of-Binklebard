@@ -42,8 +42,8 @@ function render(ctx) {
     // The core rendering of the actual game / simulation
     //
     
-    var offsetX = -camera._posX+camera._width/2;
-    var offsetY = -camera._posY+camera._height/2;
+    var offsetX = -camera._posX;
+    var offsetY = -camera._posY;
 
     ctx.translate(offsetX,offsetY);
     if (g_doRender) renderSimulation(ctx);

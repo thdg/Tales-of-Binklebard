@@ -27,6 +27,8 @@ _height: 600,
 
 _centerdEntity: undefined,
 
+_margin: 64,
+
 // PUBLIC DATA
 
 
@@ -45,9 +47,22 @@ centerAt : function(entity) {
 },
 
 isOnCamera: function(pos) {
-    if (this._posX-this._width/2<pos.posX && pos.posX<this._posX+this._width/2 &&
-        this._posY-this._height/2<pos.posY && pos.posY<this._posY+this._height/2)
-            return true;
+
+    var inX = util.isBetween(
+        this._posX,
+        -this._margin,
+        this._width+this._margin
+    );
+
+    var inY = util.isBetween(
+        this._posY,
+        -this._margin,
+        this._height+this._margin
+    );
+
+    if (inX && inY)
+        return true;
+    
     return false;
 },
 
@@ -65,6 +80,9 @@ update : function(du) {
         this._height/2, 
         world.height-this._height/2
     );
+
+    this._posX-=this._width/2;
+    this._posY-=this._height/2;
 },
 
 render : function(ctx) {
@@ -73,8 +91,8 @@ render : function(ctx) {
     var oldStyle = ctx.strokeStyle = "orange";
     util.strokeBox( 
     	ctx,
-    	this._posX-this._width/2+margin,
-    	this._posY-this._height/2+margin,
+    	this._posX+margin,
+    	this._posY+margin,
     	this._width-2*margin,
     	this._height-2*margin
     );

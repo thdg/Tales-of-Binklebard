@@ -34,24 +34,6 @@ _isRegistered: function(id) {
 	return false;
 },
 
-_register: function(entity) {
-	
-    this._entities.push(entity);
-},
-
-_unregister: function(entity) {
-
-	var renderingID = entity.getRenderingID();
-    var i = 0;
-    while (this._entities[i]) {
-        if (this._entities[i].getRenderingID() === renderingID) {
-            this._entities.splice(i,1);
-            break;
-        }
-        i++;
-    }
-},
-
 // PUBLIC METHODS
 
 init : function() {
@@ -63,15 +45,23 @@ getNewRenderingID : function() {
     return this._nextID++;
 },
 
-update: function(entity) {
+register: function(entity) {
+    
+    var onCamera = camera.isOnCamera(entity.getPos());
+    if (onCamera) this._entities.push(entity);
+},
 
-	var renderingID = entity.getRenderingID();
+unregister: function(entity) {
 
-	var registered = this._isRegistered(renderingID);
-	var onCamera = camera.isOnCamera(entity.getPos());
-
-	if (!registered && onCamera) this._register(entity);
-	if (registered && !onCamera) this._unregister(entity);
+    var renderingID = entity.getRenderingID();
+    var i = 0;
+    while (this._entities[i]) {
+        if (this._entities[i].getRenderingID() === renderingID) {
+            this._entities.splice(i,1);
+            break;
+        }
+        i++;
+    }
 },
 
 flush: function() {
