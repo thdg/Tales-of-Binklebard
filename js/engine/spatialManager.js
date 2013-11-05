@@ -22,7 +22,7 @@ var spatialManager = {
 
 _nextSpatialID : 1, // make all valid IDs non-falsey (i.e. don't start at 0)
 
-_divider : 100,     // size of each space
+_divider : 128,     // size of each space
 _collitionMargin : 1, // how many frames from entities frame
 _entities : [[]],   // NxM matrix of lists of entities
                     // where N is worlds height/divider and M is worlds width/divider
@@ -139,9 +139,9 @@ render: function(ctx) {
     var oldStyle = ctx.strokeStyle;
     ctx.strokeStyle = "red";
     
-    for (var i=0; i<=world.height; i+=this._divider) {
-        util.stroke(ctx,0,i,world.width,i);
-        util.stroke(ctx,i,0,i,world.height);
+    for (var i=0; i<=world.getWidth(); i+=this._divider) {
+        util.stroke(ctx,0,i,world.getWidth(),i);
+        util.stroke(ctx,i,0,i,world.getHeight());
     }
 
     for (var i=0; i<this._entities.length; i++) {
