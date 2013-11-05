@@ -18,9 +18,13 @@ function Tile(tiles) {
 
     this._tiles = tiles;
     this._activeTile = tiles[0];
+    this._time = 0;
 }
 
 Tile.prototype.update = function(du) {
+
+	this._time += du * NOMINAL_UPDATE_INTERVAL;
+	this._activeTile = this._tiles[Math.floor(this._time/1000)%this._tiles.length];
 
 };
 

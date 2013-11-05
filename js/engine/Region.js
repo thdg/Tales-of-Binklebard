@@ -25,6 +25,10 @@ function Region(map, hightmap, staticObjects, dynamicObjects) {
     this.width = map[0].length*tilesheet.tileSize;
 }
 
+Region.prototype.update = function (du) {
+	
+}
+
 Region.prototype.render = function (ctx) {
 
 	// render terrain, there has to be a better way of doing this...

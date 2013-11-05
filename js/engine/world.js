@@ -41,6 +41,11 @@ getWidth: function() {
     return this._activeRegion.width;
 },
 
+update: function(du) {
+    this._activeRegion.update(du);
+    tiles.update(du);
+},
+
 render: function(ctx) {
     this._activeRegion.render(ctx);
 }
