@@ -5,10 +5,27 @@
 12345678901234567890123456789012345678901234567890123456789012345678901234567890
 */
 
+this.mainAtt = this.Wis;
+this.secAtt = this.Str;
+this.weakAtt = this.Dex;
 
 // A generic contructor which accepts an arbitrary descriptor object
 function Cleric(descr) {
-    for (var property in descr) {
-        this[property] = descr[property];
-    }
+    this.setup(descr);
+	this.setlvl();
+	
+	this.mainAtt + 2;
+	this.weakAtt - 2;
+}
+Cleric.prototype = new Chara();
+
+Cleric.prototype.faith;
+this.energy = this.faith;
+
+Cleric.prototype = new Chara();
+
+function updateStats(){
+	this.faith = this.mainAtt * 30;
+	this.armor = this.Dex * 20 + this.MainAtt * 5;
+	this.hp = this.Str * 50;
 }

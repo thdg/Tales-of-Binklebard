@@ -20,6 +20,13 @@ function Abil(descr) {
 }
 // Initial, inheritable, default values
 
+Abil.prototype.lvlReq;
+Abil.prototype.alvl;
+Abil.prototype.cost;
+Abil.prototype.target;
+Abil.prototype.damage;
+Abil.prototype.range;
+Abil.prototype.area;
 
 Abil.prototype.update = function () {
 	// TODO: Implement this
@@ -32,6 +39,8 @@ Abil.prototype.energy = function () {
 Abil.prototype.Spells = function () {
 	// TODO: Implement this
 };
+
+
 
 
 

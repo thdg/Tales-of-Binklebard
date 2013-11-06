@@ -138,7 +138,17 @@ var g_images = {};
 function requestPreloads() {
 
     var requiredImages = {
-        terrain : "img/terrain.png"
+
+        terrain          : "img/terrain.png",
+        binkBack         : "img/BinklebardBack.png",
+        binkDefault      : "img/BinklebardDefault.png",
+        binkDefaultRight : "img/BinklebardDefaultRight.png",
+        binkDefaultBack  : "img/BinklebardDefaultBack.png",
+        binkRight        : "img/BinklebardRight.png",
+        binkForward      : "img/BinklebardForward.png",
+        binkThrust       : "img/BinklebardThrustForward.png",
+        binkThrustLeft   : "img/BinklebardThrustLeft.png",
+        binkThrustBack   : "img/BinklebardThrustBack.png"
     };
 
     imagesPreload(requiredImages, g_images, preloadDone);
@@ -181,6 +191,104 @@ function preloadDone() {
                                 [0,0,0,0,0,0,1,1,2,0,1,2,0,0,0,0,0,0,1,2,0,0,0,0,0]]
     );
     world.addRegion(highlands);
+
+    g_sprites.bink = new Sprite(    
+                                    {
+                                        haltForward: {
+                                            image:  g_images.binkDefault,
+                                            next:   0,
+                                            strips: 1,
+                                            reflect:false,
+                                        },
+
+                                        haltRight: {
+                                            image:  g_images.binkDefaultRight,
+                                            next:   0,
+                                            strips: 1,
+                                            reflect:false,
+                                        },
+
+                                        haltLeft: {
+                                            image:  g_images.binkDefaultRight,
+                                            next:   0,
+                                            strips: 1,
+                                            reflect:true,
+                                        },
+
+                                        haltBack: {
+                                            image:  g_images.binkDefaultBack,
+                                            next:   0,
+                                            strips: 1,
+                                            reflect:false,
+                                        },
+
+                                        forward: {
+                                            image:  g_images.binkForward,
+                                            next:   48,
+                                            strips: 7,
+                                            reflect:false,
+                                        },
+
+                                        right: {
+                                            image:  g_images.binkRight,
+                                            next:   48,
+                                            strips: 8,
+                                            reflect:false,
+                                        },
+
+                                        left: {
+                                            image:  g_images.binkRight,
+                                            next:   48,
+                                            strips: 8,
+                                            reflect:true,
+                                        },
+
+                                        back: {
+                                            image:  g_images.binkBack,
+                                            next:   48,
+                                            strips: 8,
+                                            reflect:false,
+                                        },
+                                        
+                                        thrustForward: {
+                                            image:  g_images.binkThrust,
+                                            next:   48,
+                                            scale:  2,
+                                            strips: 6,
+                                            reflect:false,
+                                        },
+
+                                        thrustBack: {
+                                            image:  g_images.binkThrustBack,
+                                            next:   48,
+                                            scale:  2,
+                                            strips: 6,
+                                            reflect:false,
+                                        },
+
+                                        thrustRight: {
+                                            image:  g_images.binkThrustLeft,
+                                            next:   48,
+                                            scale:  2,
+                                            strips: 6,
+                                            reflect:true,
+                                        },
+
+                                        thrustLeft: {
+                                            image:  g_images.binkThrustLeft,
+                                            next:   48,
+                                            scale:  2,
+                                            strips: 6,
+                                            reflect:false,
+                                        },
+
+
+                                    },
+                                    {
+                                        width:  48,
+                                        height: 48,
+                                        scale:  2,
+                                    });
 
     entityManager.init();
 
