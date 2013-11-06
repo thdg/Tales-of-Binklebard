@@ -21,6 +21,9 @@ function Region(map, hightmap, staticObjects, dynamicObjects) {
     this._staticObjects = staticObjects;
     this._dynamicObjects = dynamicObjects;
 
+    this._mapHeight = map.length,
+    this._mapWidth = map[0].length,
+
     this.height = map.length*tilesheet.tileSize;
     this.width = map[0].length*tilesheet.tileSize;
 }
@@ -36,11 +39,11 @@ Region.prototype.render = function (ctx) {
 	var pos = camera.getPos();
 	var scr = camera.getDimentions();
 
-	var startX = Math.floor(pos.posX/tileSize);
-	var startY = Math.floor(pos.posY/tileSize);
-	
-	var endX = Math.ceil((pos.posX+scr.width)/tileSize);
-	var endY = Math.ceil((pos.posY+scr.height)/tileSize);
+	var startX = Math.max(Math.floor(pos.posX/tileSize),0);
+	var startY = Math.max(Math.floor(pos.posY/tileSize),0);
+
+	var endX = Math.min(Math.ceil((pos.posX+scr.width)/tileSize),this._mapWidth-1);
+	var endY = Math.min(Math.ceil((pos.posY+scr.height)/tileSize),this._mapHeight-1);
 
 	for(var i = startY; i<endY; i++) {
 		var row = this._map[i];

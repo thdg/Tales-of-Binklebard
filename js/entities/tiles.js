@@ -42,6 +42,10 @@ var tiles = {
 
     render : function(ctx, tile, posX, posY) {
 
+        if (tile<0 || this._tiles.length<=tile) {
+            console.log("error tile: "+tile);
+            return;
+        }
         this._tiles[tile].render(ctx, posX, posY);
 
     }

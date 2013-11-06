@@ -15,6 +15,8 @@ var camera = {
     _posX: 0, // top left corner
     _posY: 0, // relative to wor1ld
 
+    _speed: 160/SECS_TO_NOMINALS,
+
     _width: 600,
     _height: 600,
 
@@ -24,6 +26,12 @@ var camera = {
 
     // PUBLIC DATA
 
+    flyingMode: false,
+
+    KEY_UP: util.charCode('W'),
+    KEY_DOWN: util.charCode('S'),
+    KEY_LEFT: util.charCode('A'),
+    KEY_RIGHT: util.charCode('D'),
 
     // "PRIVATE" METHODS
 
@@ -69,7 +77,26 @@ var camera = {
 
     update : function(du) {
 
-    	var pos = this._centeredEntity ? this._centerdEntity.getPos() : { posX: 0, posY: 0};
+        if (this.flyingMode) {
+            if (keys[this.KEY_LEFT]) {
+                this._posX -= this._speed*du;
+            }
+            if (keys[this.KEY_RIGHT]) {
+                this._posX += this._speed*du;
+            }
+            if (keys[this.KEY_UP]) {
+                this._posY -= this._speed*du;
+            }
+            if (keys[this.KEY_DOWN]) {
+                this._posY += this._speed*du;
+            }
+
+            return;
+        }
+
+        if (!this._centerdEntity) return;
+        
+    	var pos = this._centerdEntity.getPos();
     	this._posX = util.keepBetween(
             pos.posX, 
             this._width/2, 
