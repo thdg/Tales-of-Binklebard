@@ -57,6 +57,7 @@ var g_renderSpatialDebug = false;
 
 
 var KEY_SPATIAL = keyCode('X');
+var KEY_FLYING = keyCode('F');
 
 var KEY_HALT  = keyCode('H');
 var KEY_RESET = keyCode('R');
@@ -71,6 +72,7 @@ var KEY_K = keyCode('K');
 function processDiagnostics() {
 
     if (eatKey(KEY_SPATIAL)) g_renderSpatialDebug = !g_renderSpatialDebug;
+    if (eatKey(KEY_FLYING)) camera.flyingMode = !camera.flyingMode;
 /*
     if (eatKey(KEY_HALT)) entityManager.haltShips();
 
