@@ -8,13 +8,6 @@ A module which handles the camera and the screen
 
 "use strict";
 
-/* jshint browser: true, devel: true, globalstrict: true */
-
-/*
-0        1         2         3         4         5         6         7         8
-12345678901234567890123456789012345678901234567890123456789012345678901234567890
-*/
-
 var camera = {
 
     // "PRIVATE" DATA
@@ -76,7 +69,7 @@ var camera = {
 
     update : function(du) {
 
-    	var pos = this._centerdEntity.getPos();
+    	var pos = this._centeredEntity ? this._centerdEntity.getPos() : { posX: 0, posY: 0};
     	this._posX = util.keepBetween(
             pos.posX, 
             this._width/2, 

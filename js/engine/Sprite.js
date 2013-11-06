@@ -120,7 +120,7 @@ Sprite.prototype.makeAnimationArray = function()
             var sprite = new Sprite(this.image, 
                                     col * celWidth,
                                     row * celHeight,
-                                    celWidth, celHeight) ;
+                                    celWidth, celHeight);
             animationArray.push(sprite);
         }
     }
@@ -129,8 +129,7 @@ Sprite.prototype.makeAnimationArray = function()
 };
 
 Sprite.prototype.drawAt = function (ctx, x, y) {
-    ctx.drawImage(this.image, 
-                  x, y);
+    ctx.drawImage(this.image, x, y);
 };
 
 Sprite.prototype.drawCentredAt = function (ctx, cx, cy, rotation) {
@@ -156,41 +155,13 @@ Sprite.prototype.drawCentredAt = function (ctx, cx, cy, rotation) {
                   0,
                   w,h, 
                   -w/2, -h/2,
-                  w,h);
+                  w,h
+        );
     }
     else
     {
-        ctx.drawImage(this.image, 
-                  -w/2, -h/2);
+        ctx.drawImage(this.image, -w/2, -h/2);
     }
     
-    
     ctx.restore();
-};  
-
-Sprite.prototype.drawWrappedCentredAt = function (ctx, cx, cy, rotation) {
-    
-    // Get "screen width"
-    var sw = g_canvas.width;
-    
-    // Draw primary instance
-    this.drawWrappedVerticalCentredAt(ctx, cx, cy, rotation);
-    
-    // Left and Right wraps
-    this.drawWrappedVerticalCentredAt(ctx, cx - sw, cy, rotation);
-    this.drawWrappedVerticalCentredAt(ctx, cx + sw, cy, rotation);
 };
-
-Sprite.prototype.drawWrappedVerticalCentredAt = function (ctx, cx, cy, rotation) {
-
-    // Get "screen height"
-    var sh = g_canvas.height;
-    
-    // Draw primary instance
-    this.drawCentredAt(ctx, cx, cy, rotation);
-    
-    // Top and Bottom wraps
-    this.drawCentredAt(ctx, cx, cy - sh, rotation);
-    this.drawCentredAt(ctx, cx, cy + sh, rotation);
-};
-
