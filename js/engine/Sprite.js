@@ -29,9 +29,9 @@ function Sprite(content, common) {
     {
         console.log(content);
         this.motion    = content;
-        this.default   = content.haltForward;
-        this._thrust    = content.thrustForward;
-        this._setValues(this.default);
+        this._default   = content.haltDown;
+        this._thrust    = content.thrustDown;
+        this._setValues(this._default);
         this._setValues(common);
         this.stripx    = 0;
         this.animation = true;
@@ -45,40 +45,33 @@ Sprite.prototype._setValues = function(descr)
     }
 }
 
-Sprite.prototype.FACE_RIGHT   = 0;
-Sprite.prototype.FACE_BACK    = 1;
-Sprite.prototype.FACE_LEFT    = 2;
-Sprite.prototype.FACE_FORWARD = 3;
-
 Sprite.prototype.setDefault  = function (dir)
 {
     switch (dir)
     {
-        case 0:
-            this.default = this.motion.haltRight;
+        case FACE_RIGHT:
+            this._default = this.motion.haltRight;
             this._thrust  = this.motion.thrustRight;
-            //this.default.reflect = false;
             break;
-        case 2:
-            this.default = this.motion.haltLeft;
+        case FACE_LEFT:
+            this._default = this.motion.haltLeft;
             this._thrust  = this.motion.thrustLeft;
-            //this.default.reflect = true;
             break;
-        case 3:
-            this.default = this.motion.haltForward;
-            this._thrust  = this.motion.thrustForward;
+        case FACE_DOWN:
+            this._default = this.motion.haltDown;
+            this._thrust  = this.motion.thrustDown;
             break;
-        case 1:
-            this.default = this.motion.haltBack;
-            this._thrust  = this.motion.thrustBack;
+        case FACE_UP:
+            this._default = this.motion.haltUp;
+            this._thrust  = this.motion.thrustUp;
             break;
 
     }
 }
 
-Sprite.prototype.moveForward = function ()
+Sprite.prototype.moveUp = function ()
 {
-    this._setValues(this.motion.forward);
+    this._setValues(this.motion.up);
 }
 
 Sprite.prototype.moveLeft = function ()
@@ -92,14 +85,14 @@ Sprite.prototype.moveRight = function ()
     this._setValues(this.motion.right);
 }
 
-Sprite.prototype.moveBack = function ()
+Sprite.prototype.moveDown = function ()
 {
-    this._setValues(this.motion.back);
+    this._setValues(this.motion.down);
 }
 
 Sprite.prototype.halt = function ()
 {
-    this._setValues(this.default);
+    this._setValues(this._default);
 }
 
 Sprite.prototype.thrust = function ()
@@ -107,32 +100,65 @@ Sprite.prototype.thrust = function ()
     this._setValues(this._thrust);
 }
 
-Sprite.prototype.makeAnimationArray = function()
+Sprite.prototype.dist  = 0;
+Sprite.prototype.state = 0;
+Sprite.prototype.hz   = SECS_TO_NOMINALS/12;
+
+Sprite.prototype.configureAnimation = function(vel,rotation,thrusting)
 {
-    var animationArray = [];
-    var numCols = 5;
-    var numRows = 6;
-    console.log("width = "+this.width);
-    var celWidth = this.width/numCols;
-    var celHeight = this.height/numRows;
-    for (var row = 0; row < numRows; ++row) {
-        for (var col = 0; col  < numCols; ++col) {
-            var sprite = new Sprite(this.image, 
-                                    col * celWidth,
-                                    row * celHeight,
-                                    celWidth, celHeight);
-            animationArray.push(sprite);
+    this.halt(); 
+
+    if (vel !== 0) this.computeMovement(rotation);
+
+    if (thrusting) this.thrust();
+
+    if(this.dist >= this.hz)
+    {
+        
+        this.state += 1;
+        if (this.state >= this.strips)
+        {
+            this.state = 0;
         }
+        
+        this.dist  %= this.hz;
     }
-    console.dir(animationArray);
-    return animationArray;
-};
+
+
+    this.state %= this.strips;
+    this.stripx = this.next * this.state;
+}
+
+Sprite.prototype.computeMovement = function(rotation)
+{
+    switch (rotation)
+    {
+        case FACE_RIGHT:
+            this.moveRight();
+            this.setDefault(FACE_RIGHT);
+            break;
+        case FACE_UP:
+            this.moveUp();
+            this.setDefault(FACE_UP);
+            break;
+        case FACE_LEFT:
+            this.moveLeft();
+            this.setDefault(FACE_LEFT);
+            break;
+        case FACE_DOWN:
+            this.moveDown();
+            this.setDefault(FACE_DOWN);
+            break;
+    }
+}
+
 
 Sprite.prototype.drawAt = function (ctx, x, y) {
     ctx.drawImage(this.image, x, y);
 };
 
 Sprite.prototype.drawCentredAt = function (ctx, cx, cy, rotation) {
+
     if (rotation === undefined) rotation = 0;
     
     var w = this.width,
@@ -141,6 +167,7 @@ Sprite.prototype.drawCentredAt = function (ctx, cx, cy, rotation) {
     ctx.save();
     ctx.translate(cx, cy);
     ctx.rotate(rotation);
+
     if (this.reflect)
         ctx.scale(-this.scale, this.scale);
     else
@@ -165,3 +192,4 @@ Sprite.prototype.drawCentredAt = function (ctx, cx, cy, rotation) {
     
     ctx.restore();
 };
+

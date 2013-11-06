@@ -188,7 +188,7 @@ function preloadDone() {
 
     g_sprites.bink = new Sprite(    
                                     {
-                                        haltForward: {
+                                        haltDown: {
                                             image:  g_images.binkDefault,
                                             next:   0,
                                             strips: 1,
@@ -209,14 +209,14 @@ function preloadDone() {
                                             reflect:true,
                                         },
 
-                                        haltBack: {
+                                        haltUp: {
                                             image:  g_images.binkDefaultBack,
                                             next:   0,
                                             strips: 1,
                                             reflect:false,
                                         },
 
-                                        forward: {
+                                        down: {
                                             image:  g_images.binkForward,
                                             next:   48,
                                             strips: 7,
@@ -237,14 +237,14 @@ function preloadDone() {
                                             reflect:true,
                                         },
 
-                                        back: {
+                                        up: {
                                             image:  g_images.binkBack,
                                             next:   48,
                                             strips: 8,
                                             reflect:false,
                                         },
                                         
-                                        thrustForward: {
+                                        thrustDown: {
                                             image:  g_images.binkThrust,
                                             next:   48,
                                             scale:  2,
@@ -252,7 +252,7 @@ function preloadDone() {
                                             reflect:false,
                                         },
 
-                                        thrustBack: {
+                                        thrustUp: {
                                             image:  g_images.binkThrustBack,
                                             next:   48,
                                             scale:  2,
