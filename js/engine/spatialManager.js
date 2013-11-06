@@ -23,7 +23,7 @@ var spatialManager = {
 _nextSpatialID : 1, // make all valid IDs non-falsey (i.e. don't start at 0)
 
 _divider : 128,     // size of each space
-_collitionMargin : 1, // how many frames from entities frame
+_collisionMargin : 1, // how many frames from entities frame
 _entities : [[]],   // NxM matrix of lists of entities
                     // where N is worlds height/divider and M is worlds width/divider
 
@@ -107,10 +107,10 @@ findEntityInRange: function(posX, posY, radius) {
 
     var frame = this.findFrame({posX: posX, posY: posY});
     var entities = this.getFrames(
-        {i: frame.i-this._collitionMargin, 
-         j: frame.j-this._collitionMargin},
-        {i: frame.i+this._collitionMargin, 
-         j: frame.j+this._collitionMargin}
+        {i: frame.i-this._collisionMargin, 
+         j: frame.j-this._collisionMargin},
+        {i: frame.i+this._collisionMargin, 
+         j: frame.j+this._collisionMargin}
     );
 
     for (var i=0; i<entities.length; i++) {
