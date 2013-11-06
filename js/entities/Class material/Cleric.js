@@ -12,20 +12,27 @@ this.weakAtt = this.Dex;
 // A generic contructor which accepts an arbitrary descriptor object
 function Cleric(descr) {
     this.setup(descr);
-	this.setlvl();
+	this.lvlup();
 	
 	this.mainAtt + 2;
 	this.weakAtt - 2;
+	
+	this.sprite = this.sprite || g_sprites.bink;
 }
-Cleric.prototype = new Chara();
-
-Cleric.prototype.faith;
-this.energy = this.faith;
-
-Cleric.prototype = new Chara();
 
 function updateStats(){
-	this.faith = this.mainAtt * 30;
+	this.energy = this.mainAtt * 30;
 	this.armor = this.Dex * 20 + this.MainAtt * 5;
 	this.hp = this.Str * 50;
+	this.damage = this.Str * 5 + this.mainAtt;
 }
+
+Chara.prototype.setExp = function (expRew) {
+	this.experience = this.experience + expRew;
+	
+	if(this.experience >= (lvl * 1000) + 1000){
+		this.lvlup();
+		this.setAtt();
+		this.updateStats();
+	}
+};
