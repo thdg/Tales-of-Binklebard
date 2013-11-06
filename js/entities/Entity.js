@@ -47,6 +47,11 @@ Entity.prototype.setup = function (descr) {
     this._isDeadNow = false;
 };
 
+Entity.prototype.rotation;
+Entity.prototype.cx;
+Entity.prototype.cy;
+Entity.prototype.vel;
+
 Entity.prototype.setPos = function (cx, cy) {
     spatialManager.unregister(this);
     this.cx = cx;
@@ -84,7 +89,4 @@ Entity.prototype.findHitEntity = function () {
 // This is just little "convenience wrapper"
 Entity.prototype.isColliding = function () {
     return this.findHitEntity();
-};
-
-Entity.prototype.wrapPosition = function () {
 };
