@@ -93,6 +93,9 @@ init: function() {
     //this._generateMonsters();
 },
 
+grabNearestLoot : function(xPos, yPos) {
+    
+},
 /*
 fireBullet: function(cx, cy, velX, velY, rotation) {
     this._bullets.push(new Bullet({

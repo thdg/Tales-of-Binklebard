@@ -15,12 +15,6 @@ var g_ctx = g_canvas.getContext("2d");
 */
 
 
-// ====================
-// CREATE INITIAL SHIPS
-// ====================
-
-
-
 // =============
 // GATHER INPUTS
 // =============
@@ -53,8 +47,8 @@ function updateSimulation(du) {
     entityManager.update(du);
     camera.update(du);
 
-    // Prevent perpetual firing!
-    //eatKey(Ship.prototype.KEY_FIRE);
+    // Prevent perpetual attacks!
+    //eatKey(Chara.prototype.KEY_ATTACK);
 }
 
 // GAME-SPECIFIC DIAGNOSTICS
