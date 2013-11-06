@@ -52,6 +52,8 @@ Entity.prototype.cx;
 Entity.prototype.cy;
 Entity.prototype.vel;
 
+Entity.prototype.sprite;
+
 Entity.prototype.setPos = function (cx, cy) {
     spatialManager.unregister(this);
     this.cx = cx;

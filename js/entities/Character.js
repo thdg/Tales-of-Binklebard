@@ -63,6 +63,7 @@ Chara.prototype.update = function (du) {
 };
 
 Chara.prototype.render = function (ctx) {
+	this.sprite.drawCentredAt(ctx, this.cx, this.cy, this.rotation);
 };
 
 Chara.prototype.getRadius = function () {
@@ -75,7 +76,7 @@ Chara.prototype.reset = function () {
 
 Chara.prototype.setAtt = function () {
 	this.mainAtt++;
-	this.Spir;
+	this.Spir++;
 	
 	if(lvl%2 === 0){
 		this.secAtt++;
@@ -86,6 +87,6 @@ Chara.prototype.setAtt = function () {
 	
 };
 
-Chara.prototype.setlvl = function () {
+Chara.prototype.lvlup = function () {
 	this.lvl++;
 };
