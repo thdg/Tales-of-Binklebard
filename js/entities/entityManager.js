@@ -27,45 +27,44 @@ var entityManager = {
 
 // "PRIVATE" DATA
 
-_rocks   : [],
-_bullets : [],
-_ships   : [],
+_items   : [],
+_monsters : [],
 
-_bShowRocks : true,
 
 // "PRIVATE" METHODS
 
-_generateRocks : function() {
-    var i,
-        NUM_ROCKS = 4;
 
-    for (i = 0; i < NUM_ROCKS; ++i) {
-        this.generateRock();
+_generateMonsters : function(num) {
+    var i,
+        NUM_MONSTERS = num;
+
+    for (i = 0; i < NUM_MONSTERS; ++i) {
+        this.generateMonster();
     }
 },
 
-_findNearestShip : function(posX, posY) {
-    var closestShip = null,
+_findNearestItem : function(posX, posY) {
+    var closestItem = null,
         closestIndex = -1,
         closestSq = 1000 * 1000;
 
-    for (var i = 0; i < this._ships.length; ++i) {
+    for (var i = 0; i < this._items.length; ++i) {
 
-        var thisShip = this._ships[i];
-        var shipPos = thisShip.getPos();
+        var thisItem = this._items[i];
+        var itemPos = thisItem.getPos();
         var distSq = util.wrappedDistSq(
-            shipPos.posX, shipPos.posY, 
+            itemPos.posX, itemPos.posY, 
             posX, posY,
             g_canvas.width, g_canvas.height);
 
         if (distSq < closestSq) {
-            closestShip = thisShip;
+            closestItem = thisItem;
             closestIndex = i;
             closestSq = distSq;
         }
     }
     return {
-        theShip : closestShip,
+        theItem : closestItem,
         theIndex: closestIndex
     };
 },
@@ -87,14 +86,14 @@ KILL_ME_NOW : -1,
 // i.e. thing which need `this` to be defined.
 //
 deferredSetup : function () {
-    this._categories = [this._rocks, this._bullets, this._ships];
+    this._categories = [this._items, this._monsters];
 },
 
 init: function() {
-    this._generateRocks();
-    //this._generateShip();
+    //this._generateMonsters();
 },
 
+/*
 fireBullet: function(cx, cy, velX, velY, rotation) {
     this._bullets.push(new Bullet({
         cx   : cx,
@@ -106,9 +105,11 @@ fireBullet: function(cx, cy, velX, velY, rotation) {
     }));
 },
 
-generateRock : function(descr) {
-    this._rocks.push(new Rock(descr));
+
+generateMonster : function(descr) {
+    this._monsters.push(new Monster(descr));
 },
+
 
 generateShip : function(descr) {
     var ship = new Ship(descr);
@@ -141,7 +142,7 @@ haltShips: function() {
 toggleRocks: function() {
     this._bShowRocks = !this._bShowRocks;
 },
-
+*/
 update: function(du) {
 
     for (var c = 0; c < this._categories.length; ++c) {
@@ -164,7 +165,7 @@ update: function(du) {
         }
     }
     
-    if (this._rocks.length === 0) this._generateRocks();
+    //if (this._rocks.length === 0) this._generateRocks();
 
 },
 

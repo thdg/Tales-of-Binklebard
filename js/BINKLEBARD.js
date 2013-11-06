@@ -1,29 +1,6 @@
 // =========
-// ASTEROIDS
+// Binklebard
 // =========
-/*
-
-A sort-of-playable version of the classic arcade game.
-
-
-HOMEWORK INSTRUCTIONS:
-
-You have some "TODO"s to fill in again, particularly in:
-
-spatialManager.js
-
-But also, to a lesser extent, in:
-
-Rock.js
-Bullet.js
-Ship.js
-
-
-...Basically, you need to implement the core of the spatialManager,
-and modify the Rock/Bullet/Ship so that the register (and unregister)
-with it correctly, so that they can participate in collisions.
-
-*/
 
 "use strict";
 
@@ -42,15 +19,7 @@ var g_ctx = g_canvas.getContext("2d");
 // CREATE INITIAL SHIPS
 // ====================
 
-function createInitialShips() {
 
-    var ship = entityManager.generateShip({
-        cx : 200,
-        cy : 200
-    });
-    camera.centerAt(ship);
-    
-}
 
 // =============
 // GATHER INPUTS
@@ -85,19 +54,14 @@ function updateSimulation(du) {
     camera.update(du);
 
     // Prevent perpetual firing!
-    eatKey(Ship.prototype.KEY_FIRE);
+    //eatKey(Ship.prototype.KEY_FIRE);
 }
 
 // GAME-SPECIFIC DIAGNOSTICS
 
-var g_allowMixedActions = true;
-var g_useGravity = false;
-var g_useAveVel = true;
 var g_renderSpatialDebug = false;
 
-var KEY_MIXED   = keyCode('M');
-var KEY_GRAVITY = keyCode('G');
-var KEY_AVE_VEL = keyCode('V');
+
 var KEY_SPATIAL = keyCode('X');
 
 var KEY_HALT  = keyCode('H');
@@ -112,15 +76,8 @@ var KEY_K = keyCode('K');
 
 function processDiagnostics() {
 
-    if (eatKey(KEY_MIXED))
-        g_allowMixedActions = !g_allowMixedActions;
-
-    if (eatKey(KEY_GRAVITY)) g_useGravity = !g_useGravity;
-
-    if (eatKey(KEY_AVE_VEL)) g_useAveVel = !g_useAveVel;
-
     if (eatKey(KEY_SPATIAL)) g_renderSpatialDebug = !g_renderSpatialDebug;
-
+/*
     if (eatKey(KEY_HALT)) entityManager.haltShips();
 
     if (eatKey(KEY_RESET)) entityManager.resetShips();
@@ -142,6 +99,7 @@ function processDiagnostics() {
 
     if (eatKey(KEY_K)) entityManager.killNearestShip(
         g_mouseX, g_mouseY);
+*/
 }
 
 
@@ -180,11 +138,7 @@ var g_images = {};
 function requestPreloads() {
 
     var requiredImages = {
-        terrain : "img/terrain.png",
-        tree    : "https://notendur.hi.is/~pk/308G/images/ship.png",
-        ship    : "https://notendur.hi.is/~pk/308G/images/ship.png",
-        ship2   : "https://notendur.hi.is/~pk/308G/images/ship_2.png",
-        rock    : "https://notendur.hi.is/~pk/308G/images/rock.png"
+        terrain : "img/terrain.png"
     };
 
     imagesPreload(requiredImages, g_images, preloadDone);
@@ -195,13 +149,6 @@ var g_sprites = {};
 function preloadDone() {
 
     g_sprites.terrain = new Sprite(g_images.terrain);
-
-    g_sprites.ship  = new Sprite(g_images.ship);
-    g_sprites.ship2 = new Sprite(g_images.ship2);
-    g_sprites.rock  = new Sprite(g_images.rock);
-
-    g_sprites.bullet = new Sprite(g_images.ship);
-    g_sprites.bullet.scale = 0.25;
 
     tilesheet.setTileset(g_images.terrain, 5);
     tiles.init();
@@ -236,7 +183,6 @@ function preloadDone() {
     world.addRegion(highlands);
 
     entityManager.init();
-    createInitialShips();
 
     main.init();
 }
