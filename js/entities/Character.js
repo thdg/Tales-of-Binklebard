@@ -59,8 +59,38 @@ Chara.prototype.update = function (du) {
     
     spatialManager.unregister(this);
     if (this._isDeadNow) return entityManager.KILL_ME_NOW;
-	
+	this.keys();
 };
+
+Chara.prototype.move = function () {
+	if (g_keys[this.KEY_UP]){
+		this.vel = baseVel;
+		this.cy -= this.vel;
+		this.rotation = FACE_UP;
+	}
+	if (g_keys[this.KEY_DOWN]){
+		this.vel = baseVel;
+		this.cy += this.vel;
+		this.rotation = FACE_DOWN;
+	}
+	if (g_keys[this.KEY_LEFT]){
+		this.vel = baseVel;
+		this.cx -= this.vel;
+		this.rotation = FACE_LEFT;
+	}
+	if (g_keys[this.KEY_RIGHT]){
+		this.vel = baseVel;
+		this.cx += this.vel;
+		this.rotation = FACE_RIGHT;
+	}
+	if (g_keys[this.KEY_ATTACK]){
+		this.attacking = true;
+	}
+	
+	this.sprite.configureAnimation(this.vel*du, this.rotation, this.attacking);
+	this.vel = 0;
+
+}
 
 Chara.prototype.render = function (ctx) {
 	this.sprite.drawCentredAt(ctx, this.cx, this.cy, this.rotation);
