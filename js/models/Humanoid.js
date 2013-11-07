@@ -41,10 +41,10 @@ function Humanoid(sprite) {
 	this._animations[this.FACE_DOWN][this.WALKING]    = new Animation(sprite, frameSize*0, frameSize*3, 7, 200)
 	this._animations[this.FACE_UP][this.WALKING]      = new Animation(sprite, frameSize*0, frameSize*4, 7, 200)
 
-	this._animations[this.FACE_DOWN][this.ATTACKING]  = new Animation(sprite, frameSize*0, frameSize*5, 5, 100)
-	this._animations[this.FACE_LEFT][this.ATTACKING]  = new Animation(sprite, frameSize*0, frameSize*6, 5, 100)
-	this._animations[this.FACE_RIGHT][this.ATTACKING] = new Animation(sprite, frameSize*0, frameSize*7, 5, 100)
-	this._animations[this.FACE_UP][this.ATTACKING]    = new Animation(sprite, frameSize*0, frameSize*8, 5, 100)
+	this._animations[this.FACE_DOWN][this.ATTACKING]  = new Animation(sprite, frameSize*0, frameSize*5, 5, 50)
+	this._animations[this.FACE_LEFT][this.ATTACKING]  = new Animation(sprite, frameSize*0, frameSize*6, 5, 50)
+	this._animations[this.FACE_RIGHT][this.ATTACKING] = new Animation(sprite, frameSize*0, frameSize*7, 5, 50)
+	this._animations[this.FACE_UP][this.ATTACKING]    = new Animation(sprite, frameSize*0, frameSize*8, 5, 50)
 
 	this._activeAnimation = this._animations[this._rotation][this._state];
 

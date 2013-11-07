@@ -38,6 +38,7 @@ Character.prototype.Spir = 12;
 
 Character.prototype.lvl = 0;
 Character.prototype.experience = 0;
+
 /*
 //Charactercters Hit points, armor, energy and main attribute
 Character.prototype.hp;
@@ -50,6 +51,7 @@ Character.prototype.mainAtt;
 Character.prototype.secAtt;
 Character.prototype.weakAtt;
 */
+
 Character.prototype.update = function (du) {
     
     spatialManager.unregister(this);
@@ -66,47 +68,35 @@ Character.prototype.update = function (du) {
 
 Character.prototype.move = function (du) {
 
-	//console.log(du);
-	var vel = 0;
-	this.model.halt();
+	this.model.halt(); // if nothing is done, model halts
 	
 	if (keys[this.KEY_UP]){
-		vel = this.baseVel;
-		this.cy -= vel;
-		this.rotation = FACE_UP;
+		this.cy -= this.baseVel;
 
 		this.model.walk();
 		this.model.faceUp();
 	}
 	if (keys[this.KEY_DOWN]){
-		vel = this.baseVel;
-		this.cy += vel;
-		this.rotation = FACE_DOWN;
+		this.cy += this.baseVel;
 
 		this.model.walk();
 		this.model.faceDown();
 	}
 	if (keys[this.KEY_LEFT]){
-		vel = this.baseVel;
-		this.cx -= vel;
-		this.rotation = FACE_LEFT;
+		this.cx -= this.baseVel;
 
 		this.model.walk();
 		this.model.faceLeft();
 	}
 	if (keys[this.KEY_RIGHT]){
-	    vel = this.baseVel;
-		this.cx += vel;
-		this.rotation = FACE_RIGHT;
+		this.cx += this.baseVel;
 
 		this.model.walk();
 		this.model.faceRight();
 	}
-	if (keys[this.KEY_ATTACK]){
-		this.attacking = true;
+
+	if (keys[this.KEY_ATTACK])
 		this.model.attack();
-	} else
-		this.attacking = false;
 
 }
 
