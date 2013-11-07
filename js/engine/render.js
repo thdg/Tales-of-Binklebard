@@ -41,14 +41,15 @@ function render(ctx) {
     
     // The core rendering of the actual game / simulation
     //
-    
+    ctx.save();
+
     var offsetX = -camera._posX;
     var offsetY = -camera._posY;
-
+    
     ctx.translate(offsetX,offsetY);
+    
     if (g_doRender) renderSimulation(ctx);
     
-    ctx.translate(-offsetX,-offsetY);
     ctx.restore();
     
     // This flip-flip mechanism illustrates the pattern of alternation

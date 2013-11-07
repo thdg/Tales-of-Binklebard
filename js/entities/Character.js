@@ -57,6 +57,8 @@ Character.prototype.update = function (du) {
     if (this._isDeadNow) return entityManager.KILL_ME_NOW;
     
 	this.move(du);
+	this.model.update(du);
+
 	spatialManager.register(this);
     renderingManager.register(this);
 
@@ -66,43 +68,54 @@ Character.prototype.move = function (du) {
 
 	//console.log(du);
 	var vel = 0;
+	this.model.halt();
 	
 	if (keys[this.KEY_UP]){
 		vel = this.baseVel;
 		this.cy -= vel;
 		this.rotation = FACE_UP;
+
+		this.model.walk();
+		this.model.faceUp();
 	}
 	if (keys[this.KEY_DOWN]){
 		vel = this.baseVel;
 		this.cy += vel;
 		this.rotation = FACE_DOWN;
+
+		this.model.walk();
+		this.model.faceDown();
 	}
 	if (keys[this.KEY_LEFT]){
 		vel = this.baseVel;
 		this.cx -= vel;
 		this.rotation = FACE_LEFT;
+
+		this.model.walk();
+		this.model.faceLeft();
 	}
 	if (keys[this.KEY_RIGHT]){
 	    vel = this.baseVel;
 		this.cx += vel;
 		this.rotation = FACE_RIGHT;
+
+		this.model.walk();
+		this.model.faceRight();
 	}
 	if (keys[this.KEY_ATTACK]){
 		this.attacking = true;
+		this.model.attack();
 	} else
 		this.attacking = false;
-	
-	this.sprite.configureAnimation(du,vel, this.rotation, this.attacking);
-
 
 }
 
 Character.prototype.render = function (ctx) {
-	this.sprite.drawCentredAt(ctx, this.cx, this.cy, 0);
+	this.model.drawCentredAt(ctx, this.cx, this.cy);
 };
 
 Character.prototype.getRadius = function () {
-    return (this.sprite.width / 2) * 0.9;
+    return (ANIMATION_FRAME_SIZE / 2) * 0.9;
 };
 
 Character.prototype.reset = function () {

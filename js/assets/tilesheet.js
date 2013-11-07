@@ -29,11 +29,12 @@ var tilesheet = {
 		var tileS = this.tileSize;
 		var tileX = (tile%this._tilesInRow)*tileS;
 		var tileY = Math.floor(tile/this._tilesInRow)*tileS;
-		ctx.drawImage(this._tileset, 
-					  tileX, tileY, 
-					  tileS, tileS, 
-					  posX, posY, 
-					  tileS, tileS
+		ctx.drawImage(
+			this._tileset, 
+			tileX, tileY, 
+			tileS, tileS, 
+			posX, posY, 
+			tileS, tileS
 		);
 	}
 

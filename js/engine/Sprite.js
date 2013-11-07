@@ -1,147 +1,21 @@
 "use strict";
 
-function Sprite(content, common) {
+function Sprite(image) {
 
-    if (arguments.length === 1)
-    {    
-        this.image = content;
-        this.width = content.width;
-        this.height = content.height;
-        this.scale = 1;
-        this.animation = false;
-        this.reflect = false;
-    }
-    else
-    {
-        this.motion = content;
-        this._default = content.haltDown;
-        this._thrust = content.thrustDown;
-        this._setValues(this._default);
-        this._setValues(common);
-        this.stripx = 0;
-        this.animation = true;
-    }
+    this.image = image;
+    this.width = image.width;
+    this.height = image.height;
+    this.scale = 1;
 }
-
-Sprite.prototype._setValues = function(descr) {
-    for (var property in descr) {
-        this[property] = descr[property];
-    }
-}
-
-Sprite.prototype.setDefault  = function (dir) {
-    switch (dir)
-    {
-        case FACE_RIGHT:
-            this._default = this.motion.haltRight;
-            this._thrust  = this.motion.thrustRight;
-            break;
-        case FACE_LEFT:
-            this._default = this.motion.haltLeft;
-            this._thrust  = this.motion.thrustLeft;
-            break;
-        case FACE_DOWN:
-            this._default = this.motion.haltDown;
-            this._thrust  = this.motion.thrustDown;
-            break;
-        case FACE_UP:
-            this._default = this.motion.haltUp;
-            this._thrust  = this.motion.thrustUp;
-            break;
-    }
-}
-
-Sprite.prototype.moveUp = function () {
-    this._setValues(this.motion.up);
-}
-
-Sprite.prototype.moveLeft = function () {
-    this._setValues(this.motion.left);
-}
-
-Sprite.prototype.moveRight = function () {
-    this._setValues(this.motion.right);
-}
-
-Sprite.prototype.moveDown = function () {
-    this._setValues(this.motion.down);
-}
-
-Sprite.prototype.halt = function () {
-    this._setValues(this._default);
-}
-
-Sprite.prototype.thrust = function () {
-    this._setValues(this._thrust);
-}
-
-Sprite.prototype.dist  = 0;
-Sprite.prototype.state = 0;
-Sprite.prototype.hz    = 8;
-
-Sprite.prototype.configureAnimation = function(du,vel,rotation,thrusting) {
-
-    this.halt(); 
-
-    if (vel !== 0) this.computeMovement(rotation);
-
-    if (thrusting){ 
-        this.thrust();
-        this.dist += du*2;
-    } else
-    {
-        this.dist += vel*du;
-    }
-
-    
-
-    if(this.dist >= this.hz)
-    {
-        
-        this.state += 1;
-        if (this.state >= this.strips)
-        {
-            this.state = 0;
-        }
-        
-        this.dist  %= this.hz;
-    }
-
-    this.state %= this.strips;
-    this.stripx = this.width * this.state;
-}
-
-Sprite.prototype.computeMovement = function(rotation) {
-
-    switch (rotation)
-    {
-        case FACE_RIGHT:
-            this.moveRight();
-            this.setDefault(FACE_RIGHT);
-            break;
-        case FACE_UP:
-            this.moveUp();
-            this.setDefault(FACE_UP);
-            break;
-        case FACE_LEFT:
-            this.moveLeft();
-            this.setDefault(FACE_LEFT);
-            break;
-        case FACE_DOWN:
-            this.moveDown();
-            this.setDefault(FACE_DOWN);
-            break;
-    }
-}
-
 
 Sprite.prototype.drawAt = function (ctx, x, y) {
     ctx.drawImage(this.image, x, y);
 };
 
-Sprite.prototype.drawCentredAt = function (ctx, cx, cy, rotation) {
+Sprite.prototype.drawCentredAt = function (ctx, cx, cy, rotation, reflect) {
 
     if (rotation === undefined) rotation = 0;
+    if (reflect === undefined) rotation = false;
     
     var w = this.width,
         h = this.height;
@@ -150,29 +24,36 @@ Sprite.prototype.drawCentredAt = function (ctx, cx, cy, rotation) {
     ctx.translate(cx, cy);
     ctx.rotate(rotation);
 
-    if (this.reflect)
+    if (reflect)
         ctx.scale(-this.scale, this.scale);
-    else
-        ctx.scale(this.scale, this.scale);
     
-    // drawImage expects "top-left" coords, so we offset our destination
-    // coords accordingly, to draw our sprite centred at the origin
-    if (this.animation)
-    {
-        ctx.drawImage(
-            this.image,
-            this.stripx,
-            0,
-            w,h, 
-            -w/2, -h/2,
-            w,h
-        );
-    }
-    else
-    {
-        ctx.drawImage(this.image, -w/2, -h/2);
-    }
-    
+    ctx.drawImage(this.image, -w/2, -h/2);
     ctx.restore();
 };
 
+
+Sprite.prototype.drawFrameCenterdAt = function (ctx, cx, cy, startX, startY, sizeX, sizeY, rotation, reflect) {
+
+    if (rotation === undefined) rotation = 0;
+    if (reflect === undefined) rotation = false;
+    
+    var posX = -sizeX/2,
+        posY = -sizeY/2;
+
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(rotation);
+
+    if (reflect)
+        ctx.scale(-this.scale, this.scale);
+
+    ctx.drawImage(
+        this.image,
+        startX, startY, 
+        sizeX, sizeY, 
+        posX, posY, 
+        sizeX, sizeY
+    );
+    
+    ctx.restore();
+};

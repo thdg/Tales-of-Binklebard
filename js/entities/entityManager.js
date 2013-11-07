@@ -75,14 +75,12 @@ var entityManager = {
     },
 
     init: function() {
-        var character = new Character({sprite: g_sprites.bink,cx:200, cy:200})
+        var link = new Humanoid(g_sprites.link)
+        var character = new Character({model: link, cx:200, cy:200})
         this._character.push(character);
         camera.centerAt(character);
     },
 
-    grabNearestLoot : function(xPos, yPos) {
-        
-    },
     /*
     fireBullet: function(cx, cy, velX, velY, rotation) {
         this._bullets.push(new Bullet({

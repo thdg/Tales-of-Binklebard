@@ -28,3 +28,5 @@ var UP_ARROW = 38;
 var RIGHT_ARROW = 39;
 var DOWN_ARROW = 40;
 var LEFT_ARROW = 37;
+
+var ANIMATION_FRAME_SIZE = 48;

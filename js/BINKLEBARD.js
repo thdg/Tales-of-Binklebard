@@ -1,23 +1,9 @@
-// =========
-// Binklebard
-// =========
-
 "use strict";
-
-/* jshint browser: true, devel: true, globalstrict: true */
 
 var g_canvas = document.getElementById("myCanvas");
 var g_ctx = g_canvas.getContext("2d");
 
-/*
-0        1         2         3         4         5         6         7         8
-12345678901234567890123456789012345678901234567890123456789012345678901234567890
-*/
-
-
-// =============
 // GATHER INPUTS
-// =============
 
 function gatherInputs() {
     // Nothing to do here!
@@ -25,9 +11,7 @@ function gatherInputs() {
 }
 
 
-// =================
 // UPDATE SIMULATION
-// =================
 
 // We take a very layered approach here...
 //
@@ -73,35 +57,11 @@ function processDiagnostics() {
 
     if (eatKey(KEY_SPATIAL)) g_renderSpatialDebug = !g_renderSpatialDebug;
     if (eatKey(KEY_FLYING)) camera.flyingMode = !camera.flyingMode;
-/*
-    if (eatKey(KEY_HALT)) entityManager.haltShips();
 
-    if (eatKey(KEY_RESET)) entityManager.resetShips();
-
-    if (eatKey(KEY_0)) entityManager.toggleRocks();
-
-    if (eatKey(KEY_1)) entityManager.generateShip({
-        cx : g_mouseX,
-        cy : g_mouseY,
-        
-        sprite : g_sprites.ship});
-
-    if (eatKey(KEY_2)) entityManager.generateShip({
-        cx : g_mouseX,
-        cy : g_mouseY,
-        
-        sprite : g_sprites.ship2
-        });
-
-    if (eatKey(KEY_K)) entityManager.killNearestShip(
-        g_mouseX, g_mouseY);
-*/
 }
 
 
-// =================
 // RENDER SIMULATION
-// =================
 
 // We take a very layered approach here...
 //
@@ -125,9 +85,7 @@ function renderSimulation(ctx) {
 }
 
 
-// =============
 // PRELOAD STUFF
-// =============
 
 var g_images = {};
 
@@ -136,15 +94,7 @@ function requestPreloads() {
     var requiredImages = {
 
         terrain          : "img/terrain.png",
-        binkBack         : "img/BinklebardBack.png",
-        binkDefault      : "img/BinklebardDefault.png",
-        binkDefaultRight : "img/BinklebardDefaultRight.png",
-        binkDefaultBack  : "img/BinklebardDefaultBack.png",
-        binkRight        : "img/BinklebardRight.png",
-        binkForward      : "img/BinklebardForward.png",
-        binkThrust       : "img/BinklebardThrustForward.png",
-        binkThrustLeft   : "img/BinklebardThrustLeft.png",
-        binkThrustBack   : "img/BinklebardThrustBack.png"
+        link             : "img/link.png",
     };
 
     imagesPreload(requiredImages, g_images, preloadDone);
@@ -155,6 +105,7 @@ var g_sprites = {};
 function preloadDone() {
 
     g_sprites.terrain = new Sprite(g_images.terrain);
+    g_sprites.link = new Sprite(g_images.link);
 
     tilesheet.setTileset(g_images.terrain, 5);
     tiles.init();
@@ -187,105 +138,6 @@ function preloadDone() {
                                 [0,0,0,0,0,0,1,1,2,0,1,2,0,0,0,0,0,0,1,2,0,0,0,0,0]]
     );
     world.addRegion(highlands);
-
-    g_sprites.bink = new Sprite(    
-        {
-            haltDown: {
-                image:  g_images.binkDefault,
-                hz:     100,
-                strips: 1,
-                reflect:false,
-            },
-
-            haltRight: {
-                image:  g_images.binkDefaultRight,
-                hz  :   100,
-                strips: 1,
-                reflect:false,
-            },
-
-            haltLeft: {
-                image:  g_images.binkDefaultRight,
-                hz:     100,
-                strips: 1,
-                reflect:true,
-            },
-
-            haltUp: {
-                image:  g_images.binkDefaultBack,
-                hz:     100,
-                strips: 1,
-                reflect:false,
-            },
-
-            down: {
-                image:  g_images.binkForward,
-                hz:     8,
-                strips: 7,
-                reflect:false,
-            },
-
-            right: {
-                image:  g_images.binkRight,
-                hz:     8,
-                strips: 8,
-                reflect:false,
-            },
-
-            left: {
-                image:  g_images.binkRight,
-                hz:     8,
-                strips: 8,
-                reflect:true,
-            },
-
-            up: {
-                image:  g_images.binkBack,
-                hz:     8,
-                strips: 8,
-                reflect:false,
-            },
-            
-            thrustDown: {
-                image:  g_images.binkThrust,
-                hz:     8,
-                scale:  2,
-                strips: 6,
-                reflect:false,
-            },
-
-            thrustUp: {
-                image:  g_images.binkThrustBack,
-                hz:     8,
-                scale:  2,
-                strips: 6,
-                reflect:false,
-            },
-
-            thrustRight: {
-                image:  g_images.binkThrustLeft,
-                hz:     8,
-                scale:  2,
-                strips: 6,
-                reflect:true,
-            },
-
-            thrustLeft: {
-                image:  g_images.binkThrustLeft,
-                hz:     8,
-                scale:  2,
-                strips: 6,
-                reflect:false,
-            },
-
-
-        },
-        {
-            width:  48,
-            height: 48,
-            scale:  2,
-        }
-    );
 
     entityManager.init();
 
