@@ -70,7 +70,7 @@ Chara.prototype.update = function (du) {
 
 Chara.prototype.move = function (du) {
 
-	console.log(du);
+	//console.log(du);
 	var vel = 0;
 	
 	if (keys[this.KEY_UP]){

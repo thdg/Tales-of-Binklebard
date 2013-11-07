@@ -106,7 +106,7 @@ Sprite.prototype.hz    = 8;//SECS_TO_NOMINALS/12;
 
 Sprite.prototype.configureAnimation = function(du,vel,rotation,thrusting)
 {
-    console.log(du+","+vel);
+    //console.log(du+","+vel);
     this.halt(); 
 
     if (vel !== 0) this.computeMovement(rotation);
