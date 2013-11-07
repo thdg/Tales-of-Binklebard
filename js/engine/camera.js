@@ -1,21 +1,19 @@
-/*
-
-camera.js
-
-A module which handles the camera and the screen
-
-*/
-
 "use strict";
+
+/************************************************************************\
+
+ A module that handles the camera
+
+\************************************************************************/
 
 var camera = {
 
     // "PRIVATE" DATA
 
-    _posX: 0, // top left corner
-    _posY: 0, // relative to wor1ld
+    _posX: 0, // top left corner, relative to wor1ld
+    _posY: 0, 
 
-    _speed: 160/SECS_TO_NOMINALS,
+    _speed: 256/SECS_TO_NOMINALS, // speed in px/sec in flying mode
 
     _width: 600,
     _height: 600,
@@ -24,17 +22,32 @@ var camera = {
 
     _margin: 0,
 
-    // PUBLIC DATA
-
-    flyingMode: false,
-
     KEY_UP: util.charCode('W'),
     KEY_DOWN: util.charCode('S'),
     KEY_LEFT: util.charCode('A'),
     KEY_RIGHT: util.charCode('D'),
 
-    // "PRIVATE" METHODS
+    // PUBLIC DATA
 
+    flyingMode: false,
+
+    // PRIVATE METHODS
+
+    _fly : function(du) {
+
+        if (keys[this.KEY_LEFT]) {
+            this._posX -= this._speed*du;
+        }
+        if (keys[this.KEY_RIGHT]) {
+            this._posX += this._speed*du;
+        }
+        if (keys[this.KEY_UP]) {
+            this._posY -= this._speed*du;
+        }
+        if (keys[this.KEY_DOWN]) {
+            this._posY += this._speed*du;
+        }
+    },
 
     // PUBLIC METHODS
 
@@ -51,8 +64,13 @@ var camera = {
         return {posX: this._posX, posY: this._posY};
     },
 
-    getDimentions: function() {
+    getDimensions: function() {
         return {width: this._width, height: this._height};
+    },
+
+    setDimensions: function(width, height) {
+        this._width = width;
+        this._height = height;
     },
 
     isOnCamera: function(pos) {
@@ -78,19 +96,7 @@ var camera = {
     update : function(du) {
 
         if (this.flyingMode) {
-            if (keys[this.KEY_LEFT]) {
-                this._posX -= this._speed*du;
-            }
-            if (keys[this.KEY_RIGHT]) {
-                this._posX += this._speed*du;
-            }
-            if (keys[this.KEY_UP]) {
-                this._posY -= this._speed*du;
-            }
-            if (keys[this.KEY_DOWN]) {
-                this._posY += this._speed*du;
-            }
-
+            this._fly(du);
             return;
         }
 
@@ -116,7 +122,9 @@ var camera = {
     render : function(ctx) {
 
         var margin = 2;
-        var oldStyle = ctx.strokeStyle = "orange";
+        var oldStyle = ctx.strokeStyle 
+        ctx.strokeStyle = "orange";
+        
         util.strokeBox( 
         	ctx,
         	this._posX+margin,

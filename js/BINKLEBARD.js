@@ -189,102 +189,103 @@ function preloadDone() {
     world.addRegion(highlands);
 
     g_sprites.bink = new Sprite(    
-                                    {
-                                        haltDown: {
-                                            image:  g_images.binkDefault,
-                                            hz:     100,
-                                            strips: 1,
-                                            reflect:false,
-                                        },
+        {
+            haltDown: {
+                image:  g_images.binkDefault,
+                hz:     100,
+                strips: 1,
+                reflect:false,
+            },
 
-                                        haltRight: {
-                                            image:  g_images.binkDefaultRight,
-                                            hz  :   100,
-                                            strips: 1,
-                                            reflect:false,
-                                        },
+            haltRight: {
+                image:  g_images.binkDefaultRight,
+                hz  :   100,
+                strips: 1,
+                reflect:false,
+            },
 
-                                        haltLeft: {
-                                            image:  g_images.binkDefaultRight,
-                                            hz:     100,
-                                            strips: 1,
-                                            reflect:true,
-                                        },
+            haltLeft: {
+                image:  g_images.binkDefaultRight,
+                hz:     100,
+                strips: 1,
+                reflect:true,
+            },
 
-                                        haltUp: {
-                                            image:  g_images.binkDefaultBack,
-                                            hz:     100,
-                                            strips: 1,
-                                            reflect:false,
-                                        },
+            haltUp: {
+                image:  g_images.binkDefaultBack,
+                hz:     100,
+                strips: 1,
+                reflect:false,
+            },
 
-                                        down: {
-                                            image:  g_images.binkForward,
-                                            hz:     8,
-                                            strips: 7,
-                                            reflect:false,
-                                        },
+            down: {
+                image:  g_images.binkForward,
+                hz:     8,
+                strips: 7,
+                reflect:false,
+            },
 
-                                        right: {
-                                            image:  g_images.binkRight,
-                                            hz:     8,
-                                            strips: 8,
-                                            reflect:false,
-                                        },
+            right: {
+                image:  g_images.binkRight,
+                hz:     8,
+                strips: 8,
+                reflect:false,
+            },
 
-                                        left: {
-                                            image:  g_images.binkRight,
-                                            hz:     8,
-                                            strips: 8,
-                                            reflect:true,
-                                        },
+            left: {
+                image:  g_images.binkRight,
+                hz:     8,
+                strips: 8,
+                reflect:true,
+            },
 
-                                        up: {
-                                            image:  g_images.binkBack,
-                                            hz:     8,
-                                            strips: 8,
-                                            reflect:false,
-                                        },
-                                        
-                                        thrustDown: {
-                                            image:  g_images.binkThrust,
-                                            hz:     8,
-                                            scale:  2,
-                                            strips: 6,
-                                            reflect:false,
-                                        },
+            up: {
+                image:  g_images.binkBack,
+                hz:     8,
+                strips: 8,
+                reflect:false,
+            },
+            
+            thrustDown: {
+                image:  g_images.binkThrust,
+                hz:     8,
+                scale:  2,
+                strips: 6,
+                reflect:false,
+            },
 
-                                        thrustUp: {
-                                            image:  g_images.binkThrustBack,
-                                            hz:     8,
-                                            scale:  2,
-                                            strips: 6,
-                                            reflect:false,
-                                        },
+            thrustUp: {
+                image:  g_images.binkThrustBack,
+                hz:     8,
+                scale:  2,
+                strips: 6,
+                reflect:false,
+            },
 
-                                        thrustRight: {
-                                            image:  g_images.binkThrustLeft,
-                                            hz:     8,
-                                            scale:  2,
-                                            strips: 6,
-                                            reflect:true,
-                                        },
+            thrustRight: {
+                image:  g_images.binkThrustLeft,
+                hz:     8,
+                scale:  2,
+                strips: 6,
+                reflect:true,
+            },
 
-                                        thrustLeft: {
-                                            image:  g_images.binkThrustLeft,
-                                            hz:     8,
-                                            scale:  2,
-                                            strips: 6,
-                                            reflect:false,
-                                        },
+            thrustLeft: {
+                image:  g_images.binkThrustLeft,
+                hz:     8,
+                scale:  2,
+                strips: 6,
+                reflect:false,
+            },
 
 
-                                    },
-                                    {
-                                        width:  48,
-                                        height: 48,
-                                        scale:  2,
-                                    });
+        },
+        {
+            width:  48,
+            height: 48,
+            scale:  2,
+        }
+    );
 
     entityManager.init();
 

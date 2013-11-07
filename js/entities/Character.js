@@ -1,27 +1,21 @@
-// ==========
-// Character
-// ==========
-
 "use strict";
 
-/* jshint browser: true, devel: true, globalstrict: true */
+/************************************************************************\
 
-/*
-0        1         2         3         4         5         6         7         8
-12345678901234567890123456789012345678901234567890123456789012345678901234567890
-*/
+ Character - "inherits" from Entity
+ Keeps track of the main character and it's stats and actions
 
+\************************************************************************/
 
-// A generic contructor which accepts an arbitrary descriptor object
-function Chara(descr) {
+function Character(descr) {
 	this.setup(descr);
 	this.rotation = 0;
 
 };
 
-Chara.prototype = new Entity();
+Character.prototype = new Entity();
 
-Chara.prototype.rememberResets = function () {
+Character.prototype.rememberResets = function () {
     // Remember my reset positions
     this.reset_cx = this.cx;
     this.reset_cy = this.cy;
@@ -29,34 +23,34 @@ Chara.prototype.rememberResets = function () {
 };
 
 //Setting keys for movement and attack,
-Chara.prototype.KEY_UP    = 'W'.charCodeAt(0);
-Chara.prototype.KEY_DOWN  = 'S'.charCodeAt(0);
-Chara.prototype.KEY_LEFT  = 'A'.charCodeAt(0);
-Chara.prototype.KEY_RIGHT = 'D'.charCodeAt(0);
+Character.prototype.KEY_UP    = UP_ARROW;
+Character.prototype.KEY_DOWN  = DOWN_ARROW;
+Character.prototype.KEY_LEFT  = LEFT_ARROW;
+Character.prototype.KEY_RIGHT = RIGHT_ARROW;
 
-Chara.prototype.KEY_ATTACK = ' '.charCodeAt(0);
+Character.prototype.KEY_ATTACK = ' '.charCodeAt(0);
 
-//Characters attributes, level and experience
-Chara.prototype.Str = 12;
-Chara.prototype.Dex = 12;
-Chara.prototype.Wis = 12;
-Chara.prototype.Spir = 12;
+//Charactercters attributes, level and experience
+Character.prototype.Str = 12;
+Character.prototype.Dex = 12;
+Character.prototype.Wis = 12;
+Character.prototype.Spir = 12;
 
-Chara.prototype.lvl = 0;
-Chara.prototype.experience = 0;
+Character.prototype.lvl = 0;
+Character.prototype.experience = 0;
 /*
-//Characters Hit points, armor, energy and main attribute
-Chara.prototype.hp;
-Chara.prototype.armor;
-Chara.prototype.energy;
-Chara.prototype.maxEnergy;
-Chara.prototype.damage;
+//Charactercters Hit points, armor, energy and main attribute
+Character.prototype.hp;
+Character.prototype.armor;
+Character.prototype.energy;
+Character.prototype.maxEnergy;
+Character.prototype.damage;
 
-Chara.prototype.mainAtt;
-Chara.prototype.secAtt;
-Chara.prototype.weakAtt;
+Character.prototype.mainAtt;
+Character.prototype.secAtt;
+Character.prototype.weakAtt;
 */
-Chara.prototype.update = function (du) {
+Character.prototype.update = function (du) {
     
     spatialManager.unregister(this);
     renderingManager.unregister(this);
@@ -68,7 +62,7 @@ Chara.prototype.update = function (du) {
 
 };
 
-Chara.prototype.move = function (du) {
+Character.prototype.move = function (du) {
 
 	//console.log(du);
 	var vel = 0;
@@ -103,19 +97,19 @@ Chara.prototype.move = function (du) {
 
 }
 
-Chara.prototype.render = function (ctx) {
+Character.prototype.render = function (ctx) {
 	this.sprite.drawCentredAt(ctx, this.cx, this.cy, 0);
 };
 
-Chara.prototype.getRadius = function () {
+Character.prototype.getRadius = function () {
     return (this.sprite.width / 2) * 0.9;
 };
 
-Chara.prototype.reset = function () {
+Character.prototype.reset = function () {
     
 };
 
-Chara.prototype.setAtt = function () {
+Character.prototype.setAtt = function () {
 	this.mainAtt++;
 	this.Spir++;
 	
@@ -128,6 +122,6 @@ Chara.prototype.setAtt = function () {
 	
 };
 
-Chara.prototype.lvlup = function () {
+Character.prototype.lvlup = function () {
 	this.lvl++;
 };

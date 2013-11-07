@@ -1,15 +1,15 @@
-/* jshint browser: true, devel: true, globalstrict: true */
+"use strict";
 
-/*
-0        1         2         3         4         5         6         7         8
-12345678901234567890123456789012345678901234567890123456789012345678901234567890
-*/
+/************************************************************************\
+
+ Cleric class
+
+\************************************************************************/
 
 this.mainAtt = this.Wis;
 this.secAtt = this.Str;
 this.weakAtt = this.Dex;
 
-// A generic contructor which accepts an arbitrary descriptor object
 function Cleric(descr) {
     this.setup(descr);
 	this.lvlup();
@@ -30,7 +30,7 @@ function updateStats(){
 Chara.prototype.setExp = function (expRew) {
 	this.experience = this.experience + expRew;
 	
-	if(this.experience >= (lvl * 1000) + 1000){
+	if (this.experience >= (lvl*lvl*1000) + lvl*2000) {
 		this.lvlup();
 		this.setAtt();
 		this.updateStats();

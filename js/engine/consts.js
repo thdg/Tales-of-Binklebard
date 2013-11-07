@@ -1,9 +1,10 @@
-// consts.js
-//
-// A module of generic constants
-
 "use strict";
 
+/************************************************************************\
+
+ A module of generic constants
+
+\************************************************************************/
 
 var consts = {
     FULL_CIRCLE: Math.PI * 2,

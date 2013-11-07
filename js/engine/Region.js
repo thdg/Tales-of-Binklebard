@@ -1,19 +1,11 @@
-// ============
-// REGION STUFF
-// ============
-
 "use strict";
 
-/* jshint browser: true, devel: true, globalstrict: true */
+/************************************************************************\
 
-/*
-0        1         2         3         4         5         6         7         8
-12345678901234567890123456789012345678901234567890123456789012345678901234567890
-*/
+ Region class
 
+\************************************************************************/
 
-// Construct a "region" from the given input arrays,
-//
 function Region(map, hightmap, staticObjects, dynamicObjects) {
 
     this._map = map;
@@ -37,7 +29,7 @@ Region.prototype.render = function (ctx) {
 	// render terrain, there has to be a better way of doing this...
 	var tileSize = tilesheet.tileSize
 	var pos = camera.getPos();
-	var scr = camera.getDimentions();
+	var scr = camera.getDimensions();
 
 	var startX = Math.max(Math.floor(pos.posX/tileSize),0);
 	var startY = Math.max(Math.floor(pos.posY/tileSize),0);

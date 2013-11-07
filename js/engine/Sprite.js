@@ -1,21 +1,7 @@
-// ============
-// SPRITE STUFF
-// ============
-
 "use strict";
 
-/* jshint browser: true, devel: true, globalstrict: true */
-
-/*
-0        1         2         3         4         5         6         7         8
-12345678901234567890123456789012345678901234567890123456789012345678901234567890
-*/
-
-
-// Construct a "sprite" from the given `image`,
-//
 function Sprite(content, common) {
-    //this.image = image;
+
     if (arguments.length === 1)
     {    
         this.image = content;
@@ -27,26 +13,23 @@ function Sprite(content, common) {
     }
     else
     {
-        console.log(content);
-        this.motion    = content;
-        this._default   = content.haltDown;
-        this._thrust    = content.thrustDown;
+        this.motion = content;
+        this._default = content.haltDown;
+        this._thrust = content.thrustDown;
         this._setValues(this._default);
         this._setValues(common);
-        this.stripx    = 0;
+        this.stripx = 0;
         this.animation = true;
     }
 }
 
-Sprite.prototype._setValues = function(descr)
-{
+Sprite.prototype._setValues = function(descr) {
     for (var property in descr) {
         this[property] = descr[property];
     }
 }
 
-Sprite.prototype.setDefault  = function (dir)
-{
+Sprite.prototype.setDefault  = function (dir) {
     switch (dir)
     {
         case FACE_RIGHT:
@@ -65,48 +48,39 @@ Sprite.prototype.setDefault  = function (dir)
             this._default = this.motion.haltUp;
             this._thrust  = this.motion.thrustUp;
             break;
-
     }
 }
 
-Sprite.prototype.moveUp = function ()
-{
+Sprite.prototype.moveUp = function () {
     this._setValues(this.motion.up);
 }
 
-Sprite.prototype.moveLeft = function ()
-{
+Sprite.prototype.moveLeft = function () {
     this._setValues(this.motion.left);
-    //this.reflect = true;
 }
 
-Sprite.prototype.moveRight = function ()
-{
+Sprite.prototype.moveRight = function () {
     this._setValues(this.motion.right);
 }
 
-Sprite.prototype.moveDown = function ()
-{
+Sprite.prototype.moveDown = function () {
     this._setValues(this.motion.down);
 }
 
-Sprite.prototype.halt = function ()
-{
+Sprite.prototype.halt = function () {
     this._setValues(this._default);
 }
 
-Sprite.prototype.thrust = function ()
-{
+Sprite.prototype.thrust = function () {
     this._setValues(this._thrust);
 }
 
 Sprite.prototype.dist  = 0;
 Sprite.prototype.state = 0;
-Sprite.prototype.hz    = 8;//SECS_TO_NOMINALS/12;
+Sprite.prototype.hz    = 8;
 
-Sprite.prototype.configureAnimation = function(du,vel,rotation,thrusting)
-{
-    //console.log(du+","+vel);
+Sprite.prototype.configureAnimation = function(du,vel,rotation,thrusting) {
+
     this.halt(); 
 
     if (vel !== 0) this.computeMovement(rotation);
@@ -137,8 +111,8 @@ Sprite.prototype.configureAnimation = function(du,vel,rotation,thrusting)
     this.stripx = this.width * this.state;
 }
 
-Sprite.prototype.computeMovement = function(rotation)
-{
+Sprite.prototype.computeMovement = function(rotation) {
+
     switch (rotation)
     {
         case FACE_RIGHT:
@@ -185,12 +159,13 @@ Sprite.prototype.drawCentredAt = function (ctx, cx, cy, rotation) {
     // coords accordingly, to draw our sprite centred at the origin
     if (this.animation)
     {
-        ctx.drawImage(this.image,
-                  this.stripx,
-                  0,
-                  w,h, 
-                  -w/2, -h/2,
-                  w,h
+        ctx.drawImage(
+            this.image,
+            this.stripx,
+            0,
+            w,h, 
+            -w/2, -h/2,
+            w,h
         );
     }
     else

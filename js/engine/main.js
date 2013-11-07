@@ -1,7 +1,8 @@
-// ========
-// MAINLOOP
-// ========
-/*
+"use strict";
+
+/************************************************************************\
+
+MAINLOOP
 
 The mainloop is one big object with a fairly small public interface
 (e.g. init, iter, gameOver), and a bunch of private internal helper methods.
@@ -11,16 +12,7 @@ of having them begin with a leading underscore. A more robust form of privacy,
 with genuine name-hiding *is* possible in JavaScript (via closures), but I 
 haven't adopted it here.
 
-*/
-
-"use strict";
-
-/* jshint browser: true, devel: true, globalstrict: true */
-
-/*
-0        1         2         3         4         5         6         7         8
-12345678901234567890123456789012345678901234567890123456789012345678901234567890
-*/
+\************************************************************************/
 
 
 var main = {
