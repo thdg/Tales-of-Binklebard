@@ -98,7 +98,7 @@ Chara.prototype.move = function (du) {
 	} else
 		this.attacking = false;
 	
-	this.sprite.configureAnimation(vel*du, this.rotation, this.attacking);
+	this.sprite.configureAnimation(du,vel, this.rotation, this.attacking);
 
 
 }

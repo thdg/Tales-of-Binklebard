@@ -102,18 +102,25 @@ Sprite.prototype.thrust = function ()
 
 Sprite.prototype.dist  = 0;
 Sprite.prototype.state = 0;
-Sprite.prototype.hz   = SECS_TO_NOMINALS/12;
+Sprite.prototype.hz    = 8;//SECS_TO_NOMINALS/12;
 
-Sprite.prototype.configureAnimation = function(vel,rotation,thrusting)
+Sprite.prototype.configureAnimation = function(du,vel,rotation,thrusting)
 {
+    console.log(du+","+vel);
     this.halt(); 
 
     if (vel !== 0) this.computeMovement(rotation);
 
-    if (thrusting) this.thrust();
+    if (thrusting){ 
+        this.thrust();
+        this.dist += du*2;
+    } else
+    {
+        this.dist += vel*du;
+    }
 
-    this.dist += vel;
-    console.log(this.dist);
+    
+
     if(this.dist >= this.hz)
     {
         
@@ -127,7 +134,7 @@ Sprite.prototype.configureAnimation = function(vel,rotation,thrusting)
     }
 
     this.state %= this.strips;
-    this.stripx = this.next * this.state;
+    this.stripx = this.width * this.state;
 }
 
 Sprite.prototype.computeMovement = function(rotation)

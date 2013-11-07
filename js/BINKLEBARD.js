@@ -192,63 +192,63 @@ function preloadDone() {
                                     {
                                         haltDown: {
                                             image:  g_images.binkDefault,
-                                            next:   0,
+                                            hz:     100,
                                             strips: 1,
                                             reflect:false,
                                         },
 
                                         haltRight: {
                                             image:  g_images.binkDefaultRight,
-                                            next:   0,
+                                            hz  :   100,
                                             strips: 1,
                                             reflect:false,
                                         },
 
                                         haltLeft: {
                                             image:  g_images.binkDefaultRight,
-                                            next:   0,
+                                            hz:     100,
                                             strips: 1,
                                             reflect:true,
                                         },
 
                                         haltUp: {
                                             image:  g_images.binkDefaultBack,
-                                            next:   0,
+                                            hz:     100,
                                             strips: 1,
                                             reflect:false,
                                         },
 
                                         down: {
                                             image:  g_images.binkForward,
-                                            next:   48,
+                                            hz:     8,
                                             strips: 7,
                                             reflect:false,
                                         },
 
                                         right: {
                                             image:  g_images.binkRight,
-                                            next:   48,
+                                            hz:     8,
                                             strips: 8,
                                             reflect:false,
                                         },
 
                                         left: {
                                             image:  g_images.binkRight,
-                                            next:   48,
+                                            hz:     8,
                                             strips: 8,
                                             reflect:true,
                                         },
 
                                         up: {
                                             image:  g_images.binkBack,
-                                            next:   48,
+                                            hz:     8,
                                             strips: 8,
                                             reflect:false,
                                         },
                                         
                                         thrustDown: {
                                             image:  g_images.binkThrust,
-                                            next:   48,
+                                            hz:     8,
                                             scale:  2,
                                             strips: 6,
                                             reflect:false,
@@ -256,7 +256,7 @@ function preloadDone() {
 
                                         thrustUp: {
                                             image:  g_images.binkThrustBack,
-                                            next:   48,
+                                            hz:     8,
                                             scale:  2,
                                             strips: 6,
                                             reflect:false,
@@ -264,7 +264,7 @@ function preloadDone() {
 
                                         thrustRight: {
                                             image:  g_images.binkThrustLeft,
-                                            next:   48,
+                                            hz:     8,
                                             scale:  2,
                                             strips: 6,
                                             reflect:true,
@@ -272,7 +272,7 @@ function preloadDone() {
 
                                         thrustLeft: {
                                             image:  g_images.binkThrustLeft,
-                                            next:   48,
+                                            hz:     8,
                                             scale:  2,
                                             strips: 6,
                                             reflect:false,
