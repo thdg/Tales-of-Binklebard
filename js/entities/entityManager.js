@@ -91,8 +91,9 @@ deferredSetup : function () {
 },
 
 init: function() {
-    this._character.push(new Chara({sprite: g_sprites.bink,cx:200, cy:200}));
-    //this._generateMonsters();
+    var character = new Chara({sprite: g_sprites.bink,cx:200, cy:200})
+    this._character.push(character);
+    camera.centerAt(character);
 },
 
 grabNearestLoot : function(xPos, yPos) {
