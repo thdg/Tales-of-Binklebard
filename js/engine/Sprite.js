@@ -112,6 +112,8 @@ Sprite.prototype.configureAnimation = function(vel,rotation,thrusting)
 
     if (thrusting) this.thrust();
 
+    this.dist += vel;
+    console.log(this.dist);
     if(this.dist >= this.hz)
     {
         
@@ -123,7 +125,6 @@ Sprite.prototype.configureAnimation = function(vel,rotation,thrusting)
         
         this.dist  %= this.hz;
     }
-
 
     this.state %= this.strips;
     this.stripx = this.next * this.state;

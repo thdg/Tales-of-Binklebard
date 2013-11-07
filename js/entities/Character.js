@@ -14,7 +14,8 @@
 
 // A generic contructor which accepts an arbitrary descriptor object
 function Chara(descr) {
-
+	this.setup(descr);
+	this.rotation = 0;
 
 };
 
@@ -28,12 +29,12 @@ Chara.prototype.rememberResets = function () {
 };
 
 //Setting keys for movement and attack,
-Chara.prototype.KEY_UP    = charCode('W');
-Chara.prototype.KEY_DOWN  = charCode('S');
-Chara.prototype.KEY_LEFT  = charCode('A');
-Chara.prototype.KEY_RIGHT = charCode('D');
+Chara.prototype.KEY_UP    = 'W'.charCodeAt(0);
+Chara.prototype.KEY_DOWN  = 'S'.charCodeAt(0);
+Chara.prototype.KEY_LEFT  = 'A'.charCodeAt(0);
+Chara.prototype.KEY_RIGHT = 'D'.charCodeAt(0);
 
-Chara.prototype.KEY_ATTACK = charCode(' ');
+Chara.prototype.KEY_ATTACK = ' '.charCodeAt(0);
 
 //Characters attributes, level and experience
 Chara.prototype.Str = 12;
@@ -43,7 +44,7 @@ Chara.prototype.Spir = 12;
 
 Chara.prototype.lvl = 0;
 Chara.prototype.experience = 0;
-
+/*
 //Characters Hit points, armor, energy and main attribute
 Chara.prototype.hp;
 Chara.prototype.armor;
@@ -54,46 +55,55 @@ Chara.prototype.damage;
 Chara.prototype.mainAtt;
 Chara.prototype.secAtt;
 Chara.prototype.weakAtt;
-
+*/
 Chara.prototype.update = function (du) {
     
     spatialManager.unregister(this);
+    renderingManager.unregister(this);
     if (this._isDeadNow) return entityManager.KILL_ME_NOW;
-	this.keys();
+	this.move(du);
+	spatialManager.register(this);
+    renderingManager.register(this);
+
 };
 
-Chara.prototype.move = function () {
-	if (g_keys[this.KEY_UP]){
-		this.vel = baseVel;
-		this.cy -= this.vel;
+Chara.prototype.move = function (du) {
+
+	console.log(du);
+	var vel = 0;
+	
+	if (keys[this.KEY_UP]){
+		vel = this.baseVel;
+		this.cy -= vel;
 		this.rotation = FACE_UP;
 	}
-	if (g_keys[this.KEY_DOWN]){
-		this.vel = baseVel;
-		this.cy += this.vel;
+	if (keys[this.KEY_DOWN]){
+		vel = this.baseVel;
+		this.cy += vel;
 		this.rotation = FACE_DOWN;
 	}
-	if (g_keys[this.KEY_LEFT]){
-		this.vel = baseVel;
-		this.cx -= this.vel;
+	if (keys[this.KEY_LEFT]){
+		vel = this.baseVel;
+		this.cx -= vel;
 		this.rotation = FACE_LEFT;
 	}
-	if (g_keys[this.KEY_RIGHT]){
-		this.vel = baseVel;
-		this.cx += this.vel;
+	if (keys[this.KEY_RIGHT]){
+	    vel = this.baseVel;
+		this.cx += vel;
 		this.rotation = FACE_RIGHT;
 	}
-	if (g_keys[this.KEY_ATTACK]){
+	if (keys[this.KEY_ATTACK]){
 		this.attacking = true;
-	}
+	} else
+		this.attacking = false;
 	
-	this.sprite.configureAnimation(this.vel*du, this.rotation, this.attacking);
-	this.vel = 0;
+	this.sprite.configureAnimation(vel*du, this.rotation, this.attacking);
+
 
 }
 
 Chara.prototype.render = function (ctx) {
-	this.sprite.drawCentredAt(ctx, this.cx, this.cy, this.rotation);
+	this.sprite.drawCentredAt(ctx, this.cx, this.cy, 0);
 };
 
 Chara.prototype.getRadius = function () {

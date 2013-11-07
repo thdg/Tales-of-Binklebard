@@ -27,8 +27,9 @@ var entityManager = {
 
 // "PRIVATE" DATA
 
-_items   : [],
+_items    : [],
 _monsters : [],
+_character: [],
 
 
 // "PRIVATE" METHODS
@@ -86,10 +87,11 @@ KILL_ME_NOW : -1,
 // i.e. thing which need `this` to be defined.
 //
 deferredSetup : function () {
-    this._categories = [this._items, this._monsters];
+    this._categories = [this._items, this._monsters, this._character];
 },
 
 init: function() {
+    this._character.push(new Chara({sprite: g_sprites.bink,cx:200, cy:200}));
     //this._generateMonsters();
 },
 

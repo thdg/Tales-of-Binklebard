@@ -47,13 +47,16 @@ Entity.prototype.setup = function (descr) {
     this._isDeadNow = false;
 };
 
+/*
 Entity.prototype.rotation;
 Entity.prototype.cx;
 Entity.prototype.cy;
 Entity.prototype.vel;
+*/
+
 Entity.prototype.baseVel = 80/SECS_TO_NOMINALS;
 
-Entity.prototype.sprite;
+//Entity.prototype.sprite;
 Entity.prototype.attacking = false;
 
 Entity.prototype.setPos = function (cx, cy) {
