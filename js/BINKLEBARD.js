@@ -32,7 +32,7 @@ function updateSimulation(du) {
     camera.update(du);
 
     // Prevent perpetual attacks!
-    //eatKey(Chara.prototype.KEY_ATTACK);
+    eatKey(Character.prototype.KEY_ATTACK);
 }
 
 // GAME-SPECIFIC DIAGNOSTICS
@@ -94,7 +94,7 @@ function requestPreloads() {
     var requiredImages = {
 
         terrain          : "img/terrain.png",
-        link             : "img/link.png",
+        link             : "img/link_alpha.png",
         sparcles         : "img/Sparcles.png"
     };
 

@@ -1,7 +1,7 @@
 "use strict";
 
 // A generic contructor which accepts an arbitrary descriptor object
-function Abilityity(descr) {
+function Ability(descr) {
     for (var property in descr) {
         this[property] = descr[property];
     }
@@ -17,18 +17,13 @@ Ability.prototype.range;
 Ability.prototype.area;
 
 Ability.prototype.update = function () {
-	// TODO: Implement this
+    // TODO: Implement this
 };
 
 Ability.prototype.energy = function () {
-	// TODO: Implement this
+    // TODO: Implement this
 };
 
 Ability.prototype.Spells = function () {
-	// TODO: Implement this
+    // TODO: Implement this
 };
-
-
-
-
-

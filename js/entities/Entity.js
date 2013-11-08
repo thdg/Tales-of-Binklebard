@@ -19,7 +19,7 @@ function Entity() {
     console.dir(this);
 */
 
-};
+}
 
 Entity.prototype.setup = function (descr) {
 

@@ -1,5 +1,7 @@
 "use strict";
 
+/*jslint browser: true, devel: true, white: true */
+
 /************************************************************************\
 
  A module that handles the camera
@@ -11,7 +13,7 @@ var camera = {
     // "PRIVATE" DATA
 
     _posX: 0, // top left corner, relative to wor1ld
-    _posY: 0, 
+    _posY: 0,
 
     _speed: 256/SECS_TO_NOMINALS, // speed in px/sec in flying mode
 
@@ -52,12 +54,12 @@ var camera = {
     // PUBLIC METHODS
 
     centerAt : function(entity) {
-    	
-    	if (entity.getPos) {
-    		this._centerdEntity = entity
-    	} else {
-    		console.log("Object to center at must have getPos function.");
-    	}
+
+        if (entity.getPos) {
+            this._centerdEntity = entity;
+        } else {
+            console.log("Object to center at must have getPos function.");
+        }
     },
 
     getPos: function() {
@@ -102,16 +104,16 @@ var camera = {
 
         if (!this._centerdEntity) return;
         
-    	var pos = this._centerdEntity.getPos();
-    	this._posX = util.keepBetween(
-            pos.posX, 
-            this._width/2, 
+        var pos = this._centerdEntity.getPos();
+        this._posX = util.keepBetween(
+            pos.posX,
+            this._width/2,
             world.getWidth()-this._width/2
         );
 
-    	this._posY = util.keepBetween(
-            pos.posY, 
-            this._height/2, 
+        this._posY = util.keepBetween(
+            pos.posY,
+            this._height/2,
             world.getHeight()-this._height/2
         );
 
@@ -122,18 +124,18 @@ var camera = {
     render : function(ctx) {
 
         var margin = 2;
-        var oldStyle = ctx.strokeStyle 
+        var oldStyle = ctx.strokeStyle;
         ctx.strokeStyle = "orange";
         
-        util.strokeBox( 
-        	ctx,
-        	this._posX+margin,
-        	this._posY+margin,
-        	this._width-2*margin,
-        	this._height-2*margin
+        util.strokeBox(
+            ctx,
+            this._posX+margin,
+            this._posY+margin,
+            this._width-2*margin,
+            this._height-2*margin
         );
         ctx.strokeStyle = oldStyle;
 
     }
     
-}
+};

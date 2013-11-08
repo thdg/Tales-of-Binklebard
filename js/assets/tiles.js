@@ -54,9 +54,9 @@ var tiles = {
     },
 
     update : function(du) {
-    	for (var i=0; i<this._tiles.length; i++) {
-    		this._tiles[i].update(du);
-    	}
+        for (var i=0; i<this._tiles.length; i++) {
+            this._tiles[i].update(du);
+        }
     },
 
     render : function(ctx, tile, posX, posY) {
@@ -69,4 +69,4 @@ var tiles = {
 
     }
 
-}
+};

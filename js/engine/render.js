@@ -15,7 +15,7 @@ var TOGGLE_FLIPFLOP = 'F'.charCodeAt(0);
 var TOGGLE_RENDER = 'R'.charCodeAt(0);
 
 function render(ctx) {
-    
+
 
     // Process various option toggles
     //
