@@ -11,7 +11,7 @@ function Character(descr) {
 	this.setup(descr);
 	this.rotation = 0;
 
-};
+}
 
 Character.prototype = new Entity();
 
@@ -98,7 +98,7 @@ Character.prototype.move = function (du) {
 	if (keys[this.KEY_ATTACK])
 		this.model.attack();
 
-}
+};
 
 Character.prototype.render = function (ctx) {
 	this.model.drawCentredAt(ctx, this.cx, this.cy);

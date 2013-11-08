@@ -77,7 +77,7 @@ function requestedQuit() {
 }
 
 // Annoying shim for Firefox and Safari
-window.requestAnimationFrame = 
+window.requestAnimationFrame =
     window.requestAnimationFrame ||        // Chrome
     window.mozRequestAnimationFrame ||     // Firefox
     window.webkitRequestAnimationFrame;    // Safari
@@ -106,7 +106,7 @@ main._debugRender = function (ctx) {
     var y = 350;
     ctx.fillText('FT ' + this._frameTime_ms, 50, y+10);
     ctx.fillText('FD ' + this._frameTimeDelta_ms, 50, y+20);
-    ctx.fillText('UU ' + g_prevUpdateDu, 50, y+30); 
+    ctx.fillText('UU ' + g_prevUpdateDu, 50, y+30);
     ctx.fillText('FrameSync ON', 50, y+40);
 };
 

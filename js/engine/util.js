@@ -12,19 +12,19 @@ var util = {
 
     clampRange: function(value, lowBound, highBound) {
         if (value < lowBound) {
-    	value = lowBound;
+            value = lowBound;
         } else if (value > highBound) {
-    	value = highBound;
+            value = highBound;
         }
         return value;
     },
 
     wrapRange: function(value, lowBound, highBound) {
         while (value < lowBound) {
-    	value += (highBound - lowBound);
+            value += (highBound - lowBound);
         }
         while (value > highBound) {
-    	value -= (highBound - lowBound);
+            value -= (highBound - lowBound);
         }
         return value;
     },
@@ -37,7 +37,7 @@ var util = {
 
     keepBetween: function(value, lowBound, highBound) {
         if (this.isBetween(value, lowBound, highBound)) return value;
-        return value<lowBound ? lowBound : highBound; 
+        return value<lowBound ? lowBound : highBound;
     },
 
 

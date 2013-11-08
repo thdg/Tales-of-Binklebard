@@ -1,4 +1,5 @@
 "use strict";
+/*jslint browser: true, devel: true, white: true */
 
 /************************************************************************\
 
@@ -27,7 +28,7 @@ function updateStats(){
 	this.damage = this.Str * 5 + this.mainAtt;
 }
 
-Chara.prototype.setExp = function (expRew) {
+Character.prototype.setExp = function (expRew) {
 	this.experience = this.experience + expRew;
 	
 	if (this.experience >= (lvl*lvl*1000) + lvl*2000) {

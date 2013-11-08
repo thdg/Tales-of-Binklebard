@@ -25,7 +25,7 @@ var spatialManager = {
         if (!this._entities[frame.i]) this._entities[frame.i] = [];
         if (!this._entities[frame.i][frame.j]) this._entities[frame.i][frame.j] = [];
 
-        return this._entities[frame.i][frame.j] 
+        return this._entities[frame.i][frame.j];
     },
 
     _getEntities : function(frame) {
@@ -49,12 +49,12 @@ var spatialManager = {
         return {
             i: Math.floor(pos.posX/this._divider),
             j: Math.floor(pos.posY/this._divider),
-        }
+        };
     },
 
     getFrames : function(frame1, frame2) {
 
-        var entities = []
+        var entities = [];
         for (var i = frame1.i; i<=frame2.i; i++) {
             for (var j = frame1.j; j<=frame2.j; j++) {
                 entities.push.apply(entities,this._getFrame({i: i, j: j}));
@@ -98,9 +98,9 @@ var spatialManager = {
 
         var frame = this.findFrame({posX: posX, posY: posY});
         var entities = this.getFrames(
-            {i: frame.i-this._collisionMargin, 
+            {i: frame.i-this._collisionMargin,
              j: frame.j-this._collisionMargin},
-            {i: frame.i+this._collisionMargin, 
+            {i: frame.i+this._collisionMargin,
              j: frame.j+this._collisionMargin}
         );
 
@@ -116,9 +116,9 @@ var spatialManager = {
     doCollide: function(pos, rad, posX, posY, radius) {
 
         var dist = util.distSq(
-            pos.posX, 
-            pos.posY, 
-            posX, 
+            pos.posX,
+            pos.posY,
+            posX,
             posY
         );
 
@@ -139,7 +139,7 @@ var spatialManager = {
             var col = this._entities[i]
             if (col) {
                 for (var j=0; j<col.length; j++) {
-                    var row = col[j]
+                    var row = col[j];
                     var frameEntities = row;
                     for (var ID in frameEntities) {
                         var e = frameEntities[ID];
@@ -151,4 +151,4 @@ var spatialManager = {
         ctx.strokeStyle = oldStyle;
     }
 
-}
+};

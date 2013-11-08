@@ -49,9 +49,9 @@ Sprite.prototype.drawFrameCenterdAt = function (ctx, cx, cy, startX, startY, siz
 
     ctx.drawImage(
         this.image,
-        startX, startY, 
-        sizeX, sizeY, 
-        posX, posY, 
+        startX, startY,
+        sizeX, sizeY,
+        posX, posY,
         sizeX, sizeY
     );
     

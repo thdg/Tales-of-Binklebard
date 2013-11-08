@@ -38,7 +38,7 @@ var entityManager = {
             var thisItem = this._items[i];
             var itemPos = thisItem.getPos();
             var distSq = util.wrappedDistSq(
-                itemPos.posX, itemPos.posY, 
+                itemPos.posX, itemPos.posY,
                 posX, posY,
                 g_canvas.width, g_canvas.height);
 
@@ -75,8 +75,8 @@ var entityManager = {
     },
 
     init: function() {
-        var link = new Humanoid(g_sprites.link)
-        var character = new Character({model: link, cx:200, cy:200})
+        var link = new Humanoid(g_sprites.link);
+        var character = new Character({model: link, cx:200, cy:200});
         this._character.push(character);
         camera.centerAt(character);
     },
@@ -161,7 +161,7 @@ var entityManager = {
         
     }
 
-}
+};
 
 // Some deferred setup which needs the object to have been created first
 entityManager.deferredSetup();

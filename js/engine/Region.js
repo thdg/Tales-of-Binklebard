@@ -22,12 +22,12 @@ function Region(map, hightmap, staticObjects, dynamicObjects) {
 
 Region.prototype.update = function (du) {
 	
-}
+};
 
 Region.prototype.render = function (ctx) {
 
 	// render terrain, there has to be a better way of doing this...
-	var tileSize = tilesheet.tileSize
+	var tileSize = tilesheet.tileSize;
 	var pos = camera.getPos();
 	var scr = camera.getDimensions();
 
@@ -48,4 +48,4 @@ Region.prototype.render = function (ctx) {
 
 	// render static Objects
 	// TODO
-}
+};

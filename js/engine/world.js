@@ -41,4 +41,4 @@ render: function(ctx) {
     this._activeRegion.render(ctx);
 }
 
-}
+};

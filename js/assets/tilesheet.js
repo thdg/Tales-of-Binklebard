@@ -26,9 +26,9 @@ var tilesheet = {
 
 	render: function(ctx, tile, posX, posY) {
 
-		var tileS = this.tileSize;
-		var tileX = (tile%this._tilesInRow)*tileS;
-		var tileY = Math.floor(tile/this._tilesInRow)*tileS;
+		var tileS = this.tileSize,
+			tileX = (tile%this._tilesInRow)*tileS,
+			tileY = Math.floor(tile/this._tilesInRow)*tileS;
 		ctx.drawImage(
 			this._tileset, 
 			tileX, tileY, 
@@ -38,4 +38,4 @@ var tilesheet = {
 		);
 	}
 
-}
+};
