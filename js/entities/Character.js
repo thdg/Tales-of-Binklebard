@@ -10,6 +10,8 @@
 function Character(descr) {
 	this.setup(descr);
 	this.rotation = 0;
+	this.Heal = clericSpells.heal(1,1);
+    this.hp = this.Str*4;
 
 };
 
@@ -29,15 +31,21 @@ Character.prototype.KEY_LEFT  = LEFT_ARROW;
 Character.prototype.KEY_RIGHT = RIGHT_ARROW;
 
 Character.prototype.KEY_ATTACK = ' '.charCodeAt(0);
+Character.prototype.KEY_HEAL   = '1'.charCodeAt(0);
 
 //Charactercters attributes, level and experience
-Character.prototype.Str = 12;
-Character.prototype.Dex = 12;
-Character.prototype.Wis = 12;
+Character.prototype.Str  = 12;
+Character.prototype.Dex  = 12;
+Character.prototype.Wis  = 12;
 Character.prototype.Spir = 12;
 
 Character.prototype.lvl = 0;
 Character.prototype.experience = 0;
+
+Character.prototype.isCasting  = false;
+Character.prototype.coolDown   = 0;
+
+
 
 /*
 //Charactercters Hit points, armor, energy and main attribute
@@ -52,11 +60,28 @@ Character.prototype.secAtt;
 Character.prototype.weakAtt;
 */
 
+
+
 Character.prototype.update = function (du) {
     
     spatialManager.unregister(this);
     renderingManager.unregister(this);
     if (this._isDeadNow) return entityManager.KILL_ME_NOW;
+
+    if (keys[this.KEY_HEAL] && !this.isCasting) 
+    {
+		this.isCasting = true;
+		this.Heal.cast(this);
+		this.coolDown = this.Heal.descr.duration;
+    } else if(this.isCasting)
+    {
+    	this.coolDown -= du;
+    	if( this.coolDown <= 0)
+    	{
+            this.coolDown = 0;
+            this.isCasting = false;
+    	}
+    }
     
 	this.move(du);
 	this.model.update(du);

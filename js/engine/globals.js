@@ -24,10 +24,10 @@ var FACE_LEFT  = 2;
 var FACE_DOWN  = 3;
 
 // char codes for noncharacters
-var UP_ARROW = 38;
+var UP_ARROW    = 38;
 var RIGHT_ARROW = 39;
-var DOWN_ARROW = 40;
-var LEFT_ARROW = 37;
+var DOWN_ARROW  = 40;
+var LEFT_ARROW  = 37;
 
 var ANIMATION_FRAME_SIZE = 48;
 var TILE_SIZE = 32;

@@ -11,9 +11,10 @@ var entityManager = {
 
     // "PRIVATE" DATA
 
-    _items    : [],
-    _monsters : [],
-    _character: [],
+    _items     : [],
+    _monsters  : [],
+    _character : [],
+    _effects   : [],
 
 
     // "PRIVATE" METHODS
@@ -71,7 +72,7 @@ var entityManager = {
     // i.e. thing which need `this` to be defined.
     //
     deferredSetup : function () {
-        this._categories = [this._items, this._monsters, this._character];
+        this._categories = [this._items, this._monsters, this._character, this._effects];
     },
 
     init: function() {
@@ -79,6 +80,10 @@ var entityManager = {
         var character = new Character({model: link, cx:200, cy:200})
         this._character.push(character);
         camera.centerAt(character);
+    },
+
+    createEffect: function (descr) {
+        this._effects.push(new Effect(descr));
     },
 
     /*

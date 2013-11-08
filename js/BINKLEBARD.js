@@ -95,6 +95,7 @@ function requestPreloads() {
 
         terrain          : "img/terrain.png",
         link             : "img/link.png",
+        sparcles         : "img/Sparcles.png"
     };
 
     imagesPreload(requiredImages, g_images, preloadDone);
@@ -104,8 +105,12 @@ var g_sprites = {};
 
 function preloadDone() {
 
-    g_sprites.terrain = new Sprite(g_images.terrain);
-    g_sprites.link = new Sprite(g_images.link);
+    
+    g_sprites.link    = new Sprite(g_images.link);
+    g_sprites.link.scale = 2;
+
+    g_sprites.terrain  = new Sprite(g_images.terrain);
+    g_sprites.sparcles = new Sprite(g_images.sparcles);
 
     tilesheet.setTileset(g_images.terrain, 8);
     tiles.init();

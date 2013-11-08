@@ -5,15 +5,17 @@
 
 \************************************************************************/
 
-function Animation(sprite, startX, startY, frames, interval) {
+function Animation(sprite, startX, startY, frames, interval, reflect) {
 
 	if (interval === undefined) interval = 0;
+	if (reflect === undefined)  reflect = false;
 
-	this._sprite = sprite
-	this._frames = frames;
-	this._startX = startX;
-	this._startY = startY;
-	this._interval = interval; // time beetween frames in ms
+	this._sprite    = sprite
+	this._frames    = frames;
+	this._startX    = startX;
+	this._startY    = startY;
+	this._reflect   = reflect;
+	this._interval  = interval; // time beetween frames in ms
 	this._frameSize = ANIMATION_FRAME_SIZE;
 
 	this._timeTilNextFrame = interval;
@@ -41,5 +43,6 @@ Animation.prototype.update = function(du) {
 
 Animation.prototype.drawCentredAt = function(ctx, cx, cy) {
 	var startX = this._startX+this._activeFrame*this._frameSize;
-	this._sprite.drawFrameCenterdAt(ctx, cx, cy, startX, this._startY, this._frameSize, this._frameSize);
+	this._sprite.drawFrameCenterdAt(ctx, cx, cy, startX, this._startY,
+		this._frameSize, this._frameSize, this._reflect);
 }
