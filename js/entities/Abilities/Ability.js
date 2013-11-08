@@ -17,18 +17,13 @@ Ability.prototype.range;
 Ability.prototype.area;
 
 Ability.prototype.update = function () {
-	// TODO: Implement this
+    // TODO: Implement this
 };
 
 Ability.prototype.energy = function () {
-	// TODO: Implement this
+    // TODO: Implement this
 };
 
 Ability.prototype.Spells = function () {
-	// TODO: Implement this
+    // TODO: Implement this
 };
-
-
-
-
-

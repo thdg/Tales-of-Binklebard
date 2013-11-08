@@ -17,6 +17,7 @@ function Monster(descr) {
 
     // Common inherited setup logic from Entity
     this.setup(descr);
+    this.rotation = 0;
 
     this.randomisePosition();
     this.randomiseVelocity();
@@ -46,7 +47,7 @@ Monster.prototype.randomisePosition = function () {
 };
 
 
-Monster.prototype.update = function (du) {  
+Monster.prototype.update = function (du) {
 
     spatialManager.unregister(this);
     if(this._isDeadNow)
@@ -72,7 +73,8 @@ Monster.prototype.killSound = new Audio(
 */
 
 Monster.prototype.takeHit = function () {
-    this.kill(); 
+    this.kill();
+    this.dropLoot();
 };
 
 Monster.prototype._dropLoot = function () {

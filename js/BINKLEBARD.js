@@ -94,7 +94,7 @@ function requestPreloads() {
     var requiredImages = {
 
         terrain          : "img/terrain.png",
-        link             : "img/link.png",
+        link             : "img/link_alpha.png",
     };
 
     imagesPreload(requiredImages, g_images, preloadDone);

@@ -8,8 +8,8 @@
 \************************************************************************/
 
 function Character(descr) {
-	this.setup(descr);
-	this.rotation = 0;
+    this.setup(descr);
+    this.rotation = 0;
 
 }
 
@@ -58,50 +58,50 @@ Character.prototype.update = function (du) {
     renderingManager.unregister(this);
     if (this._isDeadNow) return entityManager.KILL_ME_NOW;
     
-	this.move(du);
-	this.model.update(du);
+    this.move(du);
+    this.model.update(du);
 
-	spatialManager.register(this);
+    spatialManager.register(this);
     renderingManager.register(this);
 
 };
 
 Character.prototype.move = function (du) {
 
-	this.model.halt(); // if nothing is done, model halts
-	
-	if (keys[this.KEY_UP]){
-		this.cy -= this.baseVel;
+    this.model.halt(); // if nothing is done, model halts
+    
+    if (keys[this.KEY_UP]){
+        this.cy -= this.baseVel;
 
-		this.model.walk();
-		this.model.faceUp();
-	}
-	if (keys[this.KEY_DOWN]){
-		this.cy += this.baseVel;
+        this.model.walk();
+        this.model.faceUp();
+    }
+    if (keys[this.KEY_DOWN]){
+        this.cy += this.baseVel;
 
-		this.model.walk();
-		this.model.faceDown();
-	}
-	if (keys[this.KEY_LEFT]){
-		this.cx -= this.baseVel;
+        this.model.walk();
+        this.model.faceDown();
+    }
+    if (keys[this.KEY_LEFT]){
+        this.cx -= this.baseVel;
 
-		this.model.walk();
-		this.model.faceLeft();
-	}
-	if (keys[this.KEY_RIGHT]){
-		this.cx += this.baseVel;
+        this.model.walk();
+        this.model.faceLeft();
+    }
+    if (keys[this.KEY_RIGHT]){
+        this.cx += this.baseVel;
 
-		this.model.walk();
-		this.model.faceRight();
-	}
+        this.model.walk();
+        this.model.faceRight();
+    }
 
-	if (keys[this.KEY_ATTACK])
-		this.model.attack();
+    if (keys[this.KEY_ATTACK])
+        this.model.attack();
 
 };
 
 Character.prototype.render = function (ctx) {
-	this.model.drawCentredAt(ctx, this.cx, this.cy);
+    this.model.drawCentredAt(ctx, this.cx, this.cy);
 };
 
 Character.prototype.getRadius = function () {
@@ -113,18 +113,18 @@ Character.prototype.reset = function () {
 };
 
 Character.prototype.setAtt = function () {
-	this.mainAtt++;
-	this.Spir++;
-	
-	if(lvl%2 === 0){
-		this.secAtt++;
-	}
-	if(lvl%3 === 0){
-		this.weakAtt++;
-	}
-	
+    this.mainAtt++;
+    this.Spir++;
+    
+    if(lvl%2 === 0){
+        this.secAtt++;
+    }
+    if(lvl%3 === 0){
+        this.weakAtt++;
+    }
+    
 };
 
 Character.prototype.lvlup = function () {
-	this.lvl++;
+    this.lvl++;
 };

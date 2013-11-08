@@ -16,7 +16,7 @@ var spatialManager = {
     _divider : 128,     // size of each space
     _collisionMargin : 1, // how many frames from entities frame
     _entities : [[]],   // NxM matrix of lists of entities
-                        // where N is worlds height/divider and M is worlds width/divider
+                        // where N is whereorlds height/divider and M is worlds width/divider
 
     // "PRIVATE" METHODS
 

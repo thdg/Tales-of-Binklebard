@@ -1,5 +1,5 @@
 "use strict";
-/*jslint browser: true, devel: true, white: true */
+
 
 /************************************************************************\
 
@@ -13,27 +13,27 @@ this.weakAtt = this.Dex;
 
 function Cleric(descr) {
     this.setup(descr);
-	this.lvlup();
-	
-	this.mainAtt + 2;
-	this.weakAtt - 2;
-	
-	this.sprite = this.sprite || g_sprites.bink;
+    this.lvlup();
+    
+    this.mainAtt + 2;
+    this.weakAtt - 2;
+    
+    this.sprite = this.sprite || g_sprites.link;
 }
 
-function updateStats(){
-	this.energy = this.mainAtt * 30;
-	this.armor = this.Dex * 20 + this.MainAtt * 5;
-	this.hp = this.Str * 50;
-	this.damage = this.Str * 5 + this.mainAtt;
+function updateStats() {
+    this.energy = this.mainAtt * 30;
+    this.armor = this.Dex * 20 + this.MainAtt * 5;
+    this.hp = this.Str * 50;
+    this.damage = this.Str * 5 + this.mainAtt;
 }
 
 Character.prototype.setExp = function (expRew) {
-	this.experience = this.experience + expRew;
-	
-	if (this.experience >= (lvl*lvl*1000) + lvl*2000) {
-		this.lvlup();
-		this.setAtt();
-		this.updateStats();
-	}
+    this.experience = this.experience + expRew;
+    
+    if (this.experience >= (lvl * lvl * 1000) + lvl * 2000) {
+        this.lvlup();
+        this.setAtt();
+        this.updateStats();
+    }
 };

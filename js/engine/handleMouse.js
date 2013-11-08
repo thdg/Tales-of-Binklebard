@@ -15,7 +15,7 @@ function handleMouse(evt) {
     var button = evt.buttons === undefined ? evt.which : evt.buttons;
     if (!button) return;
     
-    //entityManager.yoinkNearestShip(g_mouseX, g_mouseY);
+    entityManager._findNearestItem(g_mouseX, g_mouseY);
 }
 
 // Handle "down" and "move" events the same way.

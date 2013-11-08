@@ -37,10 +37,8 @@ var entityManager = {
 
             var thisItem = this._items[i];
             var itemPos = thisItem.getPos();
-            var distSq = util.wrappedDistSq(
-                itemPos.posX, itemPos.posY,
-                posX, posY,
-                g_canvas.width, g_canvas.height);
+            var distSq = util.distSq(
+                itemPos.posX, itemPos.posY, posX, posY);
 
             if (distSq < closestSq) {
                 closestItem = thisItem;
