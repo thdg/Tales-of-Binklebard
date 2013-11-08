@@ -107,7 +107,7 @@ function preloadDone() {
     g_sprites.terrain = new Sprite(g_images.terrain);
     g_sprites.link = new Sprite(g_images.link);
 
-    tilesheet.setTileset(g_images.terrain, 5);
+    tilesheet.setTileset(g_images.terrain, 8);
     tiles.init();
     
     // no worries, þetta verður lesið inn af skrá!

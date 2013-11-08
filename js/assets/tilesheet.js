@@ -13,7 +13,7 @@ var tilesheet = {
 
 	// PUBLIC DATA
 
-	tileSize: 32,
+	tileSize: TILE_SIZE,
 
 	// PUBLIC METHODS
 
