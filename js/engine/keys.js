@@ -1,5 +1,8 @@
 
 // KEYBOARD HANDLING
+"use strict";
+
+/* jshint browser: true, devel: true, globalstrict: true */
 
 var keys = [];
 

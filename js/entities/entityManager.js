@@ -11,9 +11,10 @@ var entityManager = {
 
     // "PRIVATE" DATA
 
-    _items    : [],
-    _monsters : [],
-    _character: [],
+    _items     : [],
+    _monsters  : [],
+    _character : [],
+    _effects   : [],
 
 
     // "PRIVATE" METHODS
@@ -37,10 +38,8 @@ var entityManager = {
 
             var thisItem = this._items[i];
             var itemPos = thisItem.getPos();
-            var distSq = util.wrappedDistSq(
-                itemPos.posX, itemPos.posY, 
-                posX, posY,
-                g_canvas.width, g_canvas.height);
+            var distSq = util.distSq(
+                itemPos.posX, itemPos.posY, posX, posY);
 
             if (distSq < closestSq) {
                 closestItem = thisItem;
@@ -71,14 +70,18 @@ var entityManager = {
     // i.e. thing which need `this` to be defined.
     //
     deferredSetup : function () {
-        this._categories = [this._items, this._monsters, this._character];
+        this._categories = [this._items, this._monsters, this._character, this._effects];
     },
 
     init: function() {
-        var link = new Humanoid(g_sprites.link)
-        var character = new Character({model: link, cx:200, cy:200})
+        var link = new Humanoid(g_sprites.link);
+        var character = new Character({model: link, cx:200, cy:200});
         this._character.push(character);
         camera.centerAt(character);
+    },
+
+    createEffect: function (descr) {
+        this._effects.push(new Effect(descr));
     },
 
     /*
@@ -161,7 +164,7 @@ var entityManager = {
         
     }
 
-}
+};
 
 // Some deferred setup which needs the object to have been created first
 entityManager.deferredSetup();

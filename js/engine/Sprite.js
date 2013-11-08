@@ -2,10 +2,10 @@
 
 function Sprite(image) {
 
-    this.image = image;
-    this.width = image.width;
+    this.image  = image;
+    this.width  = image.width;
     this.height = image.height;
-    this.scale = 1;
+    this.scale  = 1;
 }
 
 Sprite.prototype.drawAt = function (ctx, x, y) {
@@ -32,11 +32,12 @@ Sprite.prototype.drawCentredAt = function (ctx, cx, cy, rotation, reflect) {
 };
 
 
-Sprite.prototype.drawFrameCenterdAt = function (ctx, cx, cy, startX, startY, sizeX, sizeY, rotation, reflect) {
+Sprite.prototype.drawFrameCenterdAt = function (ctx, cx, cy, startX, startY, sizeX, sizeY, reflect, rotation) {
 
     if (rotation === undefined) rotation = 0;
-    if (reflect === undefined) rotation = false;
-    
+    if (reflect  === undefined) reflect  = false;
+
+
     var posX = -sizeX/2,
         posY = -sizeY/2;
 
@@ -44,15 +45,19 @@ Sprite.prototype.drawFrameCenterdAt = function (ctx, cx, cy, startX, startY, siz
     ctx.translate(cx, cy);
     ctx.rotate(rotation);
 
-    if (reflect)
-        ctx.scale(-this.scale, this.scale);
-
+    if (reflect) ctx.scale(-this.scale, this.scale);
+    else ctx.scale(this.scale, this.scale);
+    
     ctx.drawImage(
         this.image,
-        startX, startY, 
-        sizeX, sizeY, 
-        posX, posY, 
-        sizeX, sizeY
+        startX,
+        startY,
+        sizeX, 
+        sizeY,
+        posX, 
+        posY,
+        sizeX, 
+        sizeY
     );
     
     ctx.restore();

@@ -32,7 +32,7 @@ function updateSimulation(du) {
     camera.update(du);
 
     // Prevent perpetual attacks!
-    //eatKey(Chara.prototype.KEY_ATTACK);
+    eatKey(Character.prototype.KEY_ATTACK);
 }
 
 // GAME-SPECIFIC DIAGNOSTICS
@@ -94,7 +94,8 @@ function requestPreloads() {
     var requiredImages = {
 
         terrain          : "img/terrain.png",
-        link             : "img/link.png",
+        link             : "img/link_alpha.png",
+        sparcles         : "img/Sparcles.png"
     };
 
     imagesPreload(requiredImages, g_images, preloadDone);
@@ -104,8 +105,12 @@ var g_sprites = {};
 
 function preloadDone() {
 
-    g_sprites.terrain = new Sprite(g_images.terrain);
-    g_sprites.link = new Sprite(g_images.link);
+    
+    g_sprites.link    = new Sprite(g_images.link);
+    g_sprites.link.scale = 2;
+
+    g_sprites.terrain  = new Sprite(g_images.terrain);
+    g_sprites.sparcles = new Sprite(g_images.sparcles);
 
     tilesheet.setTileset(g_images.terrain, 8);
     tiles.init();

@@ -21,31 +21,33 @@ function Region(map, hightmap, staticObjects, dynamicObjects) {
 }
 
 Region.prototype.update = function (du) {
-	
-}
+    
+};
 
 Region.prototype.render = function (ctx) {
 
-	// render terrain, there has to be a better way of doing this...
-	var tileSize = tilesheet.tileSize
-	var pos = camera.getPos();
-	var scr = camera.getDimensions();
+    // render terrain, there has to be a better way of doing this...
+    var tileSize = tilesheet.tileSize;
+    var pos = camera.getPos();
+    var scr = camera.getDimensions();
 
-	var startX = Math.max(Math.floor(pos.posX/tileSize),0);
-	var startY = Math.max(Math.floor(pos.posY/tileSize),0);
+    var startX = Math.max(Math.floor(pos.posX/tileSize),0);
+    var startY = Math.max(Math.floor(pos.posY/tileSize),0);
 
-	var endX = Math.min(Math.ceil((pos.posX+scr.width)/tileSize),this._mapWidth);
-	var endY = Math.min(Math.ceil((pos.posY+scr.height)/tileSize),this._mapHeight);
+    var endX = Math.min(Math.ceil((pos.posX+scr.width)/tileSize),
+        this._mapWidth);
+    var endY = Math.min(Math.ceil((pos.posY+scr.height)/tileSize),
+        this._mapHeight);
 
-	for(var i = startY; i<endY; i++) {
-		var row = this._map[i];
-		for (var j = startX; j<endX; j++) {
-			var posX = j*tileSize;
-			var posY = i*tileSize;
-			tiles.render(ctx, row[j], posX, posY);
-		}
-	}
+    for(var i = startY; i<endY; i++) {
+        var row = this._map[i];
+        for (var j = startX; j<endX; j++) {
+            var posX = j*tileSize;
+            var posY = i*tileSize;
+            tiles.render(ctx, row[j], posX, posY);
+        }
+    }
 
-	// render static Objects
-	// TODO
-}
+    // render static Objects
+    // TODO
+};

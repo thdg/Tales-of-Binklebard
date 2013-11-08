@@ -19,11 +19,11 @@ _entities : [], // list of entities that are visible on camera
 
 _isRegistered: function(id) {
 
-	for (var i=0; i<this._entities.length; i++) {
-		if (this._entities[i].getRenderingID() === id)
-			return true;
-	}
-	return false;
+    for (var i=0; i<this._entities.length; i++) {
+        if (this._entities[i].getRenderingID() === id)
+            return true;
+    }
+    return false;
 },
 
 // PUBLIC METHODS
@@ -57,7 +57,7 @@ unregister: function(entity) {
 },
 
 flush: function() {
-	this._entities = [];
+    this._entities = [];
 },
 
 render: function(ctx) {
@@ -67,4 +67,4 @@ render: function(ctx) {
     }
 }
 
-}
+};
