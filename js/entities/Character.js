@@ -8,9 +8,9 @@
 \************************************************************************/
 
 function Character(descr) {
+
 	this.setup(descr);
 	this.rotation = 0;
-
 };
 
 Character.prototype = new Entity();
