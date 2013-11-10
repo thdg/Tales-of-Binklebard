@@ -1,4 +1,4 @@
-"use strict";
+ "use strict";
 
 /************************************************************************\
 
@@ -79,7 +79,7 @@ var entityManager = {
         var link = new Humanoid(g_sprites.link);
         var character = new Character({model: link, cx:200, cy:200});
         this._character.push(character);
-        this._generateSoldiers(5);
+        //this._generateSoldiers(5);
         camera.centerAt(character);
     },
 

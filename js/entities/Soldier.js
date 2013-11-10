@@ -51,6 +51,7 @@ Soldier.prototype.randomizePosition = function () {
     // Soldier randomisation defaults (if nothing otherwise specified)
     this.cx = this.cx || Math.random() * world.getWidth();
     this.cy = this.cy || Math.random() * world.getHeight();
+
 };
 
 Soldier.prototype.randomizeVelocity = function () {
@@ -89,6 +90,9 @@ Soldier.prototype.move = function (du) {
     var height  = world.getHeight();
     var width = world.getWidth();
 
+    var oldX = this.cx;
+    var oldY = this.cy;
+
 
     if (this.rotation === 0 && (this.cx + speed) < width) {
         this.cx += speed;
@@ -115,26 +119,13 @@ Soldier.prototype.move = function (du) {
     }
     else this.randomizeVelocity();
 
-    /*
-    if (this.isColliding()) {
-        if (this.rotation === 0) {
-            this.rotation = 2;
-            this.cy -= speed;
-        }
-        else if (this.rotation === 1) {
-            this.rotation = 3;
-            this.cx += speed;
-        }
-        else if (this.rotation === 2) {
-            this.rotation = 0;
-            this.cy += speed;
-        }
-        else if (this.rotation === 3) {
-            this.rotation = 1;
-            this.cx -= speed;
-        } 
-    };
-    */
+    if (world.getRegion().collidesWith({ posX: this.cx, posY: this.cy})) {
+        this.cx = oldX;
+        this.cy = oldY;
+        this.randomizeVelocity();
+    }
+
+
 };
 
 Soldier.prototype.getRadius = function () {
