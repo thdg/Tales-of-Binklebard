@@ -15,7 +15,7 @@ var camera = {
     _posX: 0, // top left corner, relative to wor1ld
     _posY: 0,
 
-    _speed: 256/SECS_TO_NOMINALS, // speed in px/sec in flying mode
+    _speed: 512/SECS_TO_NOMINALS, // speed in px/sec in flying mode
 
     _width: 600,
     _height: 600,

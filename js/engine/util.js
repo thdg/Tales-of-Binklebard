@@ -47,6 +47,10 @@ var util = {
         return (min + Math.random() * (max - min));
     },
 
+    randInt: function(min, max) {
+        return Math.floor(this.randRange(min,max));
+    },
+
 
     // MISC
 
