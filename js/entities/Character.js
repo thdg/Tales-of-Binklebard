@@ -108,6 +108,9 @@ Character.prototype.move = function (du) {
 
     this.model.halt(); // if nothing is done, model halts
     
+    var oldX = this.cx;
+    var oldY = this.cy;
+
     if (keys[this.KEY_UP]){
         this.cy -= this.baseVel;
 
@@ -135,6 +138,11 @@ Character.prototype.move = function (du) {
 
     if (keys[this.KEY_ATTACK])
         this.model.attack();
+
+    if (world.getRegion().collidesWith({ posX: this.cx, posY: this.cy})) {
+        this.cx = oldX;
+        this.cy = oldY;
+    }
 
 };
 

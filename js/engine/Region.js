@@ -26,6 +26,17 @@ Region.prototype.update = function (du) {
     
 };
 
+Region.prototype.collidesWith = function (pos, radius) {
+
+    var tileSize = tilesheet.tileSize;
+    var tileX = Math.floor(pos.posX/tileSize);
+    var tileY = Math.floor(pos.posY/tileSize);
+
+    if (this._hightmap[tileY][tileX]===0) return false;
+
+    return true;
+}
+
 Region.prototype.render = function (ctx) {
 
     // render terrain, there has to be a better way of doing this...

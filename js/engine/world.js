@@ -24,6 +24,10 @@ addRegion: function(region) {
     this._activeRegion = region;
 },
 
+getRegion: function() {
+    return this._activeRegion;
+},
+
 getHeight: function() {
     return this._activeRegion.height;
 },
