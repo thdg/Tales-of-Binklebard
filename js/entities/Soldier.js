@@ -38,19 +38,12 @@ function Soldier(descr) {
 
 Soldier.prototype = new Entity();
 
-
-Soldier.prototype.rememberResets = function () {
-    // Remember my reset positions
-    this.reset_cx = this.cx;
-    this.reset_cy = this.cy;
-    this.reset_rotation = this.rotation;
-};
-
 Soldier.prototype.randomizePosition = function () {
     
     // Soldier randomisation defaults (if nothing otherwise specified)
     this.cx = this.cx || Math.random() * world.getWidth();
     this.cy = this.cy || Math.random() * world.getHeight();
+
 
 };
 
