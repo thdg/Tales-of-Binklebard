@@ -5,6 +5,20 @@ var tiles = {
     // "PRIVATE" DATA
 
     _tiles: [],
+
+    GRASS: 0,
+    FLOWERS: 1,
+    GRASS2: 2,
+    WATER: 3,
+    FOREST: 32,
+    FOREST_TL: 33,
+    FOREST_TR: 34,
+    FOREST_BL: 35,
+    FOREST_BR: 36,
+    FOREST_B: 37,
+    FOREST_T: 38,
+    FOREST_L: 39,
+    FOREST_R: 40,
     
     // PUBLIC METHODS
 
@@ -45,8 +59,17 @@ var tiles = {
         this.addTile(new Tile([31]));            //
 
         this.addTile(new Tile([28]));            // 29: water|bridge
-        this.addTile(new Tile([29]));            // 20: bridge
-        this.addTile(new Tile([30]));            // 21: bridge|water
+        this.addTile(new Tile([29]));            // 30: bridge
+        this.addTile(new Tile([30]));            // 31: bridge|water
+        this.addTile(new Tile([53]));            // 32: forest
+        this.addTile(new Tile([36]));            // 32: forest
+        this.addTile(new Tile([37]));            // 32: forest
+        this.addTile(new Tile([44]));            // 32: forest
+        this.addTile(new Tile([45]));            // 32: forest
+        this.addTile(new Tile([62]));            // 32: forest
+        this.addTile(new Tile([63]));            // 32: forest
+        this.addTile(new Tile([54]));            // 32: forest
+        this.addTile(new Tile([55]));            // 32: forest
     },
 
     addTile: function(tile) {
@@ -61,10 +84,6 @@ var tiles = {
 
     render : function(ctx, tile, posX, posY) {
 
-        if (tile<0 || this._tiles.length<=tile) {
-            console.log("error tile: "+tile);
-            return;
-        }
         this._tiles[tile].render(ctx, posX, posY);
 
     }
