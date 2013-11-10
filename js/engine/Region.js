@@ -18,6 +18,8 @@ function Region(map, hightmap, staticObjects, dynamicObjects) {
 
     this.height = map.length*tilesheet.tileSize;
     this.width = map[0].length*tilesheet.tileSize;
+
+    this.drawHightmap = false;
 }
 
 Region.prototype.update = function (du) {
@@ -45,6 +47,18 @@ Region.prototype.render = function (ctx) {
             var posX = j*tileSize;
             var posY = i*tileSize;
             tiles.render(ctx, row[j], posX, posY);
+        }
+    }
+
+    if (this.drawHightmap) {
+        for(var i = startY; i<endY; i++) {
+            var row = this._hightmap[i];
+            for (var j = startX; j<endX; j++) {
+                var posX = j*tileSize;
+                var posY = i*tileSize;
+                if (row[j]===1)
+                    util.fillBox(ctx, posX, posY, tileSize, tileSize);
+            }
         }
     }
 

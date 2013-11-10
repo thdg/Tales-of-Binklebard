@@ -23,12 +23,10 @@ function generateMap(width, height) {
         }
     }
 
-    heightmap = makeHightmap(map);
 
     map = doubleMap(map,width,height);
 
     map = makeTrees(map);
-    map = makeFlowers(map);
 
     for (var i=0; i<height*2; i++) {
         for (var j=0; j<width*2; j++) {
@@ -36,6 +34,8 @@ function generateMap(width, height) {
         }
     }
 
+    heightmap = makeHightmap(map);
+    map = makeFlowers(map);
     return { map: map, heightmap: heightmap };
 }
 
@@ -76,7 +76,17 @@ function makePaths(map) {
 }
 
 function makeHightmap(map) {
+
     var heightmap = [];
+
+    for (var i=0; i<map.length; i++) {
+        heightmap.push([]);
+        for (var j=0; j<map[i].length; j++) {
+            // put grass in by default
+            heightmap[i][j] = Math.min(1,map[i][j]); 
+        }
+    }
+
     return heightmap;
 }
 

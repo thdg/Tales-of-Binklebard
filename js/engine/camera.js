@@ -17,8 +17,8 @@ var camera = {
 
     _speed: 512/SECS_TO_NOMINALS, // speed in px/sec in flying mode
 
-    _width: 600,
-    _height: 600,
+    _width: g_canvas.width,
+    _height: g_canvas.height,
 
     _centerdEntity: undefined,
 

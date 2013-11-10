@@ -116,8 +116,8 @@ function preloadDone() {
     tiles.init();
     
     // no worries, þetta verður lesið inn af skrá!
-    map = generateMap(100,100);
-    var highlands = new Region(map.map);
+    map = generateMap(50,50);
+    var highlands = new Region(map.map, map.heightmap);
     world.addRegion(highlands);
 
     entityManager.init();
