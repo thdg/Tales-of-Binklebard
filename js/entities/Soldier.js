@@ -44,6 +44,10 @@ Soldier.prototype.randomizePosition = function () {
     this.cx = this.cx || Math.random() * world.getWidth();
     this.cy = this.cy || Math.random() * world.getHeight();
 
+    while (world.getRegion().collidesWith({ posX: this.cx, posY: this.cy}, this.getRadius())) {
+        this.cx = Math.random() * world.getWidth();
+        this.cy = Math.random() * world.getHeight();
+    }
 
 };
 
@@ -112,7 +116,7 @@ Soldier.prototype.move = function (du) {
     }
     else this.randomizeVelocity();
 
-    if (world.getRegion().collidesWith({ posX: this.cx, posY: this.cy})) {
+    if (world.getRegion().collidesWith({ posX: this.cx, posY: this.cy}, this.getRadius())) {
         this.cx = oldX;
         this.cy = oldY;
         this.randomizeVelocity();
