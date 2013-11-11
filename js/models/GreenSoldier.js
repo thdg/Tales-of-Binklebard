@@ -1,7 +1,5 @@
 "use strict";
 
-/*jslint browser: true, devel: true, white: true*/
-
 /************************************************************************\
 
  Character - "inherits" from Entity
@@ -21,8 +19,9 @@ function GreenSoldier(sprite) {
 
     // states
     this.HALT = 0;
-    this.ATTACKING = 1;
-    this.WALKING = 2;
+    this.WALKING = 1;
+    this.LOOKING = 2;
+    // this.ATTACKING = 3;
 
     // initialize
     this._rotation = this.FACE_DOWN;
@@ -34,23 +33,24 @@ function GreenSoldier(sprite) {
     this._animations = [[],[],[],[]];
 
     this._animations[this.FACE_LEFT][this.HALT] =
-        new Animation(sprite, frameSize * 0, frameSize * 0, 1);
+        new Animation(sprite, frameSize * 0, frameSize * 0);
     this._animations[this.FACE_DOWN][this.HALT] =
-        new Animation(sprite, frameSize * 0, frameSize * 1, 1);
+        new Animation(sprite, frameSize * 0, frameSize * 1);
     this._animations[this.FACE_UP][this.HALT] =
-        new Animation(sprite, frameSize * 0, frameSize * 2, 1);
+        new Animation(sprite, frameSize * 0, frameSize * 2);
     this._animations[this.FACE_RIGHT][this.HALT] =
-        new Animation(sprite, frameSize * 0, frameSize * 3, 1);
+        new Animation(sprite, frameSize * 0, frameSize * 3);
     
     this._animations[this.FACE_LEFT][this.WALKING] =
-        new Animation(sprite, frameSize * 0, frameSize * 0, 4, 200);
+        new Animation(sprite, frameSize * 0, frameSize * 0, 3, 200);
     this._animations[this.FACE_DOWN][this.WALKING] =
-        new Animation(sprite, frameSize * 0, frameSize * 1, 5, 200);
+        new Animation(sprite, frameSize * 0, frameSize * 1, 4, 200);
     this._animations[this.FACE_UP][this.WALKING] =
-        new Animation(sprite, frameSize * 0, frameSize * 2, 5, 200);
+        new Animation(sprite, frameSize * 0, frameSize * 2, 4, 200);
     this._animations[this.FACE_RIGHT][this.WALKING] =
-        new Animation(sprite, frameSize * 0, frameSize * 3, 4, 200);
+        new Animation(sprite, frameSize * 0, frameSize * 3, 3, 200);
     
+    /*
     this._animations[this.FACE_LEFT][this.ATTACKING] =
         new Animation(sprite, frameSize * 0, frameSize * 0, 4, 50);
     this._animations[this.FACE_DOWN][this.ATTACKING] =
@@ -59,65 +59,10 @@ function GreenSoldier(sprite) {
         new Animation(sprite, frameSize * 0, frameSize * 2, 5, 50);
     this._animations[this.FACE_RIGHT][this.ATTACKING] =
         new Animation(sprite, frameSize * 0, frameSize * 3, 4, 50);
-    
+    */
 
     this._activeAnimation = this._animations[this._rotation][this._state];
 
 }
 
-// GreenSoldier.prototype = new Model();
-
-GreenSoldier.prototype.update = function(du) {
-
-    var finishedAnimation = this._activeAnimation.update(du);
-    if (this._frozen) this._frozen = !finishedAnimation;
-    else this._activeAnimation = this._animations[this._rotation][this._state];
-};
-
-GreenSoldier.prototype.drawCentredAt = function(ctx, cx, cy) {
-    this._activeAnimation.drawCentredAt(ctx, cx, cy);
-};
-
-GreenSoldier.prototype._setState = function(state) {
-    if (this._state === state || this._frozen ) return;
-    this._state = state;
-};
-
-GreenSoldier.prototype._setRotation = function(rotation) {
-    if (this._rotation === rotation || this._frozen ) return;
-    this._rotation = rotation;
-};
-
-GreenSoldier.prototype._freezInState = function() {
-    this._activeAnimation = this._animations[this._rotation][this._state];
-    this._frozen = true;
-};
-
-GreenSoldier.prototype.faceUp = function() {
-    this._setRotation(this.FACE_UP);
-};
-
-GreenSoldier.prototype.faceDown = function() {
-    this._setRotation(this.FACE_DOWN);
-};
-
-GreenSoldier.prototype.faceLeft = function() {
-    this._setRotation(this.FACE_LEFT);
-};
-
-GreenSoldier.prototype.faceRight = function() {
-    this._setRotation(this.FACE_RIGHT);
-};
-
-GreenSoldier.prototype.halt = function() {
-    this._setState(this.HALT);
-};
-
-GreenSoldier.prototype.attack = function() {
-    this._setState(this.ATTACKING);
-    this._freezInState();
-};
-
-GreenSoldier.prototype.walk = function() {
-    this._setState(this.WALKING);
-};
+GreenSoldier.prototype = new Model();

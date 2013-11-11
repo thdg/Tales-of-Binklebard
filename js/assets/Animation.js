@@ -33,7 +33,7 @@ Animation.prototype.update = function(du) {
     this._timeTilNextFrame += this._interval;
     this._activeFrame = this._activeFrame+1;
 
-    if (this._activeFrame>this._frames) {
+    if (this._activeFrame>=this._frames) {
         this._activeFrame = 0;
         return true;
     }
