@@ -26,7 +26,7 @@ var entityManager = {
             NUM_SOLDIERS = num;
 
         for (i = 0; i < NUM_SOLDIERS; ++i) {
-            greenSoldier = new Humanoid(g_sprites.link);
+            greenSoldier = new GreenSoldier(g_sprites.greenSoldier);
             this.generateSoldier({model: greenSoldier});
         }
     },

@@ -94,7 +94,8 @@ function requestPreloads() {
 
         terrain          : "img/terrain.png",
         link             : "img/link_alpha.png",
-        sparcles         : "img/Sparcles.png"
+        sparcles         : "img/Sparcles.png",
+        greenSoldier     : "img/greenMonster.png"
     };
 
     imagesPreload(requiredImages, g_images, preloadDone);
@@ -105,8 +106,11 @@ var g_sprites = {};
 function preloadDone() {
 
     
-    g_sprites.link    = new Sprite(g_images.link);
+    g_sprites.link = new Sprite(g_images.link);
     g_sprites.link.scale = 2;
+
+    g_sprites.greenSoldier = new Sprite(g_images.greenSoldier);
+    g_sprites.greenSoldier.scale = 2;
 
     g_sprites.terrain  = new Sprite(g_images.terrain);
     g_sprites.sparcles = new Sprite(g_images.sparcles);
