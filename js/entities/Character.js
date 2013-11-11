@@ -139,7 +139,7 @@ Character.prototype.move = function (du) {
     if (keys[this.KEY_ATTACK])
         this.model.attack();
 
-    if (world.getRegion().collidesWith({ posX: this.cx, posY: this.cy})) {
+    if (world.getRegion().collidesWith({ posX: this.cx, posY: this.cy}, this.getRadius())) {
         this.cx = oldX;
         this.cy = oldY;
     }

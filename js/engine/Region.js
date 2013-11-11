@@ -6,11 +6,10 @@
 
 \************************************************************************/
 
-function Region(map, hightmap, staticObjects, dynamicObjects) {
+function Region(map, heightmap, dynamicObjects) {
 
     this._map = map;
-    this._hightmap = hightmap;
-    this._staticObjects = staticObjects;
+    this._hightmap = heightmap;
     this._dynamicObjects = dynamicObjects;
 
     this._mapHeight = map.length,
@@ -19,18 +18,26 @@ function Region(map, hightmap, staticObjects, dynamicObjects) {
     this.height = map.length*tilesheet.tileSize;
     this.width = map[0].length*tilesheet.tileSize;
 
-    this.drawHightmap = false;
+    this.drawHeightmap = false;
 }
 
 Region.prototype.update = function (du) {
     
-};
+}
 
 Region.prototype.collidesWith = function (pos, radius) {
 
+    return this.collidePoint(pos.posX-radius,pos.posY) ||
+           this.collidePoint(pos.posX+radius,pos.posY) ||
+           this.collidePoint(pos.posX,pos.posY-radius) ||
+           this.collidePoint(pos.posX,pos.posY+radius);
+}
+
+Region.prototype.collidePoint = function (x, y) {
+
     var tileSize = tilesheet.tileSize;
-    var tileX = Math.floor(pos.posX/tileSize);
-    var tileY = Math.floor(pos.posY/tileSize);
+    var tileX = Math.floor(x/tileSize);
+    var tileY = Math.floor(y/tileSize);
 
     if (this._hightmap[tileY][tileX]===0) return false;
 
@@ -61,7 +68,11 @@ Region.prototype.render = function (ctx) {
         }
     }
 
-    if (this.drawHightmap) {
+    if (this.drawHeightmap) {
+        var oldAlpha = ctx.globalAlpha;
+        var oldStyle = ctx.fillStyle;
+        ctx.fillStyle = 'red';
+        ctx.globalAlpha = 0.5;
         for(var i = startY; i<endY; i++) {
             var row = this._hightmap[i];
             for (var j = startX; j<endX; j++) {
@@ -71,6 +82,8 @@ Region.prototype.render = function (ctx) {
                     util.fillBox(ctx, posX, posY, tileSize, tileSize);
             }
         }
+        ctx.fillStyle = oldStyle;
+        ctx.globalAlpha = oldAlpha;
     }
 
     // render static Objects

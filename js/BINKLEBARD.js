@@ -55,7 +55,7 @@ function processDiagnostics() {
 
     if (eatKey(KEY_SPATIAL)) g_renderSpatialDebug = !g_renderSpatialDebug;
     if (eatKey(KEY_FLYING)) camera.flyingMode = !camera.flyingMode;
-    if (eatKey(KEY_HEIGHTMAP)) world._activeRegion.drawHightmap = !world._activeRegion.drawHightmap;
+    if (eatKey(KEY_HEIGHTMAP)) world._activeRegion.drawHeightmap = !world._activeRegion.drawHeightmap;
 
 }
 
