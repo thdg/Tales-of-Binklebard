@@ -1,4 +1,4 @@
-"use strict";
+ "use strict";
 
 /************************************************************************\
 
@@ -12,7 +12,7 @@ var entityManager = {
     // "PRIVATE" DATA
 
     _items     : [],
-    _monsters  : [],
+    _soldiers  : [],
     _character : [],
     _effects   : [],
 
@@ -20,12 +20,14 @@ var entityManager = {
     // "PRIVATE" METHODS
 
 
-    _generateMonsters : function(num) {
+    _generateSoldiers : function(num) {
         var i,
-            NUM_MONSTERS = num;
+            greenSoldier,
+            NUM_SOLDIERS = num;
 
-        for (i = 0; i < NUM_MONSTERS; ++i) {
-            this.generateMonster();
+        for (i = 0; i < NUM_SOLDIERS; ++i) {
+            greenSoldier = new Humanoid(g_sprites.link);
+            this.generateSoldier({model: greenSoldier});
         }
     },
 
@@ -70,18 +72,25 @@ var entityManager = {
     // i.e. thing which need `this` to be defined.
     //
     deferredSetup : function () {
-        this._categories = [this._items, this._monsters, this._character, this._effects];
+        this._categories = [this._items, this._soldiers, this._character, this._effects];
     },
 
     init: function() {
         var link = new Humanoid(g_sprites.link);
         var character = new Character({model: link, cx:200, cy:200});
         this._character.push(character);
+        this._generateSoldiers(2);
         camera.centerAt(character);
     },
 
     createEffect: function (descr) {
         this._effects.push(new Effect(descr));
+    },
+
+    generateSoldier : function(descr) {
+        var soldier = new Soldier(descr);
+        this._soldiers.push(soldier);
+        return soldier;
     },
 
     /*
@@ -96,10 +105,8 @@ var entityManager = {
         }));
     },
 
+    
 
-    generateMonster : function(descr) {
-        this._monsters.push(new Monster(descr));
-    },
 
 
     generateShip : function(descr) {
