@@ -110,7 +110,7 @@ function preloadDone() {
     g_sprites.link.scale = 2;
 
     g_sprites.greenSoldier = new Sprite(g_images.greenSoldier);
-    g_sprites.greenSoldier.scale = 2;
+    g_sprites.greenSoldier.scale = 1.8;
 
     g_sprites.terrain  = new Sprite(g_images.terrain);
     g_sprites.sparcles = new Sprite(g_images.sparcles);

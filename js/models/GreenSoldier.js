@@ -11,7 +11,7 @@
 
 function GreenSoldier(sprite) {
 
-    this._interval = 200; // time beetween frames in ms
+    this._interval = 400; // time beetween frames in ms
 
     // rotations
     this.FACE_RIGHT = 0;
