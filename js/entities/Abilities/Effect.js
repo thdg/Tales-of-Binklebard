@@ -55,6 +55,11 @@ Effect.prototype.move = function (du)
             this.cy += this.vel*du;
             break;
     }
+
+    if (world.getRegion().collidesWith(
+        { posX: this.cx, posY: this.cy}, this.getRadius())) {
+        this._isDeadNow = true;
+    }
 }
 
 Effect.prototype.render = function(ctx)
@@ -103,12 +108,15 @@ var wizardSpells =
         {
             descr: {
                 range       : TILE_SIZE*12,
-                aoe         : 1,
+                aoe         : 1.2*TILE_SIZE/3,
                 model       : new Animation ( g_sprites.fireball, 0, 0, 48 ),
                 duration    : SECS_TO_NOMINALS*100,
                 coolDown    : SECS_TO_NOMINALS/2,
                 vel         : 360/SECS_TO_NOMINALS,
-                findTarget  : function(){}
+                findTarget  : function(){},
+                getRadius   : function () {
+                                    return this.aoe;
+                                }
             },
 
             cast : function(caster)
