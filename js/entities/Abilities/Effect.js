@@ -62,6 +62,11 @@ Effect.prototype.move = function (du)
     }
 }
 
+getRadius = function () 
+{
+    return this.aoe;
+};
+
 Effect.prototype.render = function(ctx)
 {
     this.model.drawCentredAt(ctx,this.cx,this.cy);
@@ -113,17 +118,15 @@ var wizardSpells =
                 duration    : SECS_TO_NOMINALS*100,
                 coolDown    : SECS_TO_NOMINALS/2,
                 vel         : 360/SECS_TO_NOMINALS,
-                findTarget  : function(){},
-                getRadius   : function () {
-                                    return this.aoe;
-                                }
+                findTarget  : function(){}
             },
 
             cast : function(caster)
             {
                 this.descr.target         = function (entity) { entity.hp -= caster.Wis*2; };
-                this.descr.cx             = caster.cx;
-                this.descr.cy             = caster.cy;
+                // should do a util function that changes direction to radians
+                this.descr.cx             = caster.cx+(caster.getRadius()+this.descr.aoe)*Math.cos(-caster.direction*Math.PI/2);
+                this.descr.cy             = caster.cy+(caster.getRadius()+this.descr.aoe)*Math.sin(-caster.direction*Math.PI/2);
                 this.descr.direction      = caster.direction;
                 this.descr.model.rotation = -caster.direction*Math.PI/2;
                 entityManager.createEffect(this.descr);
