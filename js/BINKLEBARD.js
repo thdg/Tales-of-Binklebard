@@ -81,6 +81,7 @@ function renderSimulation(ctx) {
         camera.render(ctx);
         spatialManager.render(ctx);
     }
+	UI.render(ctx);
 }
 
 
@@ -98,7 +99,8 @@ function requestPreloads() {
         fireball         : "img/Fireball.png",
         greenSoldier     : "img/greenMonster.png",
         wizard           : "img/wizard.png",
-        goblin           : "img/goblin.png"
+        goblin           : "img/goblin.png",
+		UIbar         	 : "img/UIbar.png"
     };
 
     imagesPreload(requiredImages, g_images, preloadDone);
@@ -118,6 +120,8 @@ function preloadDone() {
     g_sprites.wizard = new Sprite(g_images.wizard);
     g_sprites.goblin = new Sprite(g_images.goblin);
 
+	g_sprites.UIbar = new Sprite(g_images.UIbar);
+
     g_sprites.terrain  = new Sprite(g_images.terrain);
     g_sprites.sparcles = new Sprite(g_images.sparcles);
     g_sprites.fireball = new Sprite(g_images.fireball);
@@ -132,6 +136,7 @@ function preloadDone() {
     world.addRegion(highlands);
 
     entityManager.init();
+	UI.init();
 
     main.init();
 }
