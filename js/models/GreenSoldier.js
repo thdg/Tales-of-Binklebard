@@ -9,8 +9,6 @@
 
 function GreenSoldier(sprite) {
 
-    this._interval = 200; // time beetween frames in ms
-
     // rotations
     this.FACE_RIGHT = 0;
     this.FACE_UP    = 1;
@@ -20,8 +18,7 @@ function GreenSoldier(sprite) {
     // states
     this.HALT = 0;
     this.WALKING = 1;
-    this.LOOKING = 2;
-    // this.ATTACKING = 3;
+    // this.ATTACKING = 2;
 
     // initialize
     this._rotation = this.FACE_DOWN;

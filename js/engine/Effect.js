@@ -70,7 +70,7 @@ var clericSpells =
             descr: {
 				range     : TILE_SIZE*1,
 				aoe       : 0,
-				model     : new Animation ( g_sprites.sparcles, 0, 0, 2, 200 ),
+				model     : new Animation ( g_sprites.sparcles, 0, 0, 48, 0, 3, 200),
 				duration  : 2*SECS_TO_NOMINALS,
 				vel       : 0,
                 direction : 0

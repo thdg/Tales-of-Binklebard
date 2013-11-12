@@ -32,10 +32,9 @@ Sprite.prototype.drawCentredAt = function (ctx, cx, cy, rotation, reflect) {
 };
 
 
-Sprite.prototype.drawFrameCenterdAt = function (ctx, cx, cy, startX, startY, sizeX, sizeY, reflect, rotation) {
+Sprite.prototype.drawFrameCenterdAt = function (ctx, cx, cy, startX, startY, sizeX, sizeY, rotation) {
 
     if (rotation === undefined) rotation = 0;
-    if (reflect  === undefined) reflect  = false;
 
 
     var posX = -sizeX/2,
@@ -45,8 +44,8 @@ Sprite.prototype.drawFrameCenterdAt = function (ctx, cx, cy, startX, startY, siz
     ctx.translate(cx, cy);
     ctx.rotate(rotation);
 
-    if (reflect) ctx.scale(-this.scale, this.scale);
-    else ctx.scale(this.scale, this.scale);
+//    if (reflect) ctx.scale(-this.scale, this.scale);
+//    else ctx.scale(this.scale, this.scale);
     
     ctx.drawImage(
         this.image,

@@ -13,10 +13,11 @@ canvas {
 }
 
 .title {
-	width: 100%;
+	width: 800px;
 	text-align: center;
-	font-size: 40pt;
+	margin: 20px auto;
+	font-size: 80px;
 	color: #FFA500;
-	text-shadow: black 3px 3px 4px;
+	text-shadow: black 2px 2px 2px, #360707 0 0 15px;
 	font-weight: 500;
 }

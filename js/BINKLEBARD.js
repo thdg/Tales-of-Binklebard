@@ -95,7 +95,9 @@ function requestPreloads() {
         terrain          : "img/terrain.png",
         link             : "img/link_alpha.png",
         sparcles         : "img/Sparcles.png",
-        greenSoldier     : "img/greenMonster.png"
+        greenSoldier     : "img/greenMonster.png",
+        wizard           : "img/wizard.png",
+        goblin           : "img/goblin.png"
     };
 
     imagesPreload(requiredImages, g_images, preloadDone);
@@ -111,6 +113,9 @@ function preloadDone() {
 
     g_sprites.greenSoldier = new Sprite(g_images.greenSoldier);
     g_sprites.greenSoldier.scale = 2;
+
+    g_sprites.wizard = new Sprite(g_images.wizard);
+    g_sprites.goblin = new Sprite(g_images.goblin);
 
     g_sprites.terrain  = new Sprite(g_images.terrain);
     g_sprites.sparcles = new Sprite(g_images.sparcles);

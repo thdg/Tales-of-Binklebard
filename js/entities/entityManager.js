@@ -22,12 +22,12 @@ var entityManager = {
 
     _generateSoldiers : function(num) {
         var i,
-            greenSoldier,
+            goblin,
             NUM_SOLDIERS = num;
 
         for (i = 0; i < NUM_SOLDIERS; ++i) {
-            greenSoldier = new GreenSoldier(g_sprites.greenSoldier);
-            this.generateSoldier({model: greenSoldier});
+            goblin = new WizardModel(g_sprites.goblin);
+            this.generateSoldier({model: goblin});
         }
     },
 
@@ -76,7 +76,7 @@ var entityManager = {
     },
 
     init: function() {
-        var link = new Humanoid(g_sprites.link);
+        var link = new WizardModel(g_sprites.wizard);
         var character = new Character({model: link, cx:200, cy:200});
         this._character.push(character);
         this._generateSoldiers(50);
