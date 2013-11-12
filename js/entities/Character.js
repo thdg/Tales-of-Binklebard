@@ -64,10 +64,6 @@ Character.prototype.armor;
 Character.prototype.energy;
 Character.prototype.maxEnergy;
 Character.prototype.damage;
-
-Character.prototype.mainAtt;
-Character.prototype.secAtt;
-Character.prototype.weakAtt;
 */
 
 
@@ -155,19 +151,6 @@ Character.prototype.getRadius = function () {
 };
 
 Character.prototype.reset = function () {
-    
-};
-
-Character.prototype.setAtt = function () {
-    this.mainAtt++;
-    this.Spir++;
-    
-    if(lvl%2 === 0){
-        this.secAtt++;
-    }
-    if(lvl%3 === 0){
-        this.weakAtt++;
-    }
     
 };
 

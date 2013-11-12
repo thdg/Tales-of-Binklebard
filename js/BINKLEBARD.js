@@ -112,7 +112,7 @@ function preloadDone() {
     g_sprites.link.scale = 2;
 
     g_sprites.greenSoldier = new Sprite(g_images.greenSoldier);
-    g_sprites.greenSoldier.scale = 2;
+    g_sprites.greenSoldier.scale = 1.8;
 
     g_sprites.wizard = new Sprite(g_images.wizard);
     g_sprites.goblin = new Sprite(g_images.goblin);
