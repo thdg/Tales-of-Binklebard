@@ -15,12 +15,14 @@ function Animation(sprite, startX, startY, frameSize, rotation, frames, interval
     this._frames    = frames;
     this._startX    = startX;
     this._startY    = startY;
-    this._rotation   = rotation;
     this._interval  = interval; // time beetween frames in ms
     this._frameSize = frameSize;
 
     this._timeTilNextFrame = interval;
     this._activeFrame = 0;
+
+
+    this.rotation   = rotation;
 
 }
 
@@ -45,6 +47,6 @@ Animation.prototype.update = function(du) {
 Animation.prototype.drawCentredAt = function(ctx, cx, cy) {
     var startX = this._startX+this._activeFrame*this._frameSize;
     this._sprite.drawFrameCenterdAt(ctx, cx, cy, startX, this._startY,
-        this._frameSize, this._frameSize, this._rotation);
+        this._frameSize, this._frameSize, this.rotation);
 }
 

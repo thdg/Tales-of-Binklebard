@@ -15,6 +15,7 @@ function Character(descr) {
     // TEMPORARY
     // =========
 	this.Heal = clericSpells.heal(1,1);
+    this.MagicMissile = wizardSpells.magicMissile(1,1);
     this.hp = this.Str*4;
     // =========
 
@@ -37,8 +38,11 @@ Character.prototype.KEY_RIGHT = RIGHT_ARROW;
 
 Character.prototype.KEY_ATTACK = ' '.charCodeAt(0);
 
+Character.prototype.direction = FACE_DOWN;
+
 // TEMPROARY
-Character.prototype.KEY_HEAL   = '1'.charCodeAt(0);
+Character.prototype.KEY_HEAL         = '1'.charCodeAt(0);
+Character.prototype.KEY_MAGIC_MISSLE = '2'.charCodeAt(0);
 
 // NEEDS REFINEMENT
 Character.prototype.isCasting  = false;
@@ -74,31 +78,58 @@ Character.prototype.update = function (du) {
     renderingManager.unregister(this);
     if (this._isDeadNow) return entityManager.KILL_ME_NOW;
 
-    // CONSIDER CHANGING THIS
-    // ======================
-    if (keys[this.KEY_HEAL] && !this.isCasting) 
-    {
-		this.isCasting = true;
-		this.Heal.cast(this);
-		this.coolDown = this.Heal.descr.duration;
-    } else if(this.isCasting)
-    {
-    	this.coolDown -= du;
-    	if( this.coolDown <= 0)
-    	{
-            this.coolDown = 0;
-            this.isCasting = false;
-    	}
-    }
-    // ======================
+
     
     this.move(du);
+    this.abilities(du);
     this.model.update(du);
 
     spatialManager.register(this);
     renderingManager.register(this);
 
 };
+
+Character.prototype.abilities = function(du)
+{
+    // CONSIDER CHANGING THIS
+    // ======================
+    if (keys[this.KEY_HEAL] && !this.isCasting) 
+    {
+        this.isCasting = true;
+        this.Heal.cast(this);
+        this.coolDown = this.Heal.descr.coolDown;
+
+        this.model.attack();    //should be model.cast();
+
+    } else if(this.isCasting)
+    {
+        this.coolDown -= du;
+        if( this.coolDown <= 0)
+        {
+            this.coolDown = 0;
+            this.isCasting = false;
+        }
+    }
+
+    if (keys[this.KEY_MAGIC_MISSLE] && !this.isCasting) 
+    {
+        this.isCasting = true;
+        this.MagicMissile.cast(this);
+        this.coolDown = this.MagicMissile.descr.coolDown;
+
+        this.model.attack();    //should be model.cast();
+
+    } else if(this.isCasting)
+    {
+        this.coolDown -= du;
+        if( this.coolDown <= 0)
+        {
+            this.coolDown = 0;
+            this.isCasting = false;
+        }
+    }
+    // ======================
+}
 
 Character.prototype.move = function (du) {
 
@@ -108,25 +139,29 @@ Character.prototype.move = function (du) {
     var oldY = this.cy;
 
     if (keys[this.KEY_UP]){
-        this.cy -= this.baseVel;
+        this.cy -= this.baseVel*du;
+        this.direction = FACE_UP;
 
         this.model.walk();
         this.model.faceUp();
     }
     if (keys[this.KEY_DOWN]){
-        this.cy += this.baseVel;
+        this.cy += this.baseVel*du;
+        this.direction = FACE_DOWN;
 
         this.model.walk();
         this.model.faceDown();
     }
     if (keys[this.KEY_LEFT]){
-        this.cx -= this.baseVel;
+        this.cx -= this.baseVel*du;
+        this.direction = FACE_LEFT;
 
         this.model.walk();
         this.model.faceLeft();
     }
     if (keys[this.KEY_RIGHT]){
-        this.cx += this.baseVel;
+        this.cx += this.baseVel*du;
+        this.direction = FACE_RIGHT;
 
         this.model.walk();
         this.model.faceRight();

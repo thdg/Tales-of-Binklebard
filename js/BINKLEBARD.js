@@ -95,6 +95,7 @@ function requestPreloads() {
         terrain          : "img/terrain.png",
         link             : "img/link_alpha.png",
         sparcles         : "img/Sparcles.png",
+        fireball         : "img/Fireball.png",
         greenSoldier     : "img/greenMonster.png",
         wizard           : "img/wizard.png",
         goblin           : "img/goblin.png"
@@ -119,6 +120,8 @@ function preloadDone() {
 
     g_sprites.terrain  = new Sprite(g_images.terrain);
     g_sprites.sparcles = new Sprite(g_images.sparcles);
+    g_sprites.fireball = new Sprite(g_images.fireball);
+    g_sprites.fireball.scale = 2;
 
     tilesheet.setTileset(g_images.terrain, 8);
     tiles.init();
