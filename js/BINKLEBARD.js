@@ -97,8 +97,8 @@ function requestPreloads() {
         sparcles         : "img/Sparcles.png",
         fireball         : "img/Fireball.png",
         greenSoldier     : "img/greenMonster.png",
-        wizard           : "img/wizard.png",
-        goblin           : "img/goblin.png"
+        wizard           : "img/wizard_alpha.png",
+        goblin           : "img/goblin_alpha.png"
     };
 
     imagesPreload(requiredImages, g_images, preloadDone);
