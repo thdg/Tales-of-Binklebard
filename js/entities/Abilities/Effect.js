@@ -83,12 +83,11 @@ Effect.prototype.findTarget = function()
     }
     return target;
 };
-
+/*
 var clericSpells = 
 {
     heal: function(lvl, wis)
     {
-        var spell =  /*{effect:1,cast:10};*/
         {
             descr: {
 				range       : TILE_SIZE*1,
@@ -147,3 +146,4 @@ var wizardSpells =
         return spell;
     }
 }
+*/
