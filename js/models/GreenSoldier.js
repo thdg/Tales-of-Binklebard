@@ -30,22 +30,22 @@ function GreenSoldier(sprite) {
     this._animations = [[],[],[],[]];
 
     this._animations[this.FACE_LEFT][this.HALT] =
-        new Animation(sprite, frameSize * 0, frameSize * 0);
+        new Animation(sprite, frameSize * 0, frameSize * 0,frameSize);
     this._animations[this.FACE_DOWN][this.HALT] =
-        new Animation(sprite, frameSize * 0, frameSize * 1);
+        new Animation(sprite, frameSize * 0, frameSize * 1,frameSize);
     this._animations[this.FACE_UP][this.HALT] =
-        new Animation(sprite, frameSize * 0, frameSize * 2);
+        new Animation(sprite, frameSize * 0, frameSize * 2,frameSize);
     this._animations[this.FACE_RIGHT][this.HALT] =
-        new Animation(sprite, frameSize * 0, frameSize * 3);
+        new Animation(sprite, frameSize * 0, frameSize * 3,frameSize);
     
     this._animations[this.FACE_LEFT][this.WALKING] =
-        new Animation(sprite, frameSize * 0, frameSize * 0, 3, 200);
+        new Animation(sprite, frameSize * 0, frameSize * 0,frameSize, 3, 200);
     this._animations[this.FACE_DOWN][this.WALKING] =
-        new Animation(sprite, frameSize * 0, frameSize * 1, 4, 200);
+        new Animation(sprite, frameSize * 0, frameSize * 1,frameSize, 4, 200);
     this._animations[this.FACE_UP][this.WALKING] =
-        new Animation(sprite, frameSize * 0, frameSize * 2, 4, 200);
+        new Animation(sprite, frameSize * 0, frameSize * 2,frameSize, 4, 200);
     this._animations[this.FACE_RIGHT][this.WALKING] =
-        new Animation(sprite, frameSize * 0, frameSize * 3, 3, 200);
+        new Animation(sprite, frameSize * 0, frameSize * 3,frameSize, 3, 200);
     
     /*
     this._animations[this.FACE_LEFT][this.ATTACKING] =

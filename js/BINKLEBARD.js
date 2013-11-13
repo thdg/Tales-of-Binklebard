@@ -30,6 +30,7 @@ function updateSimulation(du) {
     world.update(du);
     entityManager.update(du);
     camera.update(du);
+	UIManager.update(du);
 
     // Prevent perpetual attacks!
     eatKey(Character.prototype.KEY_ATTACK);
@@ -81,7 +82,7 @@ function renderSimulation(ctx) {
         camera.render(ctx);
         spatialManager.render(ctx);
     }
-	UI.render(ctx);
+	UIManager.render(ctx);
 }
 
 
@@ -100,7 +101,7 @@ function requestPreloads() {
         greenSoldier     : "img/greenMonster.png",
         wizard           : "img/wizard.png",
         goblin           : "img/goblin.png",
-		UIbar         	 : "img/UIbar.png"
+		uibar         	 : "img/UIbar.png"
     };
 
     imagesPreload(requiredImages, g_images, preloadDone);
@@ -120,7 +121,7 @@ function preloadDone() {
     g_sprites.wizard = new Sprite(g_images.wizard);
     g_sprites.goblin = new Sprite(g_images.goblin);
 
-	g_sprites.UIbar = new Sprite(g_images.UIbar);
+	g_sprites.uibar = new Sprite(g_images.uibar);
 
     g_sprites.terrain  = new Sprite(g_images.terrain);
     g_sprites.sparcles = new Sprite(g_images.sparcles);
@@ -135,9 +136,8 @@ function preloadDone() {
     var highlands = new Region(map.map, map.heightmap);
     world.addRegion(highlands);
 
+	UIManager.init();
     entityManager.init();
-	UI.init();
-
     main.init();
 }
 

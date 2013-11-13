@@ -15,7 +15,7 @@ Sprite.prototype.drawAt = function (ctx, x, y) {
 Sprite.prototype.drawCentredAt = function (ctx, cx, cy, rotation, reflect) {
 
     if (rotation === undefined) rotation = 0;
-    if (reflect === undefined) rotation = false;
+    if (reflect === undefined) reflect = false;
     
     var w = this.width,
         h = this.height;
@@ -24,19 +24,20 @@ Sprite.prototype.drawCentredAt = function (ctx, cx, cy, rotation, reflect) {
     ctx.translate(cx, cy);
     ctx.rotate(rotation);
 
-    if (reflect)
-        ctx.scale(-this.scale, this.scale);
-    else
-        ctx.scale(this.scale, this.scale);
+//    ctx.scale(this.scale,this.scale);
+
+    if (reflect) ctx.scale(-this.scale, this.scale);
+    else ctx.scale(this.scale, this.scale);
     
     ctx.drawImage(this.image, -w/2, -h/2);
     ctx.restore();
 };
 
 
-Sprite.prototype.drawFrameCenterdAt = function (ctx, cx, cy, startX, startY, sizeX, sizeY, rotation) {
+Sprite.prototype.drawFrameCenterdAt = function (ctx, cx, cy, startX, startY, sizeX, sizeY, rotation, reflect) {
 
     if (rotation === undefined) rotation = 0;
+    if (reflect === undefined) reflect = false;
 
 
     var posX = -sizeX/2,
@@ -45,10 +46,10 @@ Sprite.prototype.drawFrameCenterdAt = function (ctx, cx, cy, startX, startY, siz
     ctx.save();
     ctx.translate(cx, cy);
     ctx.rotate(rotation);
-    ctx.scale(this.scale,this.scale);
+//    ctx.scale(this.scale,this.scale);
 
-//    if (reflect) ctx.scale(-this.scale, this.scale);
-//    else ctx.scale(this.scale, this.scale);
+    if (reflect) ctx.scale(-this.scale, this.scale);
+    else ctx.scale(this.scale, this.scale);
     
     ctx.drawImage(
         this.image,
