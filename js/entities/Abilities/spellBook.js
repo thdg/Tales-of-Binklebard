@@ -47,7 +47,7 @@ var spellBook =
             descr: {
                 range       : TILE_SIZE*12,
                 aoe         : 1.1*TILE_SIZE/3,
-                model       : new Animation ( g_sprites.fireball, 0, 0, 48 ),
+                model       : new Animation ( g_sprites.magicMissile, 0, 0, 48 ),
                 duration    : SECS_TO_NOMINALS*100,
                 coolDown    : SECS_TO_NOMINALS/2,
                 vel         : 360/SECS_TO_NOMINALS,
