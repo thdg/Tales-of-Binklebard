@@ -14,8 +14,14 @@ function Character(descr) {
 
     // TEMPORARY
     // =========
+<<<<<<< HEAD
 	this.Heal         = spellBook.heal(1,1);
     this.MagicMissile = spellBook.magicMissile(1,1);
+=======
+	this.Heal = spellbook.heal(1,1);
+    this.MagicMissile = spellbook.magicMissile(1,1);
+    this.hp = this.Str*4;
+>>>>>>> health bars and hits and shits
     // =========
 
 }
@@ -211,9 +217,9 @@ Character.prototype.takeDamage = function (damage, ignoreArmor) {
     if (ignoreArmor===undefined) ignoreArmor = false;
 
     var damageReduction = ignoreArmor ? 1 : this.armor/this.hp;
-    this.damageTaken -= damage * damageReduction;
+    this.damageTaken += damage * damageReduction;
 
-    if (this.damageTaken<this.hp) this.kill();
+    if (this.damageTaken>this.hp) this.kill();
 }
 
 Character.prototype.getHpRatio = function () {
