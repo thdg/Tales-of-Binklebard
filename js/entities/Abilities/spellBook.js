@@ -6,7 +6,7 @@ var spellBook =
 {
 	heal: function(lvl, wis)
     {
-        var spell =  /*{effect:1,cast:10};*/
+        var spell =
         {
             descr: {
 				range       : TILE_SIZE*1,
@@ -41,7 +41,7 @@ var spellBook =
             descr: {
                 range       : TILE_SIZE*12,
                 aoe         : 1.2*TILE_SIZE/3,
-                model       : new Animation ( g_sprites.fireball, 0, 0, 48 ),
+                model       : new Animation ( g_sprites.magicMissile, 0, 0, 48 ),
                 duration    : SECS_TO_NOMINALS*100,
                 coolDown    : SECS_TO_NOMINALS/2,
                 vel         : 360/SECS_TO_NOMINALS,
@@ -51,11 +51,12 @@ var spellBook =
             cast : function(caster)
             {
                 this.descr.target         = function (entity) { entity.kill(); };
-                var distance = caster.getRadius()+this.descr.aoe;
+                var distance 			  = caster.getRadius()+this.descr.aoe;
                 this.descr.cx             = caster.cx+distance*Math.cos(util.getRadFromDir(caster.direction));
                 this.descr.cy             = caster.cy+distance*Math.sin(util.getRadFromDir(caster.direction));
                 this.descr.direction      = caster.direction;
                 this.descr.model.rotation = util.getRadFromDir(caster.direction);
+				
                 entityManager.createEffect(this.descr);
             }
         }
