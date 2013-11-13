@@ -101,7 +101,8 @@ function requestPreloads() {
         greenSoldier     : "img/greenMonster.png",
         wizard           : "img/wizard.png",
         goblin           : "img/goblin.png",
-		uibar         	 : "img/UIbar.png"
+		uibar         	 : "img/UIbar.png",
+		uimap        	 : "img/UImap.png"
 
     };
 
@@ -123,6 +124,7 @@ function preloadDone() {
     g_sprites.goblin = new Sprite(g_images.goblin);
 
 	g_sprites.uibar = new Sprite(g_images.uibar);
+	g_sprites.uimap = new Sprite(g_images.uimap);
 
     g_sprites.terrain  = new Sprite(g_images.terrain);
     g_sprites.sparcles = new Sprite(g_images.sparcles);
