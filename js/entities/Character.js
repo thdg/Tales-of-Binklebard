@@ -16,7 +16,6 @@ function Character(descr) {
     // =========
 	this.Heal         = spellBook.heal(1,1);
     this.MagicMissile = spellBook.magicMissile(1,1);
-    //this.hp = this.Str*4;
     // =========
 
 }
@@ -58,11 +57,10 @@ Character.prototype.spirit = 12;
 Character.prototype.lvl = 1;
 Character.prototype.experience = 0;
 
-Character.prototype.hp = 0;
-Character.prototype.armor = 0;
-Character.prototype.energy = 0;
-Character.prototype.maxEnergy = 0;
-Character.prototype.damage = 0;
+Character.prototype.hp = 100;
+Character.prototype.armor = 25;
+Character.prototype.energy = 100;
+Character.prototype.damage = 10;
 
 Character.prototype.damageTaken = 0;
 Character.prototype.energyUsed = 0;
@@ -219,12 +217,12 @@ Character.prototype.takeDamage = function (damage, ignoreArmor) {
     if (this.damageTaken<this.hp) this._isDeadNow = true;
 }
 
-Character.prototype.getCurrentHpP = function () {
+Character.prototype.getHpRatio = function () {
 
     return (this.hp-this.damageTaken)/this.hp;
 };
 
-Character.prototype.getCurrentEnergyP = function () {
+Character.prototype.getEnergyRatio = function () {
 
     return (this.energy-this.energyUsed)/this.energy;
 };

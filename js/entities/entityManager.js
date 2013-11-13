@@ -62,15 +62,10 @@ var entityManager = {
     },
 
     // PUBLIC METHODS
-
-    // A special return value, used by other objects,
-    // to request the blessed release of death!
-    //
+	
     KILL_ME_NOW : -1,
 
-    // Some things must be deferred until after initial construction
-    // i.e. thing which need `this` to be defined.
-    //
+
     deferredSetup : function () {
         this._categories = [this._items, this._soldiers, this._character, this._effects];
     },
@@ -81,6 +76,7 @@ var entityManager = {
         this._character.push(character);
         this._generateSoldiers(50);
         camera.centerAt(character);
+		UIManager.follow(character);
     },
 
     createEffect: function (descr) {
@@ -92,55 +88,11 @@ var entityManager = {
         this._soldiers.push(soldier);
         return soldier;
     },
-
-    /*
-    fireBullet: function(cx, cy, velX, velY, rotation) {
-        this._bullets.push(new Bullet({
-            cx   : cx,
-            cy   : cy,
-            velX : velX,
-            velY : velY,
-
-            rotation : rotation
-        }));
+	
+	getCharacter : function() {
+        return this._character[0];
     },
 
-    
-
-
-
-    generateShip : function(descr) {
-        var ship = new Ship(descr);
-        this._ships.push(ship);
-        return ship;
-    },
-
-    killNearestShip : function(xPos, yPos) {
-        var theShip = this._findNearestShip(xPos, yPos).theShip;
-        if (theShip) {
-            theShip.kill();
-        }
-    },
-
-    yoinkNearestShip : function(xPos, yPos) {
-        var theShip = this._findNearestShip(xPos, yPos).theShip;
-        if (theShip) {
-            theShip.setPos(xPos, yPos);
-        }
-    },
-
-    resetShips: function() {
-        this._forEachOf(this._ships, Ship.prototype.reset);
-    },
-
-    haltShips: function() {
-        this._forEachOf(this._ships, Ship.prototype.halt);
-    },  
-
-    toggleRocks: function() {
-        this._bShowRocks = !this._bShowRocks;
-    },
-    */
     update: function(du) {
 
         for (var c = 0; c < this._categories.length; ++c) {
@@ -162,9 +114,6 @@ var entityManager = {
                 }
             }
         }
-        
-        //if (this._rocks.length === 0) this._generateRocks();
-
     },
 
     render: function(ctx) {
