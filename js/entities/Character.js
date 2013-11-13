@@ -50,29 +50,22 @@ Character.prototype.KEY_MAGIC_MISSLE = '2'.charCodeAt(0);
 Character.prototype.isCasting  = false;
 Character.prototype.coolDown   = 0;
 
-//Charactercters attributes, level and experience
-Character.prototype.Str  = 12;
-Character.prototype.Dex  = 12;
-Character.prototype.Wis  = 12;
-Character.prototype.Spir = 12;
+Character.prototype.str  = 12;
+Character.prototype.dex  = 12;
+Character.prototype.wis  = 12;
+Character.prototype.spirit = 12;
 
-Character.prototype.lvl = 0;
+Character.prototype.lvl = 1;
 Character.prototype.experience = 0;
 
+Character.prototype.hp = 0;
+Character.prototype.armor = 0;
+Character.prototype.energy = 0;
+Character.prototype.maxEnergy = 0;
+Character.prototype.damage = 0;
 
-
-
-
-/*
-//Charactercters Hit points, armor, energy and main attribute
-Character.prototype.hp;
-Character.prototype.armor;
-Character.prototype.energy;
-Character.prototype.maxEnergy;
-Character.prototype.damage;
-*/
-
-
+Character.prototype.damageTaken = 0;
+Character.prototype.energyUsed = 0;
 
 Character.prototype.update = function (du) {
     
@@ -80,15 +73,12 @@ Character.prototype.update = function (du) {
     renderingManager.unregister(this);
     if (this._isDeadNow) return entityManager.KILL_ME_NOW;
 
-
-    
     this.move(du);
     this.abilities(du);
     this.model.update(du);
 
     spatialManager.register(this);
     renderingManager.register(this);
-
 };
 
 Character.prototype.abilities = function(du)
@@ -187,10 +177,35 @@ Character.prototype.getRadius = function () {
     return (ANIMATION_FRAME_SIZE / 2) * 0.6;
 };
 
-Character.prototype.reset = function () {
-    
-};
-
 Character.prototype.lvlup = function () {
     this.lvl++;
+    this.updateStats();
+};
+
+Character.prototype.addExp = function (expReward) {
+
+    this.experience = this.experience + expReward;
+    if (this.experience >= (lvl * lvl * 1000) + lvl * 2000) {
+        this.lvlup();
+    }
+};
+
+Character.prototype.takeDamage = function (damage, ignoreArmor) {
+
+    if (ignoreArmor===undefined) ignoreArmor = false;
+
+    var damageReduction = ignoreArmor ? 1 : this.armor/this.hp;
+    this.damageTaken -= damage * damageReduction;
+
+    if (this.damageTaken<this.hp) this._isDeadNow = true;
+}
+
+Character.prototype.getCurrentHpP = function () {
+
+    return (this.hp-this.damageTaken)/this.hp;
+};
+
+Character.prototype.getCurrentEnergyP = function () {
+
+    return (this.energy-this.energyUsed)/this.energy;
 };
