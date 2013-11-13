@@ -21,18 +21,10 @@ function Soldier(descr) {
 
     this.randomizePosition();
     this.randomizeVelocity();
-      
-    // Default sprite and scale, if not otherwise specified
-    //this.sprite = this.sprite || g_sprites.Soldier;
-    //this.scale  = this.scale  || 1;
 
-
-    // Diagnostics to check inheritance stuff
-    
-    /*
-    this._SoldierProperty = true;
-    console.dir(this); 
-    */
+    this.hp = 100;
+    this.armor = 50;
+    this.damageTaken = 0;
 
 }
 
@@ -123,17 +115,14 @@ Soldier.prototype.getRadius = function () {
     return (ANIMATION_FRAME_SIZE / 2) * 0.6;
 };
 
-// HACKED-IN AUDIO (no preloading)
-/*
-Soldier.prototype.hitSound = new Audio(
-  "sounds/SoldierSplit.ogg");
-Soldier.prototype.killSound = new Audio(
-  "sounds/SoldierEvaporate.ogg");
-*/
+Soldier.prototype.takeHit = function (damage, ignoreArmor) {
 
-Soldier.prototype.takeHit = function () {
-    this.kill();
-    //this.dropLoot();
+    if (ignoreArmor===undefined) ignoreArmor = false;
+
+    var damageReduction = ignoreArmor ? 1 : this.armor/this.hp;
+    this.damageTaken -= damage * damageReduction;
+
+    if (this.damageTaken<this.hp) this.kill();
 };
 
 Soldier.prototype._dropLoot = function () {
