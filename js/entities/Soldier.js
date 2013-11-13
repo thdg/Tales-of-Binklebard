@@ -54,16 +54,13 @@ Soldier.prototype.randomizePosition = function () {
 };
 
 Soldier.prototype.randomizeVelocity = function () {
+
     var MIN_SPEED = 30,
         MAX_SPEED = 60;
 
-    var MIN = 0,
-        MAX = 4;
-
-    this.rotation = Math.floor(util.randRange(MIN, MAX));
+    var ROT = [FACE_RIGHT, FACE_UP, FACE_LEFT, FACE_DOWN]
+    this.rotation = ROT[util.randInt(0,ROT.length)];
     this.vel = util.randRange(MIN_SPEED, MAX_SPEED) / SECS_TO_NOMINALS;
-
-
 };
 
 
@@ -86,33 +83,28 @@ Soldier.prototype.move = function (du) {
     //this.model.halt(); // if nothing is done, model halts
 
     var speed = this.vel * du;
-    var height  = world.getHeight();
-    var width = world.getWidth();
 
     var oldX = this.cx;
     var oldY = this.cy;
 
 
-    if (this.rotation === 0 && (this.cx + speed) < width) {
-        this.cx += speed;
+    if (this.rotation === FACE_RIGHT) {
+        this.cx += this.vel * du;
         this.model.walk();
         this.model.faceRight();
     }
-
-    else if (this.rotation === 1 && (this.cy - speed ) > 0) {
-        this.cy -= speed;
+    else if (this.rotation === FACE_UP) {
+        this.cy -= this.vel * du;
         this.model.walk();
         this.model.faceUp();
     }
-        
-    else if (this.rotation === 2 && (this.cx - speed) > 0) {
-        this.cx -= speed;
+    else if (this.rotation === FACE_LEFT) {
+        this.cx -= this.vel * du;
         this.model.walk();
         this.model.faceLeft();
     }
-
-    else if (this.rotation === 3 && (this.cy + speed) < height) {
-        this.cy += speed;
+    else if (this.rotation === FACE_DOWN) {
+        this.cy += this.vel * du;
         this.model.walk();
         this.model.faceDown();
     }
