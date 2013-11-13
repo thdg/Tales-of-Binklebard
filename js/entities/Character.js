@@ -16,7 +16,7 @@ function Character(descr) {
     // =========
 	this.Heal         = spellBook.heal(1,1);
     this.MagicMissile = spellBook.magicMissile(1,1);
-    this.hp = this.Str*4;
+    //this.hp = this.Str*4;
     // =========
 
 }
