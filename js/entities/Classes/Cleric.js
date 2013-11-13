@@ -8,41 +8,26 @@
 \************************************************************************/
 
 function Cleric(descr) {
-    this.setup(descr);
-    this.lvlup();
-    
-    this.mainAtt + 2;
-    this.weakAtt - 2;
+
+    this.wis + 2;
+    this.dex - 2;
     
     this.sprite = this.sprite || g_sprites.link;
 }
 
-setExp: function (expReward) {
-    this.experience = this.experience + expReward;
-    
-    if (this.experience >= (lvl * lvl * 1000) + lvl * 2000) {
-        this.lvlup();
-        this.setAtt();
-        this.updateStats();
-    }
-};
+Cleric.prototype.updateStats = function () {
 
-setAtt: function () {
-    this.Wis++;
-    this.Spir++;
+    this.spirit++;
+    this.wis++;
     
-    if(lvl%2 === 0){
-        this.Str++;
-    }
-    if(lvl%3 === 0){
-        this.Dex++;
-    }
+    if(lvl%2 === 0)
+        this.str++;
     
-};
+    if(lvl%3 === 0)
+        this.dex++;
 
-updateStats: function () {
-    this.energy = this.Wis * 30;
-    this.armor = this.Dex * 20;
-    this.hp = this.Str * 50;
-    this.damage = this.Str * 5 + this.Wis;
+    this.energy = this.spirit * 30;
+    this.armor = this.dex * 20;
+    this.hp = this.str * 50;
+    this.damage = this.str * 5 + this.wis;
 }
