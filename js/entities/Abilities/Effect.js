@@ -21,7 +21,7 @@ Effect.prototype.update = function(du)
     this.duration -= du;
     this.range    -= du*this.vel;
 
-    if( this.duration <= 0 || this.range <= 0)
+    if( this.duration < 0 || this.range < 0)
         this.kill();
 
     if (this._isDeadNow) return entityManager.KILL_ME_NOW;

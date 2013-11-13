@@ -1,6 +1,6 @@
 "use strict";
 
-	var UIManager = {
+var UIManager = {
 
 	init : function() {
 		this.bar = g_sprites.uibar;
