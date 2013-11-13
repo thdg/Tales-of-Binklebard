@@ -10,6 +10,7 @@ var tiles = {
     FLOWERS: 1,
     GRASS2: 2,
     WATER: 3,
+    MUD: 8,
     FOREST: 32,
     FOREST_TL: 33,
     FOREST_TR: 34,
