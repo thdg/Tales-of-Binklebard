@@ -102,6 +102,7 @@ function requestPreloads() {
         wizard           : "img/wizard.png",
         goblin           : "img/goblin.png",
 		uibar         	 : "img/UIbar.png"
+
     };
 
     imagesPreload(requiredImages, g_images, preloadDone);
