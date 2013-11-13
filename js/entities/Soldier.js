@@ -38,6 +38,8 @@ function Soldier(descr) {
 
 Soldier.prototype = new Entity();
 
+Soldier.prototype.margin = 7;
+
 Soldier.prototype.randomizePosition = function () {
     
     // Soldier randomisation defaults (if nothing otherwise specified)
@@ -126,7 +128,7 @@ Soldier.prototype.move = function (du) {
 };
 
 Soldier.prototype.getRadius = function () {
-    return (ANIMATION_FRAME_SIZE / 2) * 0.9;
+    return (ANIMATION_FRAME_SIZE / 2) * 0.6;
 };
 
 // HACKED-IN AUDIO (no preloading)
@@ -150,5 +152,5 @@ Soldier.prototype._dropLoot = function () {
 };
 
 Soldier.prototype.render = function (ctx) {
-    this.model.drawCentredAt(ctx, this.cx, this.cy);
+    this.model.drawCentredAt(ctx, this.cx, this.cy-this.margin);
 };

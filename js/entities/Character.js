@@ -38,6 +38,8 @@ Character.prototype.KEY_RIGHT = RIGHT_ARROW;
 
 Character.prototype.KEY_ATTACK = ' '.charCodeAt(0);
 
+Character.prototype.margin = 7;
+
 Character.prototype.direction = FACE_DOWN;
 
 // TEMPROARY
@@ -178,11 +180,11 @@ Character.prototype.move = function (du) {
 };
 
 Character.prototype.render = function (ctx) {
-    this.model.drawCentredAt(ctx, this.cx, this.cy);
+    this.model.drawCentredAt(ctx, this.cx, this.cy-this.margin);
 };
 
 Character.prototype.getRadius = function () {
-    return (ANIMATION_FRAME_SIZE / 2) * 0.9;
+    return (ANIMATION_FRAME_SIZE / 2) * 0.6;
 };
 
 Character.prototype.reset = function () {

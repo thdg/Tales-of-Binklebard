@@ -62,6 +62,9 @@ var util = {
         return c.charCodeAt(0);
     },
 
+    getRadFromDir: function(direction) {
+        return Math.PI*(2-direction/2);
+    },
 
     // DISTANCES
 
