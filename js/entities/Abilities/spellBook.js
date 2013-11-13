@@ -8,6 +8,8 @@ var spellBook =
     {
         var spell =
         {
+            manacost: 20,
+
             descr: {
 				range       : TILE_SIZE*1,
 				aoe         : 1,
@@ -15,11 +17,13 @@ var spellBook =
 				duration    : 2*SECS_TO_NOMINALS,
                 coolDown    : 2*SECS_TO_NOMINALS,
 				vel         : 0,
-                direction   : 0
+                direction   : 0,
             },
 
             cast: function (caster)
             {
+                if(!caster.drainEnergy(this.manaCost)) return;
+
                 this.descr.findTarget = function(){ return caster; };
                 this.descr.move   = function() {this.cx = caster.cx;this.cy = caster.cy;};
                 this.descr.target = function (entity) { entity.hp+= caster.Wis*2; };
@@ -38,10 +42,12 @@ var spellBook =
     {
         var spell = 
         {
+            manacost : 20,
+
             descr: {
                 range       : TILE_SIZE*12,
-                aoe         : 1.2*TILE_SIZE/3,
-                model       : new Animation ( g_sprites.magicMissile, 0, 0, 48 ),
+                aoe         : 1.1*TILE_SIZE/3,
+                model       : new Animation ( g_sprites.fireball, 0, 0, 48 ),
                 duration    : SECS_TO_NOMINALS*100,
                 coolDown    : SECS_TO_NOMINALS/2,
                 vel         : 360/SECS_TO_NOMINALS,
@@ -50,6 +56,8 @@ var spellBook =
 
             cast : function(caster)
             {
+                if(!caster.drainEnergy(this.manaCost)) return;
+
                 this.descr.target         = function (entity) { entity.kill(); };
                 var distance 			  = caster.getRadius()+this.descr.aoe;
                 this.descr.cx             = caster.cx+distance*Math.cos(util.getRadFromDir(caster.direction));

@@ -7,10 +7,12 @@
 var keys = [];
 
 function handleKeydown(evt) {
+	evt.preventDefault();
     keys[evt.keyCode] = true;
 }
 
 function handleKeyup(evt) {
+	evt.preventDefault();
     keys[evt.keyCode] = false;
 }
 

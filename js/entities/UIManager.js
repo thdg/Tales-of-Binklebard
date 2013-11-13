@@ -1,6 +1,6 @@
 "use strict";
 
-	var UIManager = {
+var UIManager = {
 
 	init : function() {
 		this.bar = g_sprites.uibar;
@@ -43,7 +43,7 @@
 		ctx.arc(this._cx+68, this._cy+547, this.hpRatio * 40, 0, 2 * Math.PI);
 		ctx.arc(this._cx+730, this._cy+547, this.energyRatio * 40, 0, 2 * Math.PI);
 		ctx.closePath();
-		
+
 		ctx.fill();
 
 		ctx.fillstyle = oldastyle;
