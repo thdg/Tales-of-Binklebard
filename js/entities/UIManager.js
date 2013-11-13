@@ -33,10 +33,12 @@
 		gradient.addColorStop(0.90,"#00f");
 		gradient.addColorStop(0.93, "#001");
 		ctx.fillStyle = gradient;
-	
+		
+		ctx.beginPath();
 		ctx.arc(this._cx+68, this._cy+547, 20, 0, 2 * Math.PI);
 		ctx.arc(this._cx+730, this._cy+547, 20, 0, 2 * Math.PI);
-
+		ctx.closePath();
+		
 		ctx.fill();
 
 		ctx.fillstyle = oldastyle;

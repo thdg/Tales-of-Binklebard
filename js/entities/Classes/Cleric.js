@@ -11,8 +11,6 @@ function Cleric(descr) {
 
     this.wis + 2;
     this.dex - 2;
-    
-    this.sprite = this.sprite || g_sprites.link;
 }
 
 Cleric.prototype.updateStats = function () {
