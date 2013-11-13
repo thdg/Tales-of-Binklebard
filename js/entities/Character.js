@@ -81,6 +81,22 @@ Character.prototype.update = function (du) {
     renderingManager.register(this);
 };
 
+Character.prototype.drainEnergy = function(energy)
+{
+    return true;
+};
+
+Character.prototype.strike = function()
+{
+    var strikeX = 16*Math.cos(util.getRadFromDir(this.direction));
+    var strikeY = 16*Math.sin(util.getRadFromDir(this.direction));
+    var target = spatialManager.findEntityInRange(this.cx+strikeX,this.cy+strikeY,15);
+    if ( target )
+    {
+        target.kill();
+    }
+}
+
 Character.prototype.abilities = function(du)
 {
     // CONSIDER CHANGING THIS
@@ -160,7 +176,10 @@ Character.prototype.move = function (du) {
     }
 
     if (keys[this.KEY_ATTACK])
+    {
         this.model.attack();
+        this.strike();
+    }
 
     if (world.getRegion().collidesWith({ posX: this.cx, posY: this.cy}, this.getRadius())) {
         this.cx = oldX;
