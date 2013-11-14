@@ -196,7 +196,7 @@ Character.prototype.getRadius = function () {
 
 Character.prototype.lvlup = function () {
     this.lvl++;
-    this.updateStats();
+    //this.updateStats();
 	this.nextExp = this.nextLvl(this.lvl);
 };
 
