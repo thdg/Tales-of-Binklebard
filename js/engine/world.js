@@ -28,6 +28,10 @@ getRegion: function() {
     return this._activeRegion;
 },
 
+collidesWith: function(x, y, r) {
+	return this._activeRegion.collidesWith(x, y, r);
+},
+
 getHeight: function() {
     return this._activeRegion.height;
 },

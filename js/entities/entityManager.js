@@ -6,7 +6,6 @@
 
 \************************************************************************/
 
-
 var entityManager = {
 
     // "PRIVATE" DATA
@@ -18,7 +17,6 @@ var entityManager = {
 
 
     // "PRIVATE" METHODS
-
 
     _generateSoldiers : function(num) {
         var i,
@@ -64,7 +62,6 @@ var entityManager = {
     // PUBLIC METHODS
 	
     KILL_ME_NOW : -1,
-
 
     deferredSetup : function () {
         this._categories = [this._items, this._soldiers, this._character, this._effects];
