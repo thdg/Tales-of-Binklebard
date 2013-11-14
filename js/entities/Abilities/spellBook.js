@@ -62,7 +62,7 @@ var spellbook =
                 this.descr.cy             = caster.cy+distance*Math.sin(util.getRadFromDir(caster.direction));
                 this.descr.direction      = caster.direction;
                 this.descr.model.rotation = util.getRadFromDir(caster.direction);
-                this.descr.damage         = 40+Math.floor(caster.lvl/3)*40+caster.wis;\
+                this.descr.damage         = 40+Math.floor(caster.lvl/3)*40+caster.wis;
                 entityManager.createEffect(this.descr);
             }
         }
