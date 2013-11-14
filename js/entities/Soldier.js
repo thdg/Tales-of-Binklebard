@@ -138,9 +138,9 @@ Soldier.prototype.render = function (ctx) {
 
 Soldier.prototype.renderHP = function (ctx) {
     var x = this.cx, y = this.cy;
-    var w = 50, h = 8;
-    var offsetY = 60;
-    var padding = 2;
+    var w = 50, h = 6;
+    var offsetY = 50;
+    var padding = 1;
 
     var hpLeft = this.getHpRatio();
     var hpStyle = hpLeft>0.5  ? "green"  :
