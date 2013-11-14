@@ -3,23 +3,9 @@
 var g_canvas = document.getElementById("myCanvas");
 var g_ctx = g_canvas.getContext("2d");
 
-// GATHER INPUTS
-
 function gatherInputs() {
     // Nothing to do here!
-    // The event handlers do everything we need for now.
 }
-
-
-// UPDATE SIMULATION
-
-// We take a very layered approach here...
-//
-// The primary `update` routine handles generic stuff such as
-// pausing, single-step, and time-handling.
-//
-// It then delegates the game-specific logic to `updateSimulation`
-
 
 // GAME-SPECIFIC UPDATE LOGIC
 
@@ -60,17 +46,6 @@ function processDiagnostics() {
 
 }
 
-
-// RENDER SIMULATION
-
-// We take a very layered approach here...
-//
-// The primary `render` routine handles generic stuff such as
-// the diagnostic toggles (including screen-clearing).
-//
-// It then delegates the game-specific logic to `gameRender`
-
-
 // GAME-SPECIFIC RENDERING
 
 function renderSimulation(ctx) {
@@ -99,9 +74,10 @@ function requestPreloads() {
         sparcles         : "img/Sparcles.png",
         magicMissile     : "img/magicMissile.png",
         greenSoldier     : "img/greenMonster.png",
-        wizard           : "img/wizard.png",
-        goblin           : "img/goblin.png",
 		uibar         	 : "img/UIbar.png",
+		fireball         : "img/fireball.png",
+		tent         	 : "img/Tent.png",
+		campfire         : "img/campfire.png",
 		uimap        	 : "img/UImap.png"
 
     };
@@ -113,32 +89,56 @@ var g_sprites = {};
 
 function preloadDone() {
 
-    
+    /***************************************************
+	-------Humanoids------------------------------
+	***************************************************/
+	
     g_sprites.link = new Sprite(g_images.link);
     g_sprites.link.scale = 2;
 
     g_sprites.greenSoldier = new Sprite(g_images.greenSoldier);
     g_sprites.greenSoldier.scale = 1.8;
+	
+	/***************************************************
+	-------terrain------------------------------
+	***************************************************/
+	g_sprites.tent = new Sprite(g_images.tent);
+    g_sprites.tent.scale = 1;
+	
+	g_sprites.campfire = new Sprite(g_images.campfire);
+    g_sprites.campfire.scale = 1;
+	
+	tilesheet.setTileset(g_images.terrain, 8);
+    tiles.init();
+	
+	g_sprites.terrain  = new Sprite(g_images.terrain);
 
-    g_sprites.wizard = new Sprite(g_images.wizard);
-    g_sprites.goblin = new Sprite(g_images.goblin);
-
-	g_sprites.uibar = new Sprite(g_images.uibar);
-	g_sprites.uimap = new Sprite(g_images.uimap);
-
-    g_sprites.terrain  = new Sprite(g_images.terrain);
-    g_sprites.sparcles = new Sprite(g_images.sparcles);
+	/***************************************************
+	-------Spell pictures------------------------------
+	***************************************************/
     g_sprites.magicMissile = new Sprite(g_images.magicMissile);
     g_sprites.magicMissile.scale = 1.5;
-
-    tilesheet.setTileset(g_images.terrain, 8);
-    tiles.init();
+	
+	g_sprites.fireball = new Sprite(g_images.fireball);
+    g_sprites.fireball.scale = 2.2;
+	
+	g_sprites.sparcles = new Sprite(g_images.sparcles);
+	
+	/***************************************************
+	-------User interface------------------------------
+	***************************************************/
+	
+    g_sprites.uibar = new Sprite(g_images.uibar);
+	g_sprites.uimap = new Sprite(g_images.uimap);
+	
+	/**************************************************/
     
-    // no worries, þetta verður lesið inn af skrá!
+	//Random generate the World map.
     map = generateMap(50,50);
-    var highlands = new Region(map.map, map.heightmap);
+    var highlands = new Region(map.map, map.heightmap); 
     world.addRegion(highlands);
 
+	//initialize game components
 	UIManager.init();
     entityManager.init();
     main.init();

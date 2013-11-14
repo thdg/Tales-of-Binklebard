@@ -185,5 +185,5 @@ Soldier.prototype.renderHP = function (ctx) {
 
 Soldier.prototype.getHpRatio = function () {
 
-    return (this.hp-this.damageTaken)/this.hp;
+    return Math.max(0,(this.hp-this.damageTaken)/this.hp);
 };

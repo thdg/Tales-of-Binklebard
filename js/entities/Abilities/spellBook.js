@@ -25,7 +25,7 @@ var spellbook =
 
                 this.descr.findTarget = function(){ return caster; };
                 this.descr.move   = function() {this.cx = caster.cx;this.cy = caster.cy;};
-                this.descr.target = function (entity) { entity.takeDamage(-(20+caster.wis), false); };
+                this.descr.target = function (entity) { entity.heal(20+caster.wis); };
                 this.descr.cx = caster.cx;
                 this.descr.cy = caster.cy;
                 entityManager.createEffect(this.descr);
