@@ -11,13 +11,11 @@ function Character(descr) {
 
 	this.setup(descr);
 	this.rotation = 0;
+    this.randomizePos();
 
     // TEMPORARY
-    // =========
-	this.Heal         = spellbook.heal(1,1);
+    this.Heal         = spellbook.heal(1,1);
     this.MagicMissile = spellbook.magicMissile(1,1);
-    // =========
-
 }
 
 Character.prototype = new Entity();
@@ -34,7 +32,6 @@ Character.prototype.KEY_UP    = UP_ARROW;
 Character.prototype.KEY_DOWN  = DOWN_ARROW;
 Character.prototype.KEY_LEFT  = LEFT_ARROW;
 Character.prototype.KEY_RIGHT = RIGHT_ARROW;
-
 
 Character.prototype.marginBottom = 7;
 
@@ -74,6 +71,9 @@ Character.prototype.update = function (du) {
     this.move(du);
     this.abilities(du);
     this.model.update(du);
+
+    var energyRegen = 0.5*this.spirit/SECS_TO_NOMINALS*du;
+    this.energyUsed = Math.max(0, this.energyUsed-energyRegen);
 
     spatialManager.register(this);
     renderingManager.register(this);

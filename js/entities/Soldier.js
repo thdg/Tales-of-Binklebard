@@ -19,31 +19,19 @@ function Soldier(descr) {
     this.setup(descr);
     this.rotation = 0;
 
-    this.randomizePosition();
+    this.randomizePos();
     this.randomizeVelocity();
 
     this.hp = 100;
     this.armor = 50;
     this.damageTaken = 0;
+    this.expReward = 500;
 
 }
 
 Soldier.prototype = new Entity();
 
 Soldier.prototype.margin = 7;
-
-Soldier.prototype.randomizePosition = function () {
-    
-    // Soldier randomisation defaults (if nothing otherwise specified)
-    this.cx = this.cx || Math.random() * world.getWidth();
-    this.cy = this.cy || Math.random() * world.getHeight();
-
-    while (world.getRegion().collidesWith({ posX: this.cx, posY: this.cy}, this.getRadius())) {
-        this.cx = Math.random() * world.getWidth();
-        this.cy = Math.random() * world.getHeight();
-    }
-
-};
 
 Soldier.prototype.randomizeVelocity = function () {
 
@@ -60,8 +48,10 @@ Soldier.prototype.update = function (du) {
 
     spatialManager.unregister(this);
     renderingManager.unregister(this);
-    if (this._isDeadNow)
+    if (this._isDeadNow) {
+        entityManager.getCharacter().addExp(this.expReward);
         return entityManager.KILL_ME_NOW;
+    }
 
     this.move(du);
     this.model.update(du);
@@ -153,7 +143,11 @@ Soldier.prototype.renderHP = function (ctx) {
         "black"
     );
 
-    var style = hpLeft<0.25 ? "red" : "green"
+    var style = hpLeft<0.5 ? 
+                hpLeft<0.25 ? 
+                "red" : 
+                "orange" : 
+                "green";
 
     util.fillBox(
         ctx, 

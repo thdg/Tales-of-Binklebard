@@ -8,8 +8,6 @@ var spellbook =
     {
         var spell =
         {
-            manacost: 20,
-
             descr: {
 				range       : TILE_SIZE*1,
 				aoe         : 1,
@@ -22,7 +20,8 @@ var spellbook =
 
             cast: function (caster)
             {
-                if(!caster.drainEnergy(this.manaCost)) return;
+                var manacost = caster.energy*0.1; // blah, until later
+                if(!caster.drainEnergy(manacost)) return;
 
                 this.descr.findTarget = function(){ return caster; };
                 this.descr.move   = function() {this.cx = caster.cx;this.cy = caster.cy;};
