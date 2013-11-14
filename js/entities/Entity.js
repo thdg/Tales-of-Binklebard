@@ -90,3 +90,7 @@ Entity.prototype.findHitEntity = function () {
 Entity.prototype.isColliding = function () {
     return this.findHitEntity();
 };
+
+Entity.prototype.takeDamage = function () {
+    
+};

@@ -103,10 +103,10 @@ function preloadDone() {
 	-------terrain------------------------------
 	***************************************************/
 	g_sprites.tent = new Sprite(g_images.tent);
-    g_sprites.tent.scale = 1;
+    g_sprites.tent.scale = 1.5;
 	
 	g_sprites.campfire = new Sprite(g_images.campfire);
-    g_sprites.campfire.scale = 1;
+    g_sprites.campfire.scale = 1.5;
 	
 	tilesheet.setTileset(g_images.terrain, 8);
     tiles.init();

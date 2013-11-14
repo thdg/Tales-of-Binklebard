@@ -61,6 +61,13 @@ var entityManager = {
         }
     },
 
+    _generateCamp : function() {
+        var tent = new Tent();
+        var pos  = tent.getPos();
+        this._items.push(tent);
+        this._items.push(new Fireplace({cx:pos.posX-2*TILE_SIZE,cy:pos.posY+2*TILE_SIZE}));
+    },
+
     // PUBLIC METHODS
 	
     KILL_ME_NOW : -1,
@@ -75,6 +82,7 @@ var entityManager = {
         var character = new Character({model: link, cx:200, cy:200});
         this._character.push(character);
         this._generateSoldiers(50);
+        this._generateCamp();
         camera.centerAt(character);
 		UIManager.follow(character);
     },
