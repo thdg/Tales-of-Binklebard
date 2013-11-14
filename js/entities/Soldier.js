@@ -31,8 +31,9 @@ function Soldier(descr) {
 
 Soldier.prototype = new Entity();
 
-Soldier.prototype.margin = 7;
-Soldier.prototype.damage = 12;
+Soldier.prototype.margin      = 7;
+Soldier.prototype.damage      = 12;
+Soldier.prototype.doingDamage = 0;
 
 Soldier.prototype.randomizePosition = function () {
     
@@ -62,7 +63,10 @@ Soldier.prototype.update = function (du) {
 
     spatialManager.unregister(this);
     renderingManager.unregister(this);
-    if (this._isDeadNow) {
+
+    if ( this.doingDamage >  0 ) this.doingDamage -= du;
+    if ( this.doingDamage <= 0 ) this.doingDamage = 0;
+    if ( this._isDeadNow ) {
         entityManager.getCharacter().addExp(this.expReward);
         return entityManager.KILL_ME_NOW;
     }
@@ -122,17 +126,12 @@ Soldier.prototype.hit = function(collision)
 {
     var characterID = entityManager.getCharacter().getSpatialID();
     
-    if (characterID === collision.getSpatialID())
+    if (characterID === collision.getSpatialID() && this.doingDamage <= 0)
     {
-        console.log(collision);
+        this.doingDamage = 0.25*SECS_TO_NOMINALS;
         
-        
-        //console.log(collision.takeDamage(this.damage));
-        collision.takeDamage(this.damage/SECS_TO_NOMINALS);
-        //console.log(collision.pushBack(this.rotation,10));
-        /*
-        collision.pushBack(this.direction,10);
-        */
+        collision.takeDamage(this.damage);
+
     }
     
         

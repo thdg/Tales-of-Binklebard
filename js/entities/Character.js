@@ -41,27 +41,31 @@ Character.prototype.KEY_HEAL         = '1'.charCodeAt(0);
 Character.prototype.KEY_MAGIC_MISSLE = '2'.charCodeAt(0);
 
 // NEEDS REFINEMENT
-Character.prototype.isCasting  = false;
-Character.prototype.coolDown   = 0;
+Character.prototype.isCasting    = false;
+Character.prototype.coolDown     = 0;
 
-Character.prototype.str  = 12;
-Character.prototype.dex  = 12;
-Character.prototype.wis  = 12;
-Character.prototype.spirit = 12;
+Character.prototype.str          = 12;
+Character.prototype.dex          = 12;
+Character.prototype.wis          = 12;
+Character.prototype.spirit       = 12;
 
-Character.prototype.lvl = 1;
-Character.prototype.experience = 0;
+Character.prototype.lvl          = 1;
+Character.prototype.experience   = 0;
 
-Character.prototype.hp = 100;
-Character.prototype.armor = 25;
-Character.prototype.energy = 100;
-Character.prototype.damage = 10;
+Character.prototype.hp           = 100;
+Character.prototype.armor        = 25;
+Character.prototype.energy       = 100;
+Character.prototype.damage       = 10;
 
-Character.prototype.damageTaken = 0;
-Character.prototype.energyUsed = 0;
+Character.prototype.damageTaken  = 0;
+Character.prototype.energyUsed   = 0;
+Character.prototype.doingDamage  = 0;
 
 Character.prototype.update = function (du) {
     
+    if (this.doingDamage <  0 ) this.doingDamage -= du;
+    if (this.doingDamage >= 0 ) this.doingDamage  = 0;
+
     spatialManager.unregister(this);
     renderingManager.unregister(this);
     if (this._isDeadNow) return entityManager.KILL_ME_NOW;
@@ -87,9 +91,11 @@ Character.prototype.strike = function()
     var strikeX = 16*Math.cos(util.getRadFromDir(this.direction));
     var strikeY = 16*Math.sin(util.getRadFromDir(this.direction));
     var target = spatialManager.findEntityInRange(this.cx+strikeX,this.cy+strikeY,15);
-    if ( target )
+
+    if ( target && this.doingDamage <= 0)
     {
-        target.kill();
+        this.doingDamage = 0.5*SECS_TO_NOMINALS;
+        target.takeDamage(this.damage + this.str+this.dex);
     }
 }
 
