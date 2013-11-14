@@ -25,6 +25,7 @@ function Soldier(descr) {
     this.hp = 100;
     this.armor = 50;
     this.damageTaken = 0;
+    this.expReward = 500;
 
 }
 
@@ -60,8 +61,10 @@ Soldier.prototype.update = function (du) {
 
     spatialManager.unregister(this);
     renderingManager.unregister(this);
-    if (this._isDeadNow)
+    if (this._isDeadNow) {
+        entityManager.getCharacter().addExp(this.expReward);
         return entityManager.KILL_ME_NOW;
+    }
 
     this.move(du);
     this.model.update(du);
@@ -153,7 +156,11 @@ Soldier.prototype.renderHP = function (ctx) {
         "black"
     );
 
-    var style = hpLeft<0.25 ? "red" : "green"
+    var style = hpLeft<0.5 ? 
+                hpLeft<0.25 ? 
+                "red" : 
+                "orange" : 
+                "green";
 
     util.fillBox(
         ctx, 
