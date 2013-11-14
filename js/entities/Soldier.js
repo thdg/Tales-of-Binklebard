@@ -39,6 +39,7 @@ function Soldier(descr) {
 Soldier.prototype = new Entity();
 
 Soldier.prototype.margin = 7;
+Soldier.prototype.damage = 12;
 
 Soldier.prototype.randomizePosition = function () {
     
@@ -110,6 +111,9 @@ Soldier.prototype.move = function (du) {
     }
     else this.randomizeVelocity();
 
+    var collision  = spatialManager.findEntityInRange(this.cx, this.cy, this.getRadius());
+    if (collision) this.hit(collision);
+
     if (world.getRegion().collidesWith({ posX: this.cx, posY: this.cy}, this.getRadius())) {
         this.cx = oldX;
         this.cy = oldY;
@@ -118,6 +122,27 @@ Soldier.prototype.move = function (du) {
 
 
 };
+
+Soldier.prototype.hit = function(collision)
+{
+    var characterID = entityManager.getCharacter().getSpatialID();
+    
+    if (characterID === collision.getSpatialID())
+    {
+        console.log(collision);
+        
+        
+        //console.log(collision.takeDamage(this.damage));
+        collision.takeDamage(this.damage/SECS_TO_NOMINALS);
+        //console.log(collision.pushBack(this.rotation,10));
+        /*
+        collision.pushBack(this.direction,10);
+        */
+    }
+    
+        
+
+}
 
 Soldier.prototype.getRadius = function () {
     return (ANIMATION_FRAME_SIZE / 2) * 0.6;

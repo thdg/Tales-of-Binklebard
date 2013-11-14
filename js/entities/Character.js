@@ -214,8 +214,10 @@ Character.prototype.takeDamage = function (damage, ignoreArmor) {
     var damageReduction = ignoreArmor ? 1 : this.armor/this.hp;
     this.damageTaken -= damage * damageReduction;
 
+    console.log("hp: "+this.hp);
+
     if (this.damageTaken<this.hp) this._isDeadNow = true;
-}
+};
 
 Character.prototype.getHpRatio = function () {
 
@@ -226,3 +228,16 @@ Character.prototype.getEnergyRatio = function () {
 
     return (this.energy-this.energyUsed)/this.energy;
 };
+
+Character.prototype.pushBack = function(direction,force)
+{
+    var rad = util.getRadFromDir(direction);
+    this.cx += force*Math.cos(rad);
+    this.cy += force*Math.sin(rad);
+    console.log(force);
+    console.log(rad);
+    console.log(direction);
+    console.log(this.cx);
+    console.log(this.cy);
+    console.log('everything okey');
+}

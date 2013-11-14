@@ -60,8 +60,9 @@ var spellBook =
 
                 this.descr.target         = function (entity) { entity.kill(); };
                 var distance 			  = caster.getRadius()+this.descr.aoe;
-                this.descr.cx             = caster.cx+distance*Math.cos(util.getRadFromDir(caster.direction));
-                this.descr.cy             = caster.cy+distance*Math.sin(util.getRadFromDir(caster.direction));
+                var rad                   = util.getRadFromDir(caster.direction);
+                this.descr.cx             = caster.cx+distance*Math.cos(rad);
+                this.descr.cy             = caster.cy+distance*Math.sin(rad);
                 this.descr.direction      = caster.direction;
                 this.descr.model.rotation = util.getRadFromDir(caster.direction);
 				
