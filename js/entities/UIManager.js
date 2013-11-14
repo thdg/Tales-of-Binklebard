@@ -7,6 +7,7 @@ var UIManager = {
 		this.map = g_sprites.uimap;
 		this._cx = 0;
 		this._cy = 0;
+		this.posXp = 0;
 	},
 
 	update: function(du) {
@@ -15,6 +16,8 @@ var UIManager = {
 		this.energyRatio = this._character.getEnergyRatio();
 		this._cx = pos.posX;
 		this._cy = pos.posY;
+		
+		this.calculateBar();
 	},
 	
 	follow : function (character) {
@@ -25,8 +28,34 @@ var UIManager = {
 		this.lifeBall(ctx);
 		this.bar.drawAt(ctx, this._cx, this._cy);
 		this.map.drawAt(ctx, this._cx, this._cy);
+		this.renderXp(ctx);
 	},
 
+	renderXp : function (ctx) {
+		var startX = 200,
+			finishX = 600,
+			startY = 593;
+		
+		util.fillBox(
+			ctx, 
+			this._cx + startX, 
+			this._cy + startY, 
+			finishX * this.posXp,
+			3,
+			"Yellow"
+		);
+	},
+	
+	calculateBar : function () {
+		var lvl = this._character.lvl - 1;
+		
+		var startExp = this._character.nextLvl(lvl);
+		var exp = this._character.experience - startExp;
+		var nextExp = this._character.nextExp - startExp;
+		
+		this.posXp = exp / nextExp;
+	},
+	
 	lifeBall: function(ctx) {
 	
 		var oldastyle = ctx.fillstyle;
