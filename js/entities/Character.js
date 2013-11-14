@@ -12,6 +12,8 @@ function Character(descr) {
 	this.setup(descr);
 	this.rotation = 0;
     this.randomizePos();
+	
+	this.nextExp = this.nextLvl(this.lvl);
 
     // TEMPORARY
     this.Heal         = spellbook.heal(1,1);
@@ -209,7 +211,7 @@ Character.prototype.addExp = function (expReward) {
 };
 Character.prototype.nextLvl = function(lvl)
 {
-    return (lvl * lvl * 1000) + lvl * 2000);
+    return ((lvl * lvl * 1000) + lvl * 2000);
 };
 
 Character.prototype.takeDamage = function (damage, ignoreArmor) {

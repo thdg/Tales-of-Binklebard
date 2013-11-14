@@ -38,8 +38,8 @@ var UIManager = {
 		
 		util.fillBox(
 			ctx, 
-			startX, 
-			startY, 
+			this._cx + startX, 
+			this._cy + startY, 
 			finishX * this.posXp,
 			3,
 			"Yellow"
@@ -48,6 +48,7 @@ var UIManager = {
 	
 	calculateBar : function () {
 		var lvl = this._character.lvl - 1;
+		
 		var startExp = this._character.nextLvl(lvl);
 		var exp = this._character.experience - startExp;
 		var nextExp = this._character.nextExp - startExp;
