@@ -10,24 +10,15 @@
 function Character(descr) {
 
 	this.setup(descr);
-	this.rotation = 0;
     this.randomizePos();
 	
 	this.nextExp = this.nextLvl(this.lvl);
 
-    // TEMPORARY
     this.Heal         = spellbook.heal(1,1);
     this.MagicMissile = spellbook.magicMissile(1,1);
 }
 
 Character.prototype = new Entity();
-
-Character.prototype.rememberResets = function () {
-    // Remember my reset positions
-    this.reset_cx = this.cx;
-    this.reset_cy = this.cy;
-    this.reset_rotation = this.rotation;
-};
 
 //Setting keys for movement and attack,
 Character.prototype.KEY_UP    = UP_ARROW;
@@ -37,7 +28,7 @@ Character.prototype.KEY_RIGHT = RIGHT_ARROW;
 
 Character.prototype.marginBottom = 7;
 
-Character.prototype.direction = FACE_DOWN;
+Character.prototype.direction = FACE_DOWN; // default direction
 
 Character.prototype.KEY_ATTACK = ' '.charCodeAt(0);
 Character.prototype.KEY_HEAL         = '1'.charCodeAt(0);
@@ -84,11 +75,6 @@ Character.prototype.update = function (du) {
     renderingManager.register(this);
 };
 
-Character.prototype.drainEnergy = function(energy)
-{
-    return true;
-};
-
 Character.prototype.strike = function()
 {
     var strikeX = 16*Math.cos(util.getRadFromDir(this.direction));
@@ -102,17 +88,16 @@ Character.prototype.strike = function()
     }
 }
 
+// this is bad, me change this later
 Character.prototype.abilities = function(du)
 {
-    // CONSIDER CHANGING THIS
-    // ======================
     if (keys[this.KEY_HEAL] && !this.isCasting) 
     {
         this.isCasting = true;
         this.Heal.cast(this);
         this.coolDown = this.Heal.descr.coolDown;
 
-        this.model.attack();    //should be model.cast();
+        this.model.attack(); //should be model.cast();
 
     } else if(this.isCasting)
     {
@@ -130,7 +115,7 @@ Character.prototype.abilities = function(du)
         this.MagicMissile.cast(this);
         this.coolDown = this.MagicMissile.descr.coolDown;
 
-        this.model.attack();    //should be model.cast();
+        this.model.attack(); //should be model.cast();
 
     } else if(this.isCasting)
     {
@@ -141,7 +126,6 @@ Character.prototype.abilities = function(du)
             this.isCasting = false;
         }
     }
-    // ======================
 }
 
 Character.prototype.move = function (du) {
@@ -186,7 +170,7 @@ Character.prototype.move = function (du) {
         this.strike();
     }
 
-    if (world.getRegion().collidesWith({ posX: this.cx, posY: this.cy}, this.getRadius())) {
+    if (world.collidesWith(this.cx, this.cy, this.getRadius())) {
         this.cx = oldX;
         this.cy = oldY;
     }
@@ -216,8 +200,8 @@ Character.prototype.addExp = function (expReward) {
     
 };
 
-Character.prototype.nextLvl = function(lvl)
-{
+Character.prototype.nextLvl = function(lvl) {
+
     return ((lvl * lvl * 1000) + lvl * 2000);
 };
 
@@ -247,17 +231,11 @@ Character.prototype.getEnergyRatio = function () {
 };
 
 
-Character.prototype.pushBack = function(direction,force)
-{
+Character.prototype.pushBack = function(direction,force) {
+
     var rad = util.getRadFromDir(direction);
     this.cx += force*Math.cos(rad);
     this.cy += force*Math.sin(rad);
-    console.log(force);
-    console.log(rad);
-    console.log(direction);
-    console.log(this.cx);
-    console.log(this.cy);
-    console.log('everything okey');
 };
 
 Character.prototype.drainEnergy = function (cost) {

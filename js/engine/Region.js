@@ -25,12 +25,12 @@ Region.prototype.update = function (du) {
     
 }
 
-Region.prototype.collidesWith = function (pos, radius) {
+Region.prototype.collidesWith = function (x, y, r) {
 
-    return this.collidePoint(pos.posX-radius,pos.posY) ||
-           this.collidePoint(pos.posX+radius,pos.posY) ||
-           this.collidePoint(pos.posX,pos.posY-radius) ||
-           this.collidePoint(pos.posX,pos.posY+radius);
+    return this.collidePoint(x-r,y) ||
+           this.collidePoint(x+r,y) ||
+           this.collidePoint(x,y-r) ||
+           this.collidePoint(x,y+r);
 }
 
 Region.prototype.collidePoint = function (x, y) {

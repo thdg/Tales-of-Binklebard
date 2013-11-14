@@ -141,6 +141,7 @@ function preloadDone() {
 	//initialize game components
 	UIManager.init();
     entityManager.init();
+
     main.init();
 }
 
