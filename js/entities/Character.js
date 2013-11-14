@@ -13,11 +13,8 @@ function Character(descr) {
 	this.rotation = 0;
 
     // TEMPORARY
-    // =========
-	this.Heal         = spellBook.heal(1,1);
-    this.MagicMissile = spellBook.magicMissile(1,1);
-    // =========
-
+    this.Heal         = spellbook.heal(1,1);
+    this.MagicMissile = spellbook.magicMissile(1,1);
 }
 
 Character.prototype = new Entity();
@@ -35,13 +32,11 @@ Character.prototype.KEY_DOWN  = DOWN_ARROW;
 Character.prototype.KEY_LEFT  = LEFT_ARROW;
 Character.prototype.KEY_RIGHT = RIGHT_ARROW;
 
-Character.prototype.KEY_ATTACK = ' '.charCodeAt(0);
-
-Character.prototype.margin = 7;
+Character.prototype.marginBottom = 7;
 
 Character.prototype.direction = FACE_DOWN;
 
-// TEMPROARY
+Character.prototype.KEY_ATTACK = ' '.charCodeAt(0);
 Character.prototype.KEY_HEAL         = '1'.charCodeAt(0);
 Character.prototype.KEY_MAGIC_MISSLE = '2'.charCodeAt(0);
 
@@ -74,6 +69,9 @@ Character.prototype.update = function (du) {
     this.move(du);
     this.abilities(du);
     this.model.update(du);
+
+    var energyRegen = 0.5*this.spirit/SECS_TO_NOMINALS*du;
+    this.energyUsed = Math.max(0, this.energyUsed-energyRegen);
 
     spatialManager.register(this);
     renderingManager.register(this);
@@ -187,7 +185,7 @@ Character.prototype.move = function (du) {
 };
 
 Character.prototype.render = function (ctx) {
-    this.model.drawCentredAt(ctx, this.cx, this.cy-this.margin);
+    this.model.drawCentredAt(ctx, this.cx, this.cy-this.marginBottom);
 };
 
 Character.prototype.getRadius = function () {
@@ -200,11 +198,12 @@ Character.prototype.lvlup = function () {
 };
 
 Character.prototype.addExp = function (expReward) {
-
+/*
     this.experience = this.experience + expReward;
     if (this.experience >= (lvl * lvl * 1000) + lvl * 2000) {
         this.lvlup();
     }
+    */
 };
 
 Character.prototype.takeDamage = function (damage, ignoreArmor) {
@@ -212,12 +211,11 @@ Character.prototype.takeDamage = function (damage, ignoreArmor) {
     if (ignoreArmor===undefined) ignoreArmor = false;
 
     var damageReduction = ignoreArmor ? 1 : this.armor/this.hp;
-    this.damageTaken -= damage * damageReduction;
+    this.damageTaken += damage * damageReduction;
 
-    console.log("hp: "+this.hp);
 
-    if (this.damageTaken<this.hp) this._isDeadNow = true;
-};
+    if (this.damageTaken>this.hp) this.kill();
+}
 
 Character.prototype.getHpRatio = function () {
 
@@ -228,6 +226,7 @@ Character.prototype.getEnergyRatio = function () {
 
     return (this.energy-this.energyUsed)/this.energy;
 };
+
 
 Character.prototype.pushBack = function(direction,force)
 {
@@ -240,4 +239,12 @@ Character.prototype.pushBack = function(direction,force)
     console.log(this.cx);
     console.log(this.cy);
     console.log('everything okey');
-}
+};
+
+Character.prototype.drainEnergy = function (cost) {
+
+    if (this.energyUsed+cost>this.energy) return false;
+
+    this.energyUsed += cost;
+    return true;
+};

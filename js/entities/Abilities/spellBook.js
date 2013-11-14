@@ -2,14 +2,12 @@
 // SPELL BOOK
 // ----------
 
-var spellBook = 
+var spellbook = 
 {
 	heal: function(lvl, wis)
     {
         var spell =
         {
-            manacost: 20,
-
             descr: {
 				range       : TILE_SIZE*1,
 				aoe         : 1,
@@ -22,11 +20,12 @@ var spellBook =
 
             cast: function (caster)
             {
-                if(!caster.drainEnergy(this.manaCost)) return;
+                var manacost = caster.energy*0.1; // blah, until later
+                if(!caster.drainEnergy(manacost)) return;
 
                 this.descr.findTarget = function(){ return caster; };
                 this.descr.move   = function() {this.cx = caster.cx;this.cy = caster.cy;};
-                this.descr.target = function (entity) { entity.hp+= caster.Wis*2; };
+                this.descr.target = function (entity) { entity.takeDamage(-(20+caster.wis), false); };
                 this.descr.cx = caster.cx;
                 this.descr.cy = caster.cy;
                 entityManager.createEffect(this.descr);
@@ -42,8 +41,6 @@ var spellBook =
     {
         var spell = 
         {
-            manacost : 20,
-
             descr: {
                 range       : TILE_SIZE*12,
                 aoe         : 1.1*TILE_SIZE/3,
@@ -51,21 +48,21 @@ var spellBook =
                 duration    : SECS_TO_NOMINALS*100,
                 coolDown    : SECS_TO_NOMINALS/2,
                 vel         : 360/SECS_TO_NOMINALS,
-                
             },
 
             cast : function(caster)
             {
-                if(!caster.drainEnergy(this.manaCost)) return;
+                var manacost = caster.energy*0.1; // blah, until later
+                if(!caster.drainEnergy(manacost)) return;
 
-                this.descr.target         = function (entity) { entity.kill(); };
+                this.descr.target         = function (entity) { entity.takeDamage(this.damage); };
                 var distance 			  = caster.getRadius()+this.descr.aoe;
                 var rad                   = util.getRadFromDir(caster.direction);
                 this.descr.cx             = caster.cx+distance*Math.cos(rad);
                 this.descr.cy             = caster.cy+distance*Math.sin(rad);
                 this.descr.direction      = caster.direction;
                 this.descr.model.rotation = util.getRadFromDir(caster.direction);
-				
+                this.descr.damage         = 40+Math.floor(caster.lvl/3)*40+caster.wis;
                 entityManager.createEffect(this.descr);
             }
         }
