@@ -11,6 +11,7 @@ function Character(descr) {
 
 	this.setup(descr);
 	this.rotation = 0;
+    this.randomizePos();
 
     // TEMPORARY
     this.Heal         = spellbook.heal(1,1);

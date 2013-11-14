@@ -19,7 +19,7 @@ function Soldier(descr) {
     this.setup(descr);
     this.rotation = 0;
 
-    this.randomizePosition();
+    this.randomizePos();
     this.randomizeVelocity();
 
     this.hp = 100;
@@ -32,19 +32,6 @@ function Soldier(descr) {
 Soldier.prototype = new Entity();
 
 Soldier.prototype.margin = 7;
-
-Soldier.prototype.randomizePosition = function () {
-    
-    // Soldier randomisation defaults (if nothing otherwise specified)
-    this.cx = this.cx || Math.random() * world.getWidth();
-    this.cy = this.cy || Math.random() * world.getHeight();
-
-    while (world.getRegion().collidesWith({ posX: this.cx, posY: this.cy}, this.getRadius())) {
-        this.cx = Math.random() * world.getWidth();
-        this.cy = Math.random() * world.getHeight();
-    }
-
-};
 
 Soldier.prototype.randomizeVelocity = function () {
 
