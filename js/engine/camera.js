@@ -22,7 +22,7 @@ var camera = {
 
     _centerdEntity: undefined,
 
-    _margin: 0,
+    _margin: 32,
 
     KEY_UP: util.charCode('W'),
     KEY_DOWN: util.charCode('S'),

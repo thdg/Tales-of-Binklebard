@@ -48,8 +48,13 @@ getNewRenderingID : function() {
 
 register: function(entity) {
     
-    var onCamera = camera.isOnCamera(entity.getPos());
-    if (onCamera) this._addToQue(entity);
+    var visible = this.isVisible(entity.getPos());
+    if (visible) this._addToQue(entity);
+},
+
+// this function should be overwritten to change visibility
+isVisible: function(pos) {
+    return camera.isOnCamera(pos);
 },
 
 unregister: function(entity) {
