@@ -40,7 +40,7 @@ var UIManager = {
 			ctx, 
 			this._cx + startX, 
 			this._cy + startY, 
-			finishX * this.posXp,
+			(finishX-startX) * this.posXp,
 			3,
 			"Yellow"
 		);
