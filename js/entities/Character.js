@@ -55,6 +55,7 @@ Character.prototype.spirit = 12;
 
 Character.prototype.lvl = 1;
 Character.prototype.experience = 0;
+Character.prototype.nextExp;
 
 Character.prototype.hp = 100;
 Character.prototype.armor = 25;
@@ -196,14 +197,19 @@ Character.prototype.getRadius = function () {
 Character.prototype.lvlup = function () {
     this.lvl++;
     this.updateStats();
+	this.nextExp = this.nextLvl(this.lvl);
 };
 
 Character.prototype.addExp = function (expReward) {
 
     this.experience = this.experience + expReward;
-    if (this.experience >= (lvl * lvl * 1000) + lvl * 2000) {
+    if (this.experience >= this.nextExp) {
         this.lvlup();
     }
+};
+Character.prototype.nextLvl = function(lvl)
+{
+    return (lvl * lvl * 1000) + lvl * 2000);
 };
 
 Character.prototype.takeDamage = function (damage, ignoreArmor) {
@@ -214,7 +220,7 @@ Character.prototype.takeDamage = function (damage, ignoreArmor) {
     this.damageTaken += damage * damageReduction;
 
     if (this.damageTaken>this.hp) this.kill();
-}
+};
 
 Character.prototype.getHpRatio = function () {
 
