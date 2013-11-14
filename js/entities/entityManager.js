@@ -63,7 +63,7 @@ var entityManager = {
         var tent = new Tent();
         var pos  = tent.getPos();
         this._items.push(tent);
-        this._items.push(new Fireplace({cx:pos.posX-2*TILE_SIZE,cy:pos.posY+2*TILE_SIZE}));
+        this._items.push(new Fireplace({cx:pos.posX-TILE_SIZE,cy:pos.posY}));
     },
 
     // PUBLIC METHODS

@@ -10,6 +10,9 @@ function Tent(descr)
 
 Tent.prototype = new Entity();
 
+Tent.prototype.marginX =  TILE_SIZE*0.4;
+Tent.prototype.marginY = -TILE_SIZE*1.5;
+
 
 Tent.prototype.update = function(du)
 {
@@ -21,10 +24,10 @@ Tent.prototype.update = function(du)
 
 Tent.prototype.render = function(ctx)
 {
-    this.sprite.drawCentredAt(ctx,this.cx,this.cy);
+    this.sprite.drawCentredAt(ctx,this.cx+this.marginX,this.cy+this.marginY);
 }
 
 Tent.prototype.getRadius = function()
 {
-	return TILE_SIZE*4;
+	return TILE_SIZE*1.5;
 }
