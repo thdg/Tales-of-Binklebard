@@ -210,13 +210,14 @@ Character.prototype.lvlup = function () {
 };
 
 Character.prototype.addExp = function (expReward) {
-/*
+
     this.experience = this.experience + expReward;
     if (this.experience >= this.nextExp) {
         this.lvlup();
     }
-    */
+    
 };
+
 Character.prototype.nextLvl = function(lvl)
 {
     return ((lvl * lvl * 1000) + lvl * 2000);
@@ -239,12 +240,12 @@ Character.prototype.heal = function (hpBoost) {
 
 Character.prototype.getHpRatio = function () {
 
-    return (this.hp-this.damageTaken)/this.hp;
+    return Math.max(0,(this.hp-this.damageTaken)/this.hp);
 };
 
 Character.prototype.getEnergyRatio = function () {
 
-    return (this.energy-this.energyUsed)/this.energy;
+    return Math.max(0,(this.energy-this.energyUsed)/this.energy);
 };
 
 
