@@ -55,8 +55,6 @@ Character.prototype.spirit       = 12;
 Character.prototype.lvl          = 1;
 Character.prototype.experience   = 0;
 
-Character.prototype.nextExp;
-
 Character.prototype.hp           = 100;
 Character.prototype.armor        = 25;
 Character.prototype.energy       = 100;
@@ -210,12 +208,12 @@ Character.prototype.lvlup = function () {
 };
 
 Character.prototype.addExp = function (expReward) {
-/*
+
     this.experience = this.experience + expReward;
     if (this.experience >= this.nextExp) {
         this.lvlup();
     }
-    */
+    
 };
 Character.prototype.nextLvl = function(lvl)
 {
