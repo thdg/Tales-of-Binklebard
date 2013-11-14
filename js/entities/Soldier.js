@@ -156,7 +156,7 @@ Soldier.prototype.renderHP = function (ctx) {
     var w = 50, h = 8;
     var offsetY = 60;
     var padding = 2;
-    var hpLeft = this.getHpRatio();
+    var hpLeft = Math.max(0,this.getHpRatio());
 
     util.fillBox(
         ctx, 

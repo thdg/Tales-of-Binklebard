@@ -233,6 +233,10 @@ Character.prototype.takeDamage = function (damage, ignoreArmor) {
     if (this.damageTaken>this.hp) this.kill();
 };
 
+Character.prototype.heal = function (hpBoost) {
+    this.damageTaken = Math.max(0, this.damageTaken-hpBoost);
+};
+
 Character.prototype.getHpRatio = function () {
 
     return (this.hp-this.damageTaken)/this.hp;
