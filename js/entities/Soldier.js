@@ -31,7 +31,9 @@ function Soldier(descr) {
 
 Soldier.prototype = new Entity();
 
-Soldier.prototype.margin = 7;
+Soldier.prototype.margin      = 7;
+Soldier.prototype.damage      = 12;
+Soldier.prototype.doingDamage = 0;
 
 Soldier.prototype.randomizeVelocity = function () {
 
@@ -48,7 +50,10 @@ Soldier.prototype.update = function (du) {
 
     spatialManager.unregister(this);
     renderingManager.unregister(this);
-    if (this._isDeadNow) {
+
+    if ( this.doingDamage >  0 ) this.doingDamage -= du;
+    if ( this.doingDamage <= 0 ) this.doingDamage = 0;
+    if ( this._isDeadNow ) {
         entityManager.getCharacter().addExp(this.expReward);
         return entityManager.KILL_ME_NOW;
     }
@@ -92,6 +97,9 @@ Soldier.prototype.move = function (du) {
     }
     else this.randomizeVelocity();
 
+    var collision  = spatialManager.findEntityInRange(this.cx, this.cy, this.getRadius());
+    if (collision) this.hit(collision);
+
     if (world.getRegion().collidesWith({ posX: this.cx, posY: this.cy}, this.getRadius())) {
         this.cx = oldX;
         this.cy = oldY;
@@ -100,6 +108,22 @@ Soldier.prototype.move = function (du) {
 
 
 };
+
+Soldier.prototype.hit = function(collision)
+{
+    var characterID = entityManager.getCharacter().getSpatialID();
+    
+    if (characterID === collision.getSpatialID() && this.doingDamage <= 0)
+    {
+        this.doingDamage = 0.25*SECS_TO_NOMINALS;
+        
+        collision.takeDamage(this.damage);
+
+    }
+    
+        
+
+}
 
 Soldier.prototype.getRadius = function () {
     return (ANIMATION_FRAME_SIZE / 2) * 0.6;
@@ -161,5 +185,5 @@ Soldier.prototype.renderHP = function (ctx) {
 
 Soldier.prototype.getHpRatio = function () {
 
-    return (this.hp-this.damageTaken)/this.hp;
+    return Math.max(0,(this.hp-this.damageTaken)/this.hp);
 };

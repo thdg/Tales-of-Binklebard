@@ -12,8 +12,8 @@ var spellbook =
 				range       : TILE_SIZE*1,
 				aoe         : 1,
 				model       : new Animation ( g_sprites.sparcles, 0, 0, 48, 3, 200),
-				duration    : 2*SECS_TO_NOMINALS,
-                coolDown    : 2*SECS_TO_NOMINALS,
+				duration    : SECS_TO_NOMINALS,
+                coolDown    : 0.5*SECS_TO_NOMINALS,
 				vel         : 0,
                 direction   : 0,
             },
@@ -25,7 +25,7 @@ var spellbook =
 
                 this.descr.findTarget = function(){ return caster; };
                 this.descr.move   = function() {this.cx = caster.cx;this.cy = caster.cy;};
-                this.descr.target = function (entity) { entity.takeDamage(-(20+caster.wis), false); };
+                this.descr.target = function (entity) { entity.heal(20+caster.wis); };
                 this.descr.cx = caster.cx;
                 this.descr.cy = caster.cy;
                 entityManager.createEffect(this.descr);
@@ -56,9 +56,10 @@ var spellbook =
                 if(!caster.drainEnergy(manacost)) return;
 
                 this.descr.target         = function (entity) { entity.takeDamage(this.damage); };
-                var distance              = caster.getRadius()+this.descr.aoe;
-                this.descr.cx             = caster.cx+distance*Math.cos(util.getRadFromDir(caster.direction));
-                this.descr.cy             = caster.cy+distance*Math.sin(util.getRadFromDir(caster.direction));
+                var distance 			  = caster.getRadius()+this.descr.aoe;
+                var rad                   = util.getRadFromDir(caster.direction);
+                this.descr.cx             = caster.cx+distance*Math.cos(rad);
+                this.descr.cy             = caster.cy+distance*Math.sin(rad);
                 this.descr.direction      = caster.direction;
                 this.descr.model.rotation = util.getRadFromDir(caster.direction);
                 this.descr.damage         = 40+Math.floor(caster.lvl/3)*40+caster.wis;
