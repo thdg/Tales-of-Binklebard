@@ -14,8 +14,8 @@ function Character(descr) {
 
     // TEMPORARY
     // =========
-	this.Heal         = spellBook.heal(1,1);
-    this.MagicMissile = spellBook.magicMissile(1,1);
+	this.Heal         = spellbook.heal(1,1);
+    this.MagicMissile = spellbook.magicMissile(1,1);
     // =========
 
 }
@@ -35,13 +35,12 @@ Character.prototype.KEY_DOWN  = DOWN_ARROW;
 Character.prototype.KEY_LEFT  = LEFT_ARROW;
 Character.prototype.KEY_RIGHT = RIGHT_ARROW;
 
-Character.prototype.KEY_ATTACK = ' '.charCodeAt(0);
 
-Character.prototype.margin = 7;
+Character.prototype.marginBottom = 7;
 
 Character.prototype.direction = FACE_DOWN;
 
-// TEMPROARY
+Character.prototype.KEY_ATTACK = ' '.charCodeAt(0);
 Character.prototype.KEY_HEAL         = '1'.charCodeAt(0);
 Character.prototype.KEY_MAGIC_MISSLE = '2'.charCodeAt(0);
 
@@ -187,7 +186,7 @@ Character.prototype.move = function (du) {
 };
 
 Character.prototype.render = function (ctx) {
-    this.model.drawCentredAt(ctx, this.cx, this.cy-this.margin);
+    this.model.drawCentredAt(ctx, this.cx, this.cy-this.marginBottom);
 };
 
 Character.prototype.getRadius = function () {
@@ -212,9 +211,9 @@ Character.prototype.takeDamage = function (damage, ignoreArmor) {
     if (ignoreArmor===undefined) ignoreArmor = false;
 
     var damageReduction = ignoreArmor ? 1 : this.armor/this.hp;
-    this.damageTaken -= damage * damageReduction;
+    this.damageTaken += damage * damageReduction;
 
-    if (this.damageTaken<this.hp) this._isDeadNow = true;
+    if (this.damageTaken>this.hp) this.kill();
 }
 
 Character.prototype.getHpRatio = function () {
@@ -226,3 +225,11 @@ Character.prototype.getEnergyRatio = function () {
 
     return (this.energy-this.energyUsed)/this.energy;
 };
+
+Character.prototype.drainEnergy = function (cost) {
+
+    if (this.energyUsed+cost>this.energy) return false;
+
+    this.energyUsed += cost;
+    return true;
+}

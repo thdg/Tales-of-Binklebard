@@ -21,18 +21,10 @@ function Soldier(descr) {
 
     this.randomizePosition();
     this.randomizeVelocity();
-      
-    // Default sprite and scale, if not otherwise specified
-    //this.sprite = this.sprite || g_sprites.Soldier;
-    //this.scale  = this.scale  || 1;
 
-
-    // Diagnostics to check inheritance stuff
-    
-    /*
-    this._SoldierProperty = true;
-    console.dir(this); 
-    */
+    this.hp = 100;
+    this.armor = 50;
+    this.damageTaken = 0;
 
 }
 
@@ -123,17 +115,14 @@ Soldier.prototype.getRadius = function () {
     return (ANIMATION_FRAME_SIZE / 2) * 0.6;
 };
 
-// HACKED-IN AUDIO (no preloading)
-/*
-Soldier.prototype.hitSound = new Audio(
-  "sounds/SoldierSplit.ogg");
-Soldier.prototype.killSound = new Audio(
-  "sounds/SoldierEvaporate.ogg");
-*/
+Soldier.prototype.takeDamage = function (damage, ignoreArmor) {
 
-Soldier.prototype.takeHit = function () {
-    this.kill();
-    //this.dropLoot();
+    if (ignoreArmor===undefined) ignoreArmor = false;
+
+    var damageReduction = ignoreArmor ? 1 : this.armor/this.hp;
+    this.damageTaken += damage * damageReduction;
+
+    if (this.damageTaken>this.hp) this.kill();
 };
 
 Soldier.prototype._dropLoot = function () {
@@ -145,4 +134,38 @@ Soldier.prototype._dropLoot = function () {
 
 Soldier.prototype.render = function (ctx) {
     this.model.drawCentredAt(ctx, this.cx, this.cy-this.margin);
+    this.renderHP(ctx);
+};
+
+Soldier.prototype.renderHP = function (ctx) {
+    var x = this.cx, y = this.cy;
+    var w = 50, h = 8;
+    var offsetY = 60;
+    var padding = 2;
+    var hpLeft = this.getHpRatio();
+
+    util.fillBox(
+        ctx, 
+        x-w/2-padding, 
+        y-offsetY-padding, 
+        w+padding*2, 
+        h+padding*2,
+        "black"
+    );
+
+    var style = hpLeft<0.25 ? "red" : "green"
+
+    util.fillBox(
+        ctx, 
+        x-w/2, 
+        y-offsetY, 
+        w*hpLeft, 
+        h, 
+        style
+    );
+}
+
+Soldier.prototype.getHpRatio = function () {
+
+    return (this.hp-this.damageTaken)/this.hp;
 };
