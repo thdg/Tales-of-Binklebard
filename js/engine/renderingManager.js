@@ -26,6 +26,15 @@ _isRegistered: function(id) {
     return false;
 },
 
+_addToQue : function(entity) {
+
+    // entities should be sorted by posY value to be rendered in order
+    var posY = entity.getPos().posY;
+    var i = 0; 
+    while (this._entities[i] && this._entities[i].getPos().posY<posY) i++;
+    this._entities.splice(i,0,entity);
+},
+
 // PUBLIC METHODS
 
 init : function() {
@@ -39,8 +48,13 @@ getNewRenderingID : function() {
 
 register: function(entity) {
     
-    var onCamera = camera.isOnCamera(entity.getPos());
-    if (onCamera) this._entities.push(entity);
+    var visible = this.isVisible(entity.getPos());
+    if (visible) this._addToQue(entity);
+},
+
+// this function should be overwritten to change visibility
+isVisible: function(pos) {
+    return camera.isOnCamera(pos);
 },
 
 unregister: function(entity) {

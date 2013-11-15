@@ -48,9 +48,8 @@ var UIManager = {
 		util.fillBox(
 			ctx, 
 			this._cx + startX, 
-			this._cy + startY, 
+			this._cy + startY,
 			(finishX - startX) * this.posXp,
-			3,
 			"Yellow"
 		);
 	},

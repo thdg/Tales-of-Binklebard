@@ -6,7 +6,6 @@
 
 \************************************************************************/
 
-
 var entityManager = {
 
     // "PRIVATE" DATA
@@ -18,7 +17,6 @@ var entityManager = {
 
 
     // "PRIVATE" METHODS
-
 
     _generateSoldiers : function(num) {
         var i,
@@ -61,10 +59,16 @@ var entityManager = {
         }
     },
 
+    _generateCamp : function() {
+        var tent = new Tent();
+        var pos  = tent.getPos();
+        this._items.push(tent);
+        this._items.push(new Fireplace({cx:pos.posX-TILE_SIZE,cy:pos.posY}));
+    },
+
     // PUBLIC METHODS
 	
     KILL_ME_NOW : -1,
-
 
     deferredSetup : function () {
         this._categories = [this._items, this._soldiers, this._character, this._effects];
@@ -75,6 +79,7 @@ var entityManager = {
         var character = new Character({model: link, cx:200, cy:200});
         this._character.push(character);
         this._generateSoldiers(50);
+        this._generateCamp();
         camera.centerAt(character);
 		UIManager.follow(character);
     },

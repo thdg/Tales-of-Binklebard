@@ -12,9 +12,6 @@ function generateMap(width, height) {
 
     map = makeClearing(map, width, height);
 
-    makeRivers(map);
-    makePaths(map);
-
      
     // make it an island
     for (var i=0; i<height; i++) {
@@ -24,19 +21,24 @@ function generateMap(width, height) {
     }
 
 
+
+    makeRivers(map, width, height);
+    makePaths(map, width, height);
     map = doubleMap(map,width,height);
 
     map = makeTrees(map);
 
-    for (var i=0; i<height*2; i++) {
-        for (var j=0; j<width*2; j++) {
-            if (i<1 || height*2-1<=i || j<1 || width*2-1<=j) map[i][j] = tiles.FOREST; 
+    var final_map = []
+    for (var i=1; i<height*2-1; i++) {
+        final_map.push([]);
+        for (var j=1; j<width*2-1; j++) {
+            final_map[i-1][j-1] = map[i][j];
         }
     }
 
-    heightmap = makeHightmap(map);
-    map = makeFlowers(map);
-    return { map: map, heightmap: heightmap };
+    heightmap = makeHightmap(final_map);
+    final_map = makeFlowers(final_map);
+    return { map: final_map, heightmap: heightmap };
 }
 
 function makeClearing(map, width, height) {
@@ -65,12 +67,33 @@ function makeClearing(map, width, height) {
     return map;
 }
 
-function makeRivers(map) {
+function makeRivers(map, width, height) {
+
+    var x = util.randInt(10,width-11);
+    var y = util.randInt(10,height-11);
+
+    for (var i=0; i<=y; i++) {
+        map[i][x] = tiles.WATER;
+    }
+    for (var i=0; i<=x; i++) {
+        map[y][i] = tiles.WATER;
+    }
 
     return map;
 }
 
-function makePaths(map) {
+function makePaths(map, width, height) {
+
+    var x = 5, y = 5;
+
+    for (var i=y; i<=height-y; i++) {
+        map[i][x] = tiles.MUD;
+        map[i][width-x] = tiles.MUD;
+    }
+    for (var i=x; i<=width-x; i++) {
+        map[y][i] = tiles.MUD;
+        map[height-y][i] = tiles.MUD;
+    }
 
     return map;
 }
@@ -83,7 +106,7 @@ function makeHightmap(map) {
         heightmap.push([]);
         for (var j=0; j<map[i].length; j++) {
             // put grass in by default
-            heightmap[i][j] = Math.min(1,map[i][j]); 
+            heightmap[i][j] = map[i][j]===0 || map[i][j]===8 ? 0 : 1; 
         }
     }
 

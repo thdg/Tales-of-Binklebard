@@ -56,8 +56,7 @@ Effect.prototype.move = function (du)
             break;
     }
 
-    if (world.getRegion().collidesWith(
-        { posX: this.cx, posY: this.cy}, this.getRadius())) {
+    if (world.collidesWith(this.cx, this.cy, this.getRadius())) {
         this._isDeadNow = true;
     }
 }

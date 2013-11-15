@@ -11,15 +11,7 @@ functions... shared data properties are potentially quite confusing.
 
 \************************************************************************/
 
-function Entity() {
-
-/*
-    // Diagnostics to check inheritance stuff
-    this._entityProperty = true;
-    console.dir(this);
-*/
-
-}
+function Entity() { }
 
 Entity.prototype.setup = function (descr) {
 
@@ -52,7 +44,7 @@ Entity.prototype.randomizePos = function () {
     this.cx = this.cx || Math.random() * world.getWidth();
     this.cy = this.cy || Math.random() * world.getHeight();
 
-    while (world.getRegion().collidesWith({ posX: this.cx, posY: this.cy}, this.getRadius())) {
+    while (world.collidesWith(this.cx, this.cy, this.getRadius())) {
         this.cx = Math.random() * world.getWidth();
         this.cy = Math.random() * world.getHeight();
     }
@@ -89,4 +81,8 @@ Entity.prototype.findHitEntity = function () {
 
 Entity.prototype.isColliding = function () {
     return this.findHitEntity();
+};
+
+Entity.prototype.takeDamage = function () {
+    
 };

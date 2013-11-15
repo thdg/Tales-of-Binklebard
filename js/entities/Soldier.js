@@ -1,16 +1,4 @@
-// ====
-// Soldier
-// ====
-
 "use strict";
-
-/* jshint browser: true, devel: true, globalstrict: true */
-
-/*
-0        1         2         3         4         5         6         7         8
-12345678901234567890123456789012345678901234567890123456789012345678901234567890
-*/
-
 
 // A generic contructor which accepts an arbitrary descriptor object
 function Soldier(descr) {
@@ -26,7 +14,6 @@ function Soldier(descr) {
     this.armor = 50;
     this.damageTaken = 0;
     this.expReward = 500;
-
 }
 
 Soldier.prototype = new Entity();
@@ -63,7 +50,6 @@ Soldier.prototype.update = function (du) {
 
     spatialManager.register(this);
     renderingManager.register(this);
-
 };
 
 Soldier.prototype.move = function (du) {
@@ -100,13 +86,11 @@ Soldier.prototype.move = function (du) {
     var collision  = spatialManager.findEntityInRange(this.cx, this.cy, this.getRadius());
     if (collision) this.hit(collision);
 
-    if (world.getRegion().collidesWith({ posX: this.cx, posY: this.cy}, this.getRadius())) {
+    if (world.collidesWith(this.cx, this.cy, this.getRadius())) {
         this.cx = oldX;
         this.cy = oldY;
         this.randomizeVelocity();
     }
-
-
 };
 
 Soldier.prototype.hit = function(collision)
@@ -120,9 +104,6 @@ Soldier.prototype.hit = function(collision)
         collision.takeDamage(this.damage);
 
     }
-    
-        
-
 }
 
 Soldier.prototype.getRadius = function () {
@@ -139,6 +120,10 @@ Soldier.prototype.takeDamage = function (damage, ignoreArmor) {
     if (this.damageTaken>this.hp) this.kill();
 };
 
+Soldier.prototype.getHpRatio = function () {
+    return Math.max(0,(this.hp-this.damageTaken)/this.hp);
+};
+
 Soldier.prototype._dropLoot = function () {
     entityManager.generateLoot({
         cx : this.cx,
@@ -153,10 +138,13 @@ Soldier.prototype.render = function (ctx) {
 
 Soldier.prototype.renderHP = function (ctx) {
     var x = this.cx, y = this.cy;
-    var w = 50, h = 8;
-    var offsetY = 60;
-    var padding = 2;
+    var w = 50, h = 6;
+    var offsetY = 50;
+    var padding = 1;
+
     var hpLeft = this.getHpRatio();
+    var hpStyle = hpLeft>0.5  ? "green"  :
+                  hpLeft>0.25 ? "orange" : "red";
 
     util.fillBox(
         ctx, 
@@ -166,24 +154,12 @@ Soldier.prototype.renderHP = function (ctx) {
         h+padding*2,
         "black"
     );
-
-    var style = hpLeft<0.5 ? 
-                hpLeft<0.25 ? 
-                "red" : 
-                "orange" : 
-                "green";
-
     util.fillBox(
         ctx, 
         x-w/2, 
         y-offsetY, 
         w*hpLeft, 
         h, 
-        style
+        hpStyle
     );
 }
-
-Soldier.prototype.getHpRatio = function () {
-
-    return Math.max(0,(this.hp-this.damageTaken)/this.hp);
-};
