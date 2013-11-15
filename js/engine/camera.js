@@ -106,13 +106,13 @@ var camera = {
         
         var pos = this._centerdEntity.getPos();
         this._posX = util.keepBetween(
-            pos.posX,
+            Math.floor(pos.posX),
             this._width/2,
             world.getWidth()-this._width/2
         );
 
         this._posY = util.keepBetween(
-            pos.posY,
+            Math.floor(pos.posY),
             this._height/2,
             world.getHeight()-this._height/2
         );
