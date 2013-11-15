@@ -74,11 +74,18 @@ function requestPreloads() {
         sparcles         : "img/Sparcles.png",
         magicMissile     : "img/magicMissile.png",
         greenSoldier     : "img/greenMonster.png",
-		uibar         	 : "img/UIbar.png",
 		fireball         : "img/fireball.png",
 		tent         	 : "img/Tent.png",
 		campfire         : "img/campfire.png",
-		uimap        	 : "img/UImap.png"
+		
+		// UI sprites
+		uibar         	 : "img/UIpic/UIbar.png",
+		uimap        	 : "img/UIpic/UImap.png",
+		lifeball         : "img/UIpic/lifeball.png",
+		manaball         : "img/UIpic/manaball.png",
+		lifemyst         : "img/UIpic/lifemyst.png",
+		manamyst         : "img/UIpic/manamyst.png"
+
 
     };
 
@@ -130,6 +137,12 @@ function preloadDone() {
 	
     g_sprites.uibar = new Sprite(g_images.uibar);
 	g_sprites.uimap = new Sprite(g_images.uimap);
+	
+	g_sprites.lifeball = new Sprite(g_images.lifeball);
+	g_sprites.manaball = new Sprite(g_images.manaball);
+	
+	g_sprites.lifemyst = new Sprite(g_images.lifemyst);
+	g_sprites.manamyst = new Sprite(g_images.manamyst);
 	
 	/**************************************************/
     

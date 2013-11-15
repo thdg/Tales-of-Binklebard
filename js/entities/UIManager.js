@@ -5,6 +5,10 @@ var UIManager = {
 	init : function() {
 		this.bar = g_sprites.uibar;
 		this.map = g_sprites.uimap;
+		this.life = g_sprites.lifeball;
+		this.mana = g_sprites.manaball;
+		this.lmyst = g_sprites.lifemyst;
+		this.mmyst = g_sprites.manamyst;
 		this._cx = 0;
 		this._cy = 0;
 		this.posXp = 0;
@@ -25,10 +29,15 @@ var UIManager = {
 	},
 	
 	render : function (ctx) {
+		this.life.drawAt(ctx, this._cx, this._cy);
+		this.mana.drawAt(ctx, this._cx, this._cy);
 		this.lifeBall(ctx);
+		this.lmyst.drawAt(ctx, this._cx, this._cy);
+		this.mmyst.drawAt(ctx, this._cx, this._cy);
 		this.bar.drawAt(ctx, this._cx, this._cy);
 		this.map.drawAt(ctx, this._cx, this._cy);
 		this.renderXp(ctx);
+		this.minimapDraw(ctx);
 	},
 
 	renderXp : function (ctx) {
@@ -40,7 +49,7 @@ var UIManager = {
 			ctx, 
 			this._cx + startX, 
 			this._cy + startY, 
-			finishX * this.posXp,
+			(finishX - startX) * this.posXp,
 			3,
 			"Yellow"
 		);
@@ -57,6 +66,7 @@ var UIManager = {
 	},
 	
 	lifeBall: function(ctx) {
+		//this.life.scale = 1 * this.hpRatio;
 	
 		var oldastyle = ctx.fillstyle;
 	
@@ -80,5 +90,38 @@ var UIManager = {
 
 	getPos : function() {
 		return {posX : this._cx, posY : this._cy};
-	}
+	},
+	
+	findMapArea : function(pos) {
+		var frame = spatialManager.findFrame(pos);
+		var entities = this.getFrames(
+            {i: frame.i-8,
+             j: frame.j-8},
+            {i: frame.i+8,
+             j: frame.j+8}
+		);
+	},
+	
+	minimap : function(pos) {
+		
+	},
+	
+	minimapDraw : function(ctx) {
+		
+		var pos = this._character.getPos();
+		var drawX = pos.posX * this.ratioX;
+		var drawY = pos.posY * this.ratioY;
+		
+		
+		
+		util.fillBox(
+			ctx, 
+			this._cx + 697 + drawX, 
+			this._cy + 23 + drawY, 
+			this._cx + 697 + drawX + 2,
+			this._cy + 23 + drawY + 2,
+			"Yellow"
+		);
+		
+	},
 };
