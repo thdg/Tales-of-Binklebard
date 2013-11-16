@@ -49,6 +49,8 @@ var camera = {
         if (keys[this.KEY_DOWN]) {
             this._posY += this._speed*du;
         }
+        this._posX = Math.floor(this._posX);
+        this._posY = Math.floor(this._posY);
     },
 
     // PUBLIC METHODS

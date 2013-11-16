@@ -57,10 +57,10 @@ var UIManager = {
 	},
 	
 	calculateBar : function () {
-		var lvl = this._character.lvl - 1;
-		
-		var startExp = this._character.nextLvl(lvl);
-		var exp = this._character.experience - startExp;
+
+		var lastLvl = this._character.lvl - 1;
+		var startExp = this._character.nextLvl(lastLvl);
+		var exp = Math.max(0, this._character.experience - startExp);
 		var nextExp = this._character.nextExp - startExp;
 		
 		this.posXp = exp / nextExp;

@@ -188,7 +188,7 @@ Character.prototype.getRadius = function () {
 
 Character.prototype.lvlup = function () {
     this.lvl++;
-	particleManager.generateTextParticle(this.cx, this.cy, "lvl up!", '#FFFF00', 1000);
+	particleManager.generateTextParticle(this.cx, this.cy, "LVL UP!", '#FFFF00', 1000);
     //this.updateStats();
 	this.nextExp = this.nextLvl(this.lvl);
 };
