@@ -2,7 +2,7 @@
 
 /************************************************************************\
 
- A module which handles arbitrary entity-management for the simulation
+ A module which handles all particle effects with object pooling
 
 \************************************************************************/
 
@@ -13,12 +13,30 @@ var particleManager = {
     _textParticles     : [],
     _textParticlePool  : [],
 
+    // "PRIVATE" METHODS
+
+    // gets particle from pool if it's not empty
+    // if it is, return new Object
+    _getFromPool: function(pool, Object) {
+
+        var particle;
+        if (pool[0]) {
+            particle = pool[0];
+            pool.splice(0,1);
+        } else {
+            particle = new Object();
+        }
+
+        return particle;
+    },
+
     // PUBLIC METHODS
 	
     KILL_ME_NOW : -1,
 
     deferredSetup : function () {
         this._categories = [this._textParticles];
+        this._categoriePools = [this._textParticlePool];
     },
 
     init: function() {
@@ -29,7 +47,7 @@ var particleManager = {
 
     generateTextParticle: function(posX, posY, text, style, lifespan) {
 
-        var particle = new TextParticle();
+        var particle = this._getFromPool(this._textParticlePool, TextParticle);
         particle.setup(posX, posY, text, style, lifespan);
         this._textParticles.push(particle);
     },
@@ -46,6 +64,7 @@ var particleManager = {
                 var status = aCategory[i].update(du);
 
                 if (status === this.KILL_ME_NOW) {
+                    this._categoriePools[c].push(aCategory[i]);
                     aCategory.splice(i,1);
                 }
                 else {
