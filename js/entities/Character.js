@@ -188,6 +188,7 @@ Character.prototype.getRadius = function () {
 
 Character.prototype.lvlup = function () {
     this.lvl++;
+	particleManager.generateTextParticle(this.cx, this.cy, "lvl up!", '#FFFF00', 1000);
     //this.updateStats();
 	this.nextExp = this.nextLvl(this.lvl);
 };
@@ -213,7 +214,6 @@ Character.prototype.takeDamage = function (damage, ignoreArmor) {
     var damageReduction = ignoreArmor ? 1 : this.armor/this.hp;
     var totalDamage = damage * damageReduction;
     this.damageTaken += totalDamage;
-    particleManager.generateTextParticle(this.cx, this.cy, totalDamage);
     particleManager.generateSplash(this.cx, this.cy, 20);
 
     if (this.damageTaken>this.hp) this.kill();
@@ -232,14 +232,6 @@ Character.prototype.getHpRatio = function () {
 Character.prototype.getEnergyRatio = function () {
 
     return Math.max(0,(this.energy-this.energyUsed)/this.energy);
-};
-
-
-Character.prototype.pushBack = function(direction,force) {
-
-    var rad = util.getRadFromDir(direction);
-    this.cx += force*Math.cos(rad);
-    this.cy += force*Math.sin(rad);
 };
 
 Character.prototype.drainEnergy = function (cost) {
