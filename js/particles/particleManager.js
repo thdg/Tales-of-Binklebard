@@ -2,7 +2,9 @@
 
 /************************************************************************\
 
- A module which handles all particle effects with object pooling
+ A module which handles all particle effects ,
+ with object pooling witch we really don't need
+ but is extremely cool to have
 
 \************************************************************************/
 
@@ -12,6 +14,8 @@ var particleManager = {
 
     _textParticles     : [],
     _textParticlePool  : [],
+    _dropParticles     : [],
+    _dropParticlePool  : [],
 
     // "PRIVATE" METHODS
 
@@ -35,8 +39,8 @@ var particleManager = {
     KILL_ME_NOW : -1,
 
     deferredSetup : function () {
-        this._categories = [this._textParticles];
-        this._categoriePools = [this._textParticlePool];
+        this._categories = [this._textParticles, this._dropParticles];
+        this._categoriePools = [this._textParticlePool, this._dropParticlePool];
     },
 
     init: function() {
@@ -50,6 +54,16 @@ var particleManager = {
         var particle = this._getFromPool(this._textParticlePool, TextParticle);
         particle.setup(posX, posY, text, style, lifespan);
         this._textParticles.push(particle);
+    },
+
+    generateSplash: function(posX, posY, drops, style, radius) {
+
+        for (var i=0; i<drops; i++) {
+            var particle = this._getFromPool(this._dropParticlePool, DropParticle);
+            var lifespan = util.randRange(100,150);
+            particle.setup(posX, posY, style, radius, lifespan);
+            this._dropParticles.push(particle);
+        }
     },
 
     update: function(du) {

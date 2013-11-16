@@ -22,6 +22,8 @@ Particle.prototype.setupSuper = function (posX, posY, lifespan) {
 
 Particle.prototype.update = function (du) {
     
+	this.velY += NOMINA_GRAVITY;
+
     this.posX += this.velX*du;
     this.posY += this.velY*du;
 

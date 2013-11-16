@@ -6,7 +6,7 @@
 
 \************************************************************************/
 
-function TextParticle(posX, posY, text, style, lifespan) { }
+function TextParticle() { }
 
 TextParticle.prototype = new Particle();
 

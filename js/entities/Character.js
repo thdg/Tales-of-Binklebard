@@ -214,6 +214,7 @@ Character.prototype.takeDamage = function (damage, ignoreArmor) {
     var totalDamage = damage * damageReduction;
     this.damageTaken += totalDamage;
     particleManager.generateTextParticle(this.cx, this.cy, totalDamage);
+    particleManager.generateSplash(this.cx, this.cy, 20);
 
     if (this.damageTaken>this.hp) this.kill();
 };

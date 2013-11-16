@@ -60,6 +60,7 @@ var spellbook =
 
                 this.descr.target         = function (entity) { 
                     entity.takeDamage(this.damage);
+                    particleManager.generateSplash(this.cx, this.cy, 20, '#FF00FF');
                 };
 
                 var distance 			  = caster.getRadius()+this.descr.aoe;
