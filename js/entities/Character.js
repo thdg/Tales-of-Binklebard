@@ -9,13 +9,6 @@
 
 function Character(descr) {
 
-	this.setup(descr);
-    this.randomizePos();
-	
-	this.nextExp = this.nextLvl(this.lvl);
-
-    this.Heal         = spellbook.heal(1,1);
-    this.MagicMissile = spellbook.magicMissile(1,1);
 }
 
 Character.prototype = new Entity();
@@ -31,8 +24,6 @@ Character.prototype.marginBottom = 7;
 Character.prototype.direction = FACE_DOWN; // default direction
 
 Character.prototype.KEY_ATTACK = ' '.charCodeAt(0);
-Character.prototype.KEY_HEAL         = '1'.charCodeAt(0);
-Character.prototype.KEY_MAGIC_MISSLE = '2'.charCodeAt(0);
 
 // NEEDS REFINEMENT
 Character.prototype.isCasting    = false;
@@ -86,46 +77,6 @@ Character.prototype.strike = function()
         var totalDamage = this.damage + this.str+this.dex;
         this.doingDamage = 0.5*SECS_TO_NOMINALS;
         target.takeDamage(totalDamage);
-    }
-}
-
-// this is bad, me change this later
-Character.prototype.abilities = function(du)
-{
-    if (keys[this.KEY_HEAL] && !this.isCasting) 
-    {
-        this.isCasting = true;
-        this.Heal.cast(this);
-        this.coolDown = this.Heal.descr.coolDown;
-
-        this.model.attack(); //should be model.cast();
-
-    } else if(this.isCasting)
-    {
-        this.coolDown -= du;
-        if( this.coolDown <= 0)
-        {
-            this.coolDown = 0;
-            this.isCasting = false;
-        }
-    }
-
-    if (keys[this.KEY_MAGIC_MISSLE] && !this.isCasting) 
-    {
-        this.isCasting = true;
-        this.MagicMissile.cast(this);
-        this.coolDown = this.MagicMissile.descr.coolDown;
-
-        this.model.attack(); //should be model.cast();
-
-    } else if(this.isCasting)
-    {
-        this.coolDown -= du;
-        if( this.coolDown <= 0)
-        {
-            this.coolDown = 0;
-            this.isCasting = false;
-        }
     }
 }
 
@@ -188,18 +139,8 @@ Character.prototype.getRadius = function () {
 
 Character.prototype.lvlup = function () {
     this.lvl++;
-	particleManager.generateTextParticle(this.cx, this.cy, "LVL UP!", '#FFFF00', 1000);
-    //this.updateStats();
+	particleManager.generateTextParticle(this.cx, this.cy, "lvl up!", '#FFFF00', 1000);
 	this.nextExp = this.nextLvl(this.lvl);
-};
-
-Character.prototype.addExp = function (expReward) {
-
-    this.experience = this.experience + expReward;
-    if (this.experience >= this.nextExp) {
-        this.lvlup();
-    }
-    
 };
 
 Character.prototype.nextLvl = function(lvl) {

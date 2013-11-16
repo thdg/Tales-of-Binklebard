@@ -85,8 +85,9 @@ function requestPreloads() {
 		uimap        	 : "img/UIpic/UImap.png",
 		globes         	 : "img/UIpic/globes.png",
 		myst         	 : "img/UIpic/myst.png",
-
-
+		
+		// classes
+		rogue         	 : "img/classes/rogue_alpha.png",
     };
 
     imagesPreload(requiredImages, g_images, preloadDone);
@@ -102,6 +103,9 @@ function preloadDone() {
 	
     g_sprites.link = new Sprite(g_images.link);
     g_sprites.link.scale = 2;
+	
+	g_sprites.rogue = new Sprite(g_images.rogue);
+    g_sprites.rogue.scale = 2;
 
     g_sprites.greenSoldier = new Sprite(g_images.greenSoldier);
     g_sprites.greenSoldier.scale = 1.8;

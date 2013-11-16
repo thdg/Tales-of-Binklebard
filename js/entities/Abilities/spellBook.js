@@ -75,4 +75,5 @@ var spellbook =
         }
         return spell;
     }
+	
 }
