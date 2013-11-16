@@ -83,8 +83,9 @@ Character.prototype.strike = function()
 
     if ( target && this.doingDamage <= 0)
     {
+        var totalDamage = this.damage + this.str+this.dex;
         this.doingDamage = 0.5*SECS_TO_NOMINALS;
-        target.takeDamage(this.damage + this.str+this.dex);
+        target.takeDamage(totalDamage);
     }
 }
 
@@ -210,14 +211,17 @@ Character.prototype.takeDamage = function (damage, ignoreArmor) {
     if (ignoreArmor===undefined) ignoreArmor = false;
 
     var damageReduction = ignoreArmor ? 1 : this.armor/this.hp;
-    this.damageTaken += damage * damageReduction;
-
+    var totalDamage = damage * damageReduction;
+    this.damageTaken += totalDamage;
+    particleManager.generateTextParticle(this.cx, this.cy, totalDamage);
+    particleManager.generateSplash(this.cx, this.cy, 20);
 
     if (this.damageTaken>this.hp) this.kill();
 };
 
 Character.prototype.heal = function (hpBoost) {
     this.damageTaken = Math.max(0, this.damageTaken-hpBoost);
+    particleManager.generateTextParticle(this.cx, this.cy, hpBoost, '#00FF00');
 };
 
 Character.prototype.getHpRatio = function () {
