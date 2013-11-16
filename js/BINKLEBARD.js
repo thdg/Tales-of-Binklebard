@@ -81,10 +81,8 @@ function requestPreloads() {
 		// UI sprites
 		uibar         	 : "img/UIpic/UIbar.png",
 		uimap        	 : "img/UIpic/UImap.png",
-		lifeball         : "img/UIpic/lifeball.png",
-		manaball         : "img/UIpic/manaball.png",
-		lifemyst         : "img/UIpic/lifemyst.png",
-		manamyst         : "img/UIpic/manamyst.png"
+		globes         	 : "img/UIpic/globes.png",
+		myst         	 : "img/UIpic/myst.png",
 
 
     };
@@ -138,11 +136,9 @@ function preloadDone() {
     g_sprites.uibar = new Sprite(g_images.uibar);
 	g_sprites.uimap = new Sprite(g_images.uimap);
 	
-	g_sprites.lifeball = new Sprite(g_images.lifeball);
-	g_sprites.manaball = new Sprite(g_images.manaball);
+	g_sprites.globes = new Sprite(g_images.globes);
 	
-	g_sprites.lifemyst = new Sprite(g_images.lifemyst);
-	g_sprites.manamyst = new Sprite(g_images.manamyst);
+	g_sprites.myst = new Sprite(g_images.myst);
 	
 	/**************************************************/
     

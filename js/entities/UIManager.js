@@ -5,10 +5,10 @@ var UIManager = {
 	init : function() {
 		this.bar = g_sprites.uibar;
 		this.map = g_sprites.uimap;
-		this.life = g_sprites.lifeball;
-		this.mana = g_sprites.manaball;
-		this.lmyst = g_sprites.lifemyst;
-		this.mmyst = g_sprites.manamyst;
+		
+		this.bGlobes = g_sprites.globes;
+		this.myst = g_sprites.myst;
+		
 		this._cx = 0;
 		this._cy = 0;
 		this.posXp = 0;
@@ -29,15 +29,15 @@ var UIManager = {
 	},
 	
 	render : function (ctx) {
-		this.life.drawAt(ctx, this._cx, this._cy);
-		this.mana.drawAt(ctx, this._cx, this._cy);
-		this.lifeBall(ctx);
-		this.lmyst.drawAt(ctx, this._cx, this._cy);
-		this.mmyst.drawAt(ctx, this._cx, this._cy);
+		this.bGlobes.drawAt(ctx, this._cx, this._cy);
+		this.globes(ctx);
+		this.myst.drawAt(ctx, this._cx, this._cy);
+		
 		this.bar.drawAt(ctx, this._cx, this._cy);
 		this.map.drawAt(ctx, this._cx, this._cy);
+		
 		this.renderXp(ctx);
-		this.minimapDraw(ctx);
+		this.drawMiniMapArea(ctx, this._character.getPos());
 	},
 
 	renderXp : function (ctx) {
@@ -45,11 +45,13 @@ var UIManager = {
 			finishX = 600,
 			startY = 593;
 		
+		
 		util.fillBox(
 			ctx, 
 			this._cx + startX, 
 			this._cy + startY,
 			(finishX - startX) * this.posXp,
+			2,
 			"Yellow"
 		);
 	},
@@ -64,8 +66,7 @@ var UIManager = {
 		this.posXp = exp / nextExp;
 	},
 	
-	lifeBall: function(ctx) {
-		//this.life.scale = 1 * this.hpRatio;
+	globes: function(ctx) {
 	
 		var oldastyle = ctx.fillstyle;
 	
@@ -91,36 +92,43 @@ var UIManager = {
 		return {posX : this._cx, posY : this._cy};
 	},
 	
-	findMapArea : function(pos) {
+	drawMiniMapArea : function(ctx, pos) {
 		var frame = spatialManager.findFrame(pos);
-		var entities = this.getFrames(
-            {i: frame.i-8,
-             j: frame.j-8},
-            {i: frame.i+8,
-             j: frame.j+8}
+		var entities = spatialManager.getFrames(
+            {i: frame.i-12,
+             j: frame.j-12},
+            {i: frame.i+12,
+             j: frame.j+12}
 		);
+		this.minimapDraw(ctx, pos, entities);
 	},
 	
-	minimap : function(pos) {
+	minimapDraw : function(ctx, pos, entities) {
 		
-	},
-	
-	minimapDraw : function(ctx) {
-		
-		var pos = this._character.getPos();
-		var drawX = pos.posX * this.ratioX;
-		var drawY = pos.posY * this.ratioY;
-		
-		
-		
-		util.fillBox(
-			ctx, 
-			this._cx + 697 + drawX, 
-			this._cy + 23 + drawY, 
-			this._cx + 697 + drawX + 2,
-			this._cy + 23 + drawY + 2,
-			"Yellow"
-		);
-		
+		for(var i = 0; i < entities.length; i++){
+			var edrawX = 72*(((entities[i].posX)-(pos.posX - 1536))/3072);
+			var edrawY = 72*(((entities[i].posY)-(pos.posY - 1536))/3072);
+			
+			if(entities[i].posX === pos.posX && entities[i].posY === pos.posY){
+				util.fillBox(
+					ctx, 
+					this._cx + 697 + edrawX, 
+					this._cy + 23 + edrawY, 
+					3,
+					3,
+					"yellow"
+				);
+			}
+			else{
+				util.fillBox(
+					ctx, 
+					this._cx + 697 + edrawX, 
+					this._cy + 23 + edrawY, 
+					2,
+					2,
+					"red"
+				);
+			}
+		}
 	},
 };
