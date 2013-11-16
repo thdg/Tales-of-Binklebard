@@ -115,7 +115,9 @@ Soldier.prototype.takeDamage = function (damage, ignoreArmor) {
     if (ignoreArmor===undefined) ignoreArmor = false;
 
     var damageReduction = ignoreArmor ? 1 : this.armor/this.hp;
-    this.damageTaken += damage * damageReduction;
+    var totalDamage = damage * damageReduction
+    this.damageTaken += totalDamage;
+    particleManager.generateTextParticle(this.cx, this.cy, totalDamage);
 
     if (this.damageTaken>this.hp) this.kill();
 };

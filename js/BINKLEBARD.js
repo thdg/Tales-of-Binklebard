@@ -15,6 +15,7 @@ function updateSimulation(du) {
     
     world.update(du);
     entityManager.update(du);
+    particleManager.update(du);
     camera.update(du);
 	UIManager.update(du);
 
@@ -52,6 +53,7 @@ function renderSimulation(ctx) {
 
     world.render(ctx);
     renderingManager.render(ctx);
+    particleManager.render(ctx);
     
     if (g_renderSpatialDebug) {
         camera.render(ctx);
@@ -154,6 +156,7 @@ function preloadDone() {
 	//initialize game components
 	UIManager.init();
     entityManager.init();
+    particleManager.init();
 
     main.init();
 }

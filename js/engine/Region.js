@@ -54,10 +54,14 @@ Region.prototype.render = function (ctx) {
     var startX = Math.max(Math.floor(pos.posX/tileSize),0);
     var startY = Math.max(Math.floor(pos.posY/tileSize),0);
 
-    var endX = Math.min(Math.ceil((pos.posX+scr.width)/tileSize),
-        this._mapWidth);
-    var endY = Math.min(Math.ceil((pos.posY+scr.height)/tileSize),
-        this._mapHeight);
+    var endX = Math.min(
+        Math.ceil((pos.posX+scr.width)/tileSize),
+        this._mapWidth
+    );
+    var endY = Math.min(
+        Math.ceil((pos.posY+scr.height)/tileSize),
+        this._mapHeight
+    );
 
     for(var i = startY; i<endY; i++) {
         var row = this._map[i];

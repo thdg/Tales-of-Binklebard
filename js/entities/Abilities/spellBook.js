@@ -25,9 +25,12 @@ var spellbook =
 
                 this.descr.findTarget = function(){ return caster; };
                 this.descr.move   = function() {this.cx = caster.cx;this.cy = caster.cy;};
-                this.descr.target = function (entity) { entity.heal(20+caster.wis); };
+                this.descr.target = function (entity) { 
+                    entity.heal(this.hpBoost); 
+                };
                 this.descr.cx = caster.cx;
                 this.descr.cy = caster.cy;
+                this.descr.hpBoost = 20+caster.wis;
                 entityManager.createEffect(this.descr);
 				
             }
@@ -55,7 +58,10 @@ var spellbook =
                 var manacost = caster.energy*0.1; // blah, until later
                 if(!caster.drainEnergy(manacost)) return;
 
-                this.descr.target         = function (entity) { entity.takeDamage(this.damage); };
+                this.descr.target         = function (entity) { 
+                    entity.takeDamage(this.damage);
+                };
+
                 var distance 			  = caster.getRadius()+this.descr.aoe;
                 var rad                   = util.getRadFromDir(caster.direction);
                 this.descr.cx             = caster.cx+distance*Math.cos(rad);
