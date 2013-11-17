@@ -31,7 +31,6 @@ Effect.prototype.update = function(du)
 
     if (target = this.findTarget())
     {
-        console.log(target);
         this.target(target);
         this.target = function(){};
     }
