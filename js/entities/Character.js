@@ -153,6 +153,16 @@ Character.prototype.lvlup = function () {
 	this.nextExp = this.nextLvl(this.lvl);
 };
 
+Character.prototype.addExp = function (expReward) {
+
+    this.experience = this.experience + expReward;
+    particleManager.generateTextParticle(this.cx, this.cy, expReward + " exp", '#FFFF00');
+    if (this.experience >= this.nextExp) {
+        this.lvlup();
+    }
+    
+};
+
 Character.prototype.nextLvl = function(lvl) {
 
     return ((lvl * lvl * 1000) + lvl * 2000);
