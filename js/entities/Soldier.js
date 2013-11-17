@@ -5,7 +5,7 @@ function Soldier(descr) {
 
     // Common inherited setup logic from Entity
     this.setup(descr);
-    this.rotation = 0;
+    this.direction = 0;
 
     this.randomizePos();
     this.randomizeVelocity();
@@ -28,7 +28,7 @@ Soldier.prototype.randomizeVelocity = function () {
         MAX_SPEED = 60;
 
     var ROT = [FACE_RIGHT, FACE_UP, FACE_LEFT, FACE_DOWN]
-    this.rotation = ROT[util.randInt(0,ROT.length)];
+    this.direction = ROT[util.randInt(0,ROT.length)];
     this.vel = util.randRange(MIN_SPEED, MAX_SPEED) / SECS_TO_NOMINALS;
 };
 
@@ -61,22 +61,22 @@ Soldier.prototype.move = function (du) {
     var oldY = this.cy;
 
 
-    if (this.rotation === FACE_RIGHT) {
+    if (this.direction === FACE_RIGHT) {
         this.cx += this.vel * du;
         this.model.walk();
         this.model.faceRight();
     }
-    else if (this.rotation === FACE_UP) {
+    else if (this.direction === FACE_UP) {
         this.cy -= this.vel * du;
         this.model.walk();
         this.model.faceUp();
     }
-    else if (this.rotation === FACE_LEFT) {
+    else if (this.direction === FACE_LEFT) {
         this.cx -= this.vel * du;
         this.model.walk();
         this.model.faceLeft();
     }
-    else if (this.rotation === FACE_DOWN) {
+    else if (this.direction === FACE_DOWN) {
         this.cy += this.vel * du;
         this.model.walk();
         this.model.faceDown();
@@ -86,9 +86,13 @@ Soldier.prototype.move = function (du) {
     var collision  = spatialManager.findEntityInRange(this.cx, this.cy, this.getRadius());
     if (collision) this.hit(collision);
 
-    if (world.collidesWith(this.cx, this.cy, this.getRadius())) {
+    if (world.collidesWith(this.cx, this.cy, this.getRadius()) ||
+        collision) {
         this.cx = oldX;
         this.cy = oldY;
+        if (collision && 
+            collision.getSpatialID() === entityManager.getCharacter().getSpatialID())
+            return;
         this.randomizeVelocity();
     }
 };
@@ -165,4 +169,9 @@ Soldier.prototype.renderHP = function (ctx) {
         h, 
         hpStyle
     );
+}
+
+Soldier.prototype.setDirection = function(direction)
+{
+    this.direction = direction%4;
 }

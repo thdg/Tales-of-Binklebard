@@ -10,6 +10,7 @@ function Effect(descr)
 Effect.prototype = new Entity();
 
 Effect.prototype._isDeadNow = false;
+Effect.prototype._inSpatial = true;
 
 Effect.prototype.update = function(du)
 {
@@ -34,7 +35,7 @@ Effect.prototype.update = function(du)
         this.target = function(){};
     }
 
-    spatialManager.register(this);
+    if(this._inSpatial) spatialManager.register(this);
     renderingManager.register(this);
 };
 
@@ -81,4 +82,9 @@ Effect.prototype.findTarget = function()
         this.kill();
     }
     return target;
+};
+
+Effect.prototype.removeFromScope = function()
+{
+    this._inSpatial = false;
 };

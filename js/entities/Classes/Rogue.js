@@ -13,6 +13,8 @@ function Rogue(descr) {
 	this.setup(descr);
 	this.randomizePos();
 	this.nextExp = this.nextLvl(this.lvl);
+
+    this.Heal = spellbook.heal(1,this.wis);
 	
     this.dex + 2;
     this.str - 2;

@@ -116,15 +116,25 @@ Character.prototype.move = function (du) {
         this.model.faceRight();
     }
 
-    if (keys[this.KEY_ATTACK])
-    {
+    if (keys[this.KEY_ATTACK]) {
         this.model.attack();
         this.strike();
     }
 
-    if (world.collidesWith(this.cx, this.cy, this.getRadius())) {
-        this.cx = oldX;
+    var collisionX = spatialManager.findEntityInRange(this.cx, oldY, this.getRadius());
+    var collisionY = spatialManager.findEntityInRange(oldX, this.cy, this.getRadius());
+
+    var collision = collisionX || collisionY;
+    if (collision && collision.setDirection) {
+        collision.setDirection(this.direction+2);
+    }
+
+    if (world.collidesWith(oldX, this.cy, this.getRadius()) || collisionY) {
         this.cy = oldY;
+    }
+
+    if (world.collidesWith(this.cx, oldY, this.getRadius()) || collisionX) {
+        this.cx = oldX;
     }
 
 };

@@ -24,9 +24,10 @@ var spellbook =
                 if(!caster.drainEnergy(manacost)) return;
 
                 this.descr.findTarget = function(){ return caster; };
-                this.descr.move   = function() {this.cx = caster.cx;this.cy = caster.cy;};
+                this.descr.move   = function() { this.cx = caster.cx;this.cy = caster.cy; };
                 this.descr.target = function (entity) { 
-                    entity.heal(this.hpBoost); 
+                    entity.heal(this.hpBoost);
+                    this.removeFromScope();
                 };
                 this.descr.cx = caster.cx;
                 this.descr.cy = caster.cy;
