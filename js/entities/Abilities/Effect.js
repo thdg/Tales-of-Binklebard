@@ -31,6 +31,7 @@ Effect.prototype.update = function(du)
 
     if (target = this.findTarget())
     {
+        console.log(target);
         this.target(target);
         this.target = function(){};
     }
@@ -79,7 +80,7 @@ Effect.prototype.findTarget = function()
     if (target.getSpatialID === this.doNotHit) return;
     if (target)
     {
-        this.kill();
+        this.responseToFind();
     }
     return target;
 };
