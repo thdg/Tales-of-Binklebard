@@ -48,9 +48,10 @@ var spellbook =
                 range       : TILE_SIZE*12,
                 aoe         : 1.1*TILE_SIZE/3,
                 model       : new Animation ( g_sprites.magicMissile, 0, 0, 48 ),
-                duration    : SECS_TO_NOMINALS*100,
-                coolDown    : SECS_TO_NOMINALS/2,
-                vel         : 360/SECS_TO_NOMINALS,
+                duration    : SECS_TO_NOMINALS,
+                coolDown    : 0.5*SECS_TO_NOMINALS,
+				vel         : 0,
+                direction   : 0,
             },
 
             cast : function(caster)
@@ -69,6 +70,52 @@ var spellbook =
                 this.descr.cy             = caster.cy+distance*Math.sin(rad);
                 this.descr.direction      = caster.direction;
                 this.descr.model.rotation = util.getRadFromDir(caster.direction);
+                this.descr.damage         = 40+Math.floor(caster.lvl/3)*40+caster.wis;
+                entityManager.createEffect(this.descr);
+            }
+        }
+        return spell;
+    },
+	
+	    rake: function(lvl, dex)
+    {
+        var spell = 
+        {
+            descr: {
+                range       : TILE_SIZE*1,
+				aoe         : 1.1*TILE_SIZE/3,
+				model       : new Animation ( g_sprites.rake, 0, 0, 48, 3, 200),
+				duration    : SECS_TO_NOMINALS,
+                coolDown    : 0.5*SECS_TO_NOMINALS,
+				vel         : 0,
+                direction   : 0,
+            },
+
+            cast : function(caster)
+            {
+                var energycost = caster.energy*0.1; // blah, until later
+                if(!caster.drainEnergy(energycost)) return;
+/*
+                this.descr.target         = function () { 
+					var strikeX = 16*Math.cos(util.getRadFromDir(this.direction));
+					var strikeY = 16*Math.sin(util.getRadFromDir(this.direction));
+					var entity = spatialManager.findEntityInRange(this.cx+strikeX,this.cy+strikeY,15);
+					
+                    entity.takeDamage(this.damage);
+					if ( target && this.doingDamage <= 0)
+					{
+						var totalDamage = this.damage + this.str+this.dex;
+						this.doingDamage = 0.5*SECS_TO_NOMINALS;
+							target.takeDamage(totalDamage);
+					}
+                };*/
+				this.descr.findTarget = function(){return; };
+				
+                this.descr.move   = function() {this.cx = caster.cx;this.cy = caster.cy;};
+                this.descr.direction      = caster.direction;
+				
+                this.descr.cx = caster.cx;
+                this.descr.cy = caster.cy;
                 this.descr.damage         = 40+Math.floor(caster.lvl/3)*40+caster.wis;
                 entityManager.createEffect(this.descr);
             }

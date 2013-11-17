@@ -13,12 +13,17 @@ function Rogue(descr) {
 	this.setup(descr);
 	this.randomizePos();
 	this.nextExp = this.nextLvl(this.lvl);
+	this.updateStats();
 	
     this.dex + 2;
     this.str - 2;
+	
+	this.rake         = spellbook.rake(1,this.dex);
 }
 
 Rogue.prototype = new Character();
+
+Character.prototype.KEY_RAKE        = '1'.charCodeAt(0);
 
 Rogue.prototype.updateStats = function () {
 
@@ -39,11 +44,11 @@ Rogue.prototype.updateStats = function () {
 
 Rogue.prototype.abilities = function(du)
 {
-    if (keys[this.KEY_HEAL] && !this.isCasting) 
+    if (keys[this.KEY_RAKE] && !this.isCasting) 
     {
         this.isCasting = true;
-        this.Heal.cast(this);
-        this.coolDown = this.Heal.descr.coolDown;
+        this.rake.cast(this);
+        this.coolDown = this.rake.descr.coolDown;
 
         this.model.attack(); //should be model.cast();
 
