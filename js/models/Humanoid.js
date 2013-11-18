@@ -56,7 +56,7 @@ function Humanoid(sprite) {
     this._animations[this.FACE_RIGHT][this.ATTACKING] =
         new Animation(sprite, frameSize * 0, frameSize * 6, frameSize, 7, 50, 0, true);
     this._animations[this.FACE_UP][this.ATTACKING] =
-        new Animation(sprite, frameSize * 0, frameSize * 8, frameSize, 7, 50);
+        new Animation(sprite, frameSize * 0, frameSize * 8, frameSize, 6, 50);
 
     this._activeAnimation = this._animations[this._rotation][this._state];
 
