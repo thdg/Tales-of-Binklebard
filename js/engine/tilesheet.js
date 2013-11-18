@@ -17,11 +17,11 @@ var tilesheet = {
 
     // PUBLIC METHODS
 
-    setTileset: function(image, tilesInRow) {
+    setTileset: function(tileset, tilesInRow) {
 
         this._tilesInRow = tilesInRow;
-        this._tileset = image;
-        this.tileSize = Math.floor(image.width/tilesInRow);
+        this._tileset = tileset;
+        this.tileSize = Math.floor(tileset.width/tilesInRow);
     },
 
     render: function(ctx, tile, posX, posY) {
@@ -29,11 +29,10 @@ var tilesheet = {
         var tileS = this.tileSize,
             tileX = (tile%this._tilesInRow)*tileS,
             tileY = Math.floor(tile/this._tilesInRow)*tileS;
-        ctx.drawImage(
-            this._tileset, 
+        this._tileset.drawFrameCenterdAt(
+            ctx,
+            posX+tileS/2, posY+tileS/2,
             tileX, tileY, 
-            tileS, tileS, 
-            posX, posY, 
             tileS, tileS
         );
     }

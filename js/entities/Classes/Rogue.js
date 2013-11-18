@@ -63,13 +63,3 @@ Rogue.prototype.abilities = function(du)
         }
     }
 };
-
-Rogue.prototype.addExp = function (expReward) {
-
-    this.experience = this.experience + expReward;
-    if (this.experience >= this.nextExp) {
-        this.lvlup();
-		this.updateStats();
-    }
-    
-};

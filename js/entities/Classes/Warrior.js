@@ -57,13 +57,3 @@ Warrior.prototype.abilities = function(du)
         }
     }
 };
-
-Warrior.prototype.addExp = function (expReward) {
-
-    this.experience = this.experience + expReward;
-    if (this.experience >= this.nextExp) {
-        this.lvlup();
-		this.updateStats();
-    }
-    
-};
