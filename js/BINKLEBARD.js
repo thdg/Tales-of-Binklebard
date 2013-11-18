@@ -120,10 +120,9 @@ function preloadDone() {
 	g_sprites.campfire = new Sprite(g_images.campfire);
     g_sprites.campfire.scale = 1.5;
 	
-	tilesheet.setTileset(g_images.terrain, 8);
-    tiles.init();
-	
 	g_sprites.terrain  = new Sprite(g_images.terrain);
+	tilesheet.setTileset(g_sprites.terrain, 8);
+    tiles.init();
 
 	/***************************************************
 	-------Spell pictures------------------------------
@@ -152,7 +151,7 @@ function preloadDone() {
 	/**************************************************/
     
 	//Random generate the World map.
-    map = generateMap(50,50);
+    var map = generateMap(50,50);
     var highlands = new Region(map.map, map.heightmap); 
     world.addRegion(highlands);
 
