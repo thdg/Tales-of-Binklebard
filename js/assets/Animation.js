@@ -1,10 +1,5 @@
 "use strict";
 
-/************************************************************************\
-
-
-\************************************************************************/
-
 function Animation(sprite, startX, startY, frameSize, frames, interval, rotation, reflect) {
 
     if (rotation === undefined)  rotation = 0;
@@ -22,10 +17,8 @@ function Animation(sprite, startX, startY, frameSize, frames, interval, rotation
     this._timeTilNextFrame = interval;
     this._activeFrame = 0;
 
-
     this.rotation   = rotation;
     this.reflect    = reflect;
-
 }
 
 Animation.prototype.update = function(du) {
@@ -47,8 +40,14 @@ Animation.prototype.update = function(du) {
 };
 
 Animation.prototype.drawCentredAt = function(ctx, cx, cy) {
+    
     var startX = this._startX+this._activeFrame*this._frameSize;
-    this._sprite.drawFrameCenterdAt(ctx, cx, cy, startX, this._startY,
-        this._frameSize, this._frameSize, this.rotation,this.reflect);
+    this._sprite.drawFrameCenterdAt(
+        ctx, 
+        cx, cy, 
+        startX, this._startY,
+        this._frameSize, this._frameSize, 
+        this.rotation, this.reflect
+    );
 }
 

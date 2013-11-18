@@ -11,12 +11,21 @@ function handleMouse(evt) {
     g_mouseX = evt.clientX - g_canvas.offsetLeft;
     g_mouseY = evt.clientY - g_canvas.offsetTop;
     
-    // If no button is being pressed, then bail
+    // If no button is being pressed,
     var button = evt.buttons === undefined ? evt.which : evt.buttons;
-    if (!button) return;
+    // or if the mouse is not over canvas,
+    var onCanvas = g_canvas.offsetLeft < evt.clientX && 
+    			   evt.clientX < g_canvas.offsetLeft+g_canvas.width &&
+    			   g_canvas.offsetTop < evt.clientY && 
+    			   evt.clientY < g_canvas.offsetTop+g_canvas.height;
+    // then bail
+    if (!button || !onCanvas) return;
     
-    entityManager._findNearestItem(g_mouseX, g_mouseY);
+    mouseHandler(evt);
 }
+
+// "abstract" method
+function mouseHandler(evt) { };
 
 // Handle "down" and "move" events the same way.
 window.addEventListener("mousedown", handleMouse);

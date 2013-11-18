@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
+        <title>Tales of Binklebard the adventurer: map editor</title>
+        <script src="//use.edgefonts.net/irish-grover.js"></script>
+        <link rel="stylesheet" type="text/css" href="../css/style.css">
+        <style>
+            canvas {
+                cursor: pointer;
+            }
+        </style>   
+    </head>
+    <body bgcolor="chucknorris">
+        <h1 class="title">Map editor</h1>
+        <canvas id="myCanvas" width="800" height="600">
+            <p>Sorry, but your browser does not support the HTML5 canvas tag.</p>
+        </canvas>
+        
+        <!-- game engine stuff -->
+        <script src="../js/engine/globals.js"></script>
+        <script src="../js/engine/consts.js"></script>
+        <script src="../js/engine/util.js"></script>
+        <script src="../js/engine/keys.js"></script>
+        <script src="../js/engine/handleMouse.js"></script>
+
+        <script src="../js/engine/camera.js"></script>
+        <script src="../js/engine/spatialManager.js"></script>
+        <script src="../js/engine/renderingManager.js"></script>
+        <script src="../js/engine/world.js"></script>
+        <script src="../js/engine/Region.js"></script>
+
+
+        <script src="../js/engine/update.js"></script>
+        <script src="../js/engine/render.js"></script>
+        <script src="../js/engine/main.js"></script>
+
+        <script src="../js/engine/imagesPreload.js"></script>
+        <script src="../js/engine/Sprite.js"></script>
+        <script src="../js/engine/Tile.js"></script>
+        <script src="../js/engine/tilesheet.js"></script>
+        <script src="../js/assets/tiles.js"></script>
+        <script src="../js/assets/Animation.js"></script>
+        
+        <!-- game specific stuff -->
+        <script src="./util.js"></script>
+        <script src="./mapEditor.js"></script>
+
+        <script src="./EDITOR.js"></script>
+    </body>
+</html>

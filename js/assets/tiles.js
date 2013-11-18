@@ -11,15 +11,22 @@ var tiles = {
     GRASS2: 2,
     WATER: 3,
     MUD: 8,
-    FOREST: 32,
-    FOREST_TL: 33,
-    FOREST_TR: 34,
-    FOREST_BL: 35,
-    FOREST_BR: 36,
-    FOREST_B: 37,
-    FOREST_T: 38,
-    FOREST_L: 39,
-    FOREST_R: 40,
+
+    FOREST: {
+        FILL: 32,
+        B: 37,
+        T: 38,
+        L: 39,
+        R: 40,
+        TL: 33,
+        TR: 34,
+        BL: 35,
+        BR: 36,
+        ITL: 0,
+        ITR: 0,
+        IBL: 0,
+        IBR: 0,
+    },
     
     // PUBLIC METHODS
 

@@ -150,6 +150,7 @@ Character.prototype.getRadius = function () {
 Character.prototype.lvlup = function () {
     this.lvl++;
 	particleManager.generateTextParticle(this.cx, this.cy, "lvl up!", '#FFFF00', 1000);
+    this.updateStats();
 	this.nextExp = this.nextLvl(this.lvl);
 };
 
@@ -160,8 +161,10 @@ Character.prototype.addExp = function (expReward) {
     if (this.experience >= this.nextExp) {
         this.lvlup();
     }
-    
 };
+
+// "abstract" mehthod
+Character.prototype.updateStats = function() { };
 
 Character.prototype.nextLvl = function(lvl) {
 

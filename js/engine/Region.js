@@ -25,6 +25,15 @@ Region.prototype.update = function (du) {
     
 }
 
+Region.prototype.findTile = function (x, y) {
+
+    var tileSize = tilesheet.tileSize;
+    var tileX = Math.floor(x/tileSize);
+    var tileY = Math.floor(y/tileSize);
+
+    return {x: tileX, y: tileY};
+}
+
 Region.prototype.collidesWith = function (x, y, r) {
 
     return this.collidePoint(x-r,y) ||
@@ -35,11 +44,8 @@ Region.prototype.collidesWith = function (x, y, r) {
 
 Region.prototype.collidePoint = function (x, y) {
 
-    var tileSize = tilesheet.tileSize;
-    var tileX = Math.floor(x/tileSize);
-    var tileY = Math.floor(y/tileSize);
-
-    if (this._hightmap[tileY][tileX]===0) return false;
+    var tile = this.findTile(x,y);
+    if (this._hightmap[tile.y][tile.x]===0) return false;
 
     return true;
 }
@@ -89,7 +95,4 @@ Region.prototype.render = function (ctx) {
         ctx.fillStyle = oldStyle;
         ctx.globalAlpha = oldAlpha;
     }
-
-    // render static Objects
-    // TODO
 };

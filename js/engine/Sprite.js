@@ -46,7 +46,6 @@ Sprite.prototype.drawFrameCenterdAt = function (ctx, cx, cy, startX, startY, siz
     ctx.save();
     ctx.translate(cx, cy);
     ctx.rotate(rotation);
-//    ctx.scale(this.scale,this.scale);
 
     if (reflect) ctx.scale(-this.scale, this.scale);
     else ctx.scale(this.scale, this.scale);

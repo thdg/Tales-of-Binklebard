@@ -8,45 +8,61 @@
 
 var world = {
 
-// "PRIVATE" DATA
+	// "PRIVATE" DATA
 
-_regions : [],
-_activeRegion : undefined,
+	_regions : [],
+	_activeRegion : undefined,
 
-// "PRIVATE" METHODS
+	// "PRIVATE" METHODS
 
 
 
-// PUBLIC METHODS
+	// PUBLIC METHODS
 
-addRegion: function(region) {
-    this._regions.push(region);
-    this._activeRegion = region;
-},
+	addRegion: function(region) {
+	    this._regions.push(region);
+	    this._activeRegion = region;
+	},
 
-getRegion: function() {
-    return this._activeRegion;
-},
+	getRegion: function() {
+	    return this._activeRegion;
+	},
 
-collidesWith: function(x, y, r) {
-	return this._activeRegion.collidesWith(x, y, r);
-},
+	getMap: function() {
+		return this._activeRegion._map;
+	},
 
-getHeight: function() {
-    return this._activeRegion.height;
-},
+	findTile: function(x,y) {
+		return this._activeRegion.findTile(x,y);
+	},
 
-getWidth: function() {
-    return this._activeRegion.width;
-},
+	collidesWith: function(x, y, r) {
+		return this._activeRegion.collidesWith(x, y, r);
+	},
 
-update: function(du) {
-    this._activeRegion.update(du);
-    tiles.update(du);
-},
+	getHeight: function() {
+	    return this._activeRegion.height;
+	},
 
-render: function(ctx) {
-    this._activeRegion.render(ctx);
-}
+	getWidth: function() {
+	    return this._activeRegion.width;
+	},
+
+	update: function(du) {
+	    this._activeRegion.update(du);
+	    tiles.update(du);
+	},
+
+	render: function(ctx) {
+	    this._activeRegion.render(ctx);
+	},
+
+	exportMap: function() {
+		return {map: this._activeRegion._map, heightmap: this._activeRegion._heightmap}
+	},
+
+	importMap: function(map, heightmap) {
+		this._activeRegion = new Region(map, heightmap);
+	},
 
 };
