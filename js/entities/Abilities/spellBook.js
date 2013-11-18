@@ -102,7 +102,7 @@ var spellbook =
                 coolDown       : 0.5*SECS_TO_NOMINALS,
 				vel            : 0,
                 direction      : 0,
-                responseToFind : function() {this.removeFromScope();}
+                responseToFind : function() {}
             },
 
             cast : function(caster)
@@ -110,17 +110,21 @@ var spellbook =
                 var energycost = caster.energy*0.1; // blah, until later
                 if(!caster.drainEnergy(energycost)) return;
 
-                this.descr.target         = function (entity) { 
-                    entity.takeDamage(this.damage,true);
+                this.descr.target = function (entity) { 
+                    if ( entity.isEnemy)
+                    {
+                        entity.takeDamage(this.damage,true);
+                        this.removeFromScope();
+                    }
                 };
 
-                this.descr.move   = function() { return; };
+                this.descr.move = function() { return; };
 
-                var distance = caster.getRadius()+this.descr.aoe+1;
+                var distance = caster.getRadius() + this.descr.aoe + 1;
                 var pos = _inFrontOf(caster,distance);
                 for (var property in pos) { this.descr[property] = pos[property]; }          
             				
-                this.descr.damage = 40+Math.floor(caster.lvl/3)*40+caster.dex;
+                this.descr.damage = 40 + Math.floor(caster.lvl/3) * 40 + caster.dex;
                 entityManager.createEffect(this.descr);
             }
         }

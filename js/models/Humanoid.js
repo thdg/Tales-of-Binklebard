@@ -41,22 +41,22 @@ function Humanoid(sprite) {
         new Animation(sprite, frameSize * 3, frameSize * 0, frameSize);
     
     this._animations[this.FACE_LEFT][this.WALKING] =
-        new Animation(sprite, frameSize * 0, frameSize * 2, frameSize, 7, 200, 0, true);
+        new Animation(sprite, frameSize * 0, frameSize * 2, frameSize, 8, 120, 0, true);
     this._animations[this.FACE_RIGHT][this.WALKING] =
-        new Animation(sprite, frameSize * 0, frameSize * 2, frameSize, 7, 200);
+        new Animation(sprite, frameSize * 0, frameSize * 2, frameSize, 8, 120);
     this._animations[this.FACE_DOWN][this.WALKING] =
-        new Animation(sprite, frameSize * 0, frameSize * 3, frameSize, 7, 200);
+        new Animation(sprite, frameSize * 0, frameSize * 3, frameSize, 8, 120);
     this._animations[this.FACE_UP][this.WALKING] =
-        new Animation(sprite, frameSize * 0, frameSize * 4, frameSize, 7, 200);
+        new Animation(sprite, frameSize * 0, frameSize * 4, frameSize, 8, 120);
 
     this._animations[this.FACE_DOWN][this.ATTACKING] =
-        new Animation(sprite, frameSize * 0, frameSize * 5, frameSize, 6, 50);
+        new Animation(sprite, frameSize * 0, frameSize * 5, frameSize, 7, 50);
     this._animations[this.FACE_LEFT][this.ATTACKING] =
-        new Animation(sprite, frameSize * 0, frameSize * 6, frameSize, 6, 50);
+        new Animation(sprite, frameSize * 0, frameSize * 6, frameSize, 7, 50);
     this._animations[this.FACE_RIGHT][this.ATTACKING] =
-        new Animation(sprite, frameSize * 0, frameSize * 6, frameSize, 6, 50, 0, true);
+        new Animation(sprite, frameSize * 0, frameSize * 6, frameSize, 7, 50, 0, true);
     this._animations[this.FACE_UP][this.ATTACKING] =
-        new Animation(sprite, frameSize * 0, frameSize * 8, frameSize, 6, 50);
+        new Animation(sprite, frameSize * 0, frameSize * 8, frameSize, 7, 50);
 
     this._activeAnimation = this._animations[this._rotation][this._state];
 

@@ -129,11 +129,11 @@ Character.prototype.move = function (du) {
         collision.setDirection(this.direction+2);
     }
 
-    if (world.collidesWith(oldX, this.cy, this.getRadius()) || collisionY) {
+    if (world.collidesWith(oldX, this.cy, this.getRadius()) || (collisionY && collisionY.isEnemy)) {
         this.cy = oldY;
     }
 
-    if (world.collidesWith(this.cx, oldY, this.getRadius()) || collisionX) {
+    if (world.collidesWith(this.cx, oldY, this.getRadius()) || (collisionX && collisionX.isEnemy)) {
         this.cx = oldX;
     }
 

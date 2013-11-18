@@ -21,6 +21,7 @@ Soldier.prototype = new Entity();
 Soldier.prototype.margin      = 7;
 Soldier.prototype.damage      = 12;
 Soldier.prototype.doingDamage = 0;
+Soldier.prototype.isEnemy     = true;
 
 Soldier.prototype.randomizeVelocity = function () {
 
