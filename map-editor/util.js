@@ -26,7 +26,9 @@ function generateMap(width, height) {
     makePaths(map, width, height);
     map = doubleMap(map,width,height);
 
-    map = makeTrees(map);
+    map = fixChunks(map, tiles.FOREST);
+    map = fixChunks(map, tiles.WATER);
+    map = fixChunks(map, tiles.MUD);
 
     var final_map = []
     for (var i=1; i<height*2-1; i++) {
@@ -72,11 +74,13 @@ function makeRivers(map, width, height) {
     var x = util.randInt(10,width-11);
     var y = util.randInt(10,height-11);
 
-    for (var i=0; i<=y; i++) {
-        map[i][x] = tiles.WATER;
+    for (var i=0; i<=y+1; i++) {
+        map[i][x] = tiles.WATER.FILL;
+        map[i][x+1] = tiles.WATER.FILL;
     }
-    for (var i=0; i<=x; i++) {
-        map[y][i] = tiles.WATER;
+    for (var i=0; i<=x+1; i++) {
+        map[y][i] = tiles.WATER.FILL;
+        map[y+1][i] = tiles.WATER.FILL;
     }
 
     return map;
@@ -86,13 +90,17 @@ function makePaths(map, width, height) {
 
     var x = 5, y = 5;
 
-    for (var i=y; i<=height-y; i++) {
-        map[i][x] = tiles.MUD;
-        map[i][width-x] = tiles.MUD;
+    for (var i=y; i<=height-y+1; i++) {
+        map[i][x] = tiles.MUD.FILL;
+        map[i][x+1] = tiles.MUD.FILL;
+        map[i][width-x] = tiles.MUD.FILL;
+        map[i][width-x+1] = tiles.MUD.FILL;
     }
-    for (var i=x; i<=width-x; i++) {
-        map[y][i] = tiles.MUD;
-        map[height-y][i] = tiles.MUD;
+    for (var i=x; i<=width-x+1; i++) {
+        map[y][i] = tiles.MUD.FILL;
+        map[y+1][i] = tiles.MUD.FILL;
+        map[height-y][i] = tiles.MUD.FILL;
+        map[height-y+1][i] = tiles.MUD.FILL;
     }
 
     return map;
@@ -106,7 +114,7 @@ function makeHightmap(map) {
         heightmap.push([]);
         for (var j=0; j<map[i].length; j++) {
             // put grass in by default
-            heightmap[i][j] = map[i][j]===0 || map[i][j]===8 ? 0 : 1; 
+            heightmap[i][j] = isPartOf(map[i][j],tiles.MUD) || map[i][j]===0 ? 0 : 1; 
         }
     }
 
@@ -152,87 +160,124 @@ function makeFlowers(map) {
     return map;
 }
 
-function makeTrees(map) {
+function isPartOf(tile, stack) {
+    return tile === stack.FILL ||
+           tile === stack.TL ||
+           tile === stack.TR ||
+           tile === stack.BL ||
+           tile === stack.BR ||
+           tile === stack.T ||
+           tile === stack.L ||
+           tile === stack.B ||
+           tile === stack.R ||
+           tile === stack.IBL ||
+           tile === stack.IBR ||
+           tile === stack.ITL ||
+           tile === stack.ITR;
+}
 
-    // make chunks of trees
+function fixChunks(map, stack) {
+
     for (var i=0; i<map.length-1; i++) {
         for (var j=0; j<map[i].length-1; j++) {
-            if (map[i][j]===tiles.FOREST.FILL) {
-                map[i][j] = tiles.FOREST.TL;
-                map[i][j+1] = tiles.FOREST.TR;
-                map[i+1][j] = tiles.FOREST.BL;
-                map[i+1][j+1] = tiles.FOREST.BR;
-            }
-        }
-    }
-
-    for (var i=0; i<map.length-1; i++) {
-        for (var j=0; j<map[i].length-1; j++) {
-
-            // fill all holes
-            if (map[i][j] === tiles.FOREST.BR &&
-                map[i][j+1] === tiles.FOREST.BL &&
-                map[i+1][j] === tiles.FOREST.TR &&
-                map[i+1][j+1] === tiles.FOREST.TL ) {
-                    map[i][j] = tiles.FOREST.FILL;
-                    map[i][j+1] = tiles.FOREST.FILL;
-                    map[i+1][j] = tiles.FOREST.FILL;
-                    map[i+1][j+1] = tiles.FOREST.FILL;
-            }
-
-            // fix corners
-            if (map[i][j+1] === tiles.FOREST.BL &&
-                map[i+1][j] === tiles.FOREST.TR &&
-                map[i+1][j+1] === tiles.FOREST.TL ) {
-                    map[i][j+1] = tiles.FOREST.L;
-                    map[i+1][j] = tiles.FOREST.T;
-                    map[i+1][j+1] = tiles.FOREST.FILL;
-            }
-            if (map[i][j] === tiles.FOREST.BR &&
-                map[i+1][j] === tiles.FOREST.TR &&
-                map[i+1][j+1] === tiles.FOREST.TL ) {
-                    map[i][j] = tiles.FOREST.R;
-                    map[i+1][j] = tiles.FOREST.FILL;
-                    map[i+1][j+1] = tiles.FOREST.T;
-            }
-            if (map[i][j] === tiles.FOREST.BR &&
-                map[i][j+1] === tiles.FOREST.BL &&
-                map[i+1][j] === tiles.FOREST.TR ) {
-                    map[i][j] = tiles.FOREST.FILL;
-                    map[i][j+1] = tiles.FOREST.B;
-                    map[i+1][j] = tiles.FOREST.R;
-            }
-            if (map[i][j] === tiles.FOREST.BR &&
-                map[i][j+1] === tiles.FOREST.BL &&
-                map[i+1][j+1] === tiles.FOREST.TL ) {
-                    map[i][j] = tiles.FOREST.B;
-                    map[i][j+1] = tiles.FOREST.FILL;
-                    map[i+1][j+1] = tiles.FOREST.L;
-            }
 
             // fix lines
-            if (map[i][j] === tiles.FOREST.TR &&
-                map[i][j+1] === tiles.FOREST.TL ) {
-                    map[i][j] = tiles.FOREST.T;
-                    map[i][j+1] = tiles.FOREST.T;
+            if (!isPartOf(map[i][j], stack) &&
+                !isPartOf(map[i][j+1], stack) &&
+                isPartOf(map[i+1][j], stack) &&
+                isPartOf(map[i+1][j+1], stack) ) {
+                    map[i+1][j] = stack.T;
+                    map[i+1][j+1] = stack.T;
             }
-            if (map[i][j] === tiles.FOREST.BR &&
-                map[i][j+1] === tiles.FOREST.BL ) {
-                    map[i][j] = tiles.FOREST.B;
-                    map[i][j+1] = tiles.FOREST.B;
+            if (isPartOf(map[i][j], stack) &&
+                isPartOf(map[i][j+1], stack) &&
+                !isPartOf(map[i+1][j], stack) &&
+                !isPartOf(map[i+1][j+1], stack) ) {
+                    map[i][j] = stack.B;
+                    map[i][j+1] = stack.B;
             }
-            if (map[i][j] === tiles.FOREST.BL &&
-                map[i+1][j] === tiles.FOREST.TL ) {
-                    map[i][j] = tiles.FOREST.L;
-                    map[i+1][j] = tiles.FOREST.L;
+            if (!isPartOf(map[i][j], stack) &&
+                isPartOf(map[i][j+1], stack) &&
+                !isPartOf(map[i+1][j], stack) &&
+                isPartOf(map[i+1][j+1], stack) ) {
+                    map[i][j+1] = stack.L;
+                    map[i+1][j+1] = stack.L;
             }
-            if (map[i][j] === tiles.FOREST.BR &&
-                map[i+1][j] === tiles.FOREST.TR ) {
-                    map[i][j] = tiles.FOREST.R;
-                    map[i+1][j] = tiles.FOREST.R;
+            if (isPartOf(map[i][j], stack) &&
+                !isPartOf(map[i][j+1], stack) &&
+                isPartOf(map[i+1][j], stack) &&
+                !isPartOf(map[i+1][j+1], stack) ) {
+                    map[i][j] = stack.R;
+                    map[i+1][j] = stack.R;
             }
         }
     }
+    for (var i=0; i<map.length-1; i++) {
+        for (var j=0; j<map[i].length-1; j++) {
+
+            // fix inner corners
+            if (!isPartOf(map[i][j], stack) &&
+                isPartOf(map[i][j+1], stack) &&
+                isPartOf(map[i+1][j], stack) &&
+                isPartOf(map[i+1][j+1], stack) ) {
+                    map[i][j+1] = stack.L;
+                    map[i+1][j] = stack.T;
+                    map[i+1][j+1] = stack.ITL;
+            }
+            if (isPartOf(map[i][j], stack) &&
+                !isPartOf(map[i][j+1], stack) &&
+                isPartOf(map[i+1][j], stack) &&
+                isPartOf(map[i+1][j+1], stack) ) {
+                    map[i][j] = stack.R;
+                    map[i+1][j] = stack.ITR;
+                    map[i+1][j+1] = stack.T;
+            }
+            if (isPartOf(map[i][j], stack) &&
+                isPartOf(map[i][j+1], stack) &&
+                isPartOf(map[i+1][j], stack) &&
+                !isPartOf(map[i+1][j+1], stack) ) {
+                    map[i][j] = stack.IBR;
+                    map[i][j+1] = stack.B;
+                    map[i+1][j] = stack.R;
+            }
+            if (isPartOf(map[i][j], stack) &&
+                isPartOf(map[i][j+1], stack) &&
+                !isPartOf(map[i+1][j], stack) &&
+                isPartOf(map[i+1][j+1], stack) ) {
+                    map[i][j] = stack.B;
+                    map[i][j+1] = stack.IBL;
+                    map[i+1][j+1] = stack.L;
+            }
+        }
+    }
+
+    for (var i=0; i<map.length-1; i++) {
+        for (var j=0; j<map[i].length-1; j++) {
+
+            // fix outer corners
+            if (isPartOf(map[i][j], stack) &&
+                !isPartOf(map[i][j+1], stack) &&
+                !isPartOf(map[i+1][j], stack) ) {
+                    map[i][j] = stack.BR;
+            }
+            if (!isPartOf(map[i][j], stack) &&
+                isPartOf(map[i][j+1], stack) &&
+                !isPartOf(map[i+1][j+1], stack) ) {
+                    map[i][j+1] = stack.BL;
+            }
+            if (!isPartOf(map[i][j], stack) &&
+                isPartOf(map[i+1][j], stack) &&
+                !isPartOf(map[i+1][j+1], stack) ) {
+                    map[i+1][j] = stack.TR;
+            }
+            if (!isPartOf(map[i][j+1], stack) &&
+                !isPartOf(map[i+1][j], stack) &&
+                isPartOf(map[i+1][j+1], stack) ) {
+                    map[i+1][j+1] = stack.TL;
+            }
+        }
+    }
+
 
     return map;
 }
