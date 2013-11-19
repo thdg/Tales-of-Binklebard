@@ -17,25 +17,25 @@ Effect.prototype.update = function(du)
     spatialManager.unregister(this);
     renderingManager.unregister(this);
 
-    this.move(du);
+    this.move( du );
 
     this.duration -= du;
     this.range    -= du*this.vel;
 
-    if( this.duration < 0 || this.range < 0)
+    if ( this.duration < 0 || this.range < 0 )
         this.kill();
 
-    if (this._isDeadNow) return entityManager.KILL_ME_NOW;
+    if ( this._isDeadNow ) return entityManager.KILL_ME_NOW;
 
     this.model.update(du);
 
-    if (target = this.findTarget())
+    if ( target = this.findTarget() )
     {
         this.target(target);
         this.target = function(){};
     }
 
-    if(this._inSpatial) spatialManager.register(this);
+    if ( this._inSpatial ) spatialManager.register(this);
     renderingManager.register(this);
 };
 

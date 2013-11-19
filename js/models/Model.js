@@ -12,6 +12,8 @@ function Model(descr) {
     }
 }
 
+Model.prototype._alpha = 1.0;
+
 Model.prototype.update = function(du) {
 
     var finishedAnimation = this._activeAnimation.update(du);
@@ -20,6 +22,7 @@ Model.prototype.update = function(du) {
 };
 
 Model.prototype.drawCentredAt = function(ctx, cx, cy) {
+    this._activeAnimation.sprite.alpha = this._alpha;
     this._activeAnimation.drawCentredAt(ctx, cx, cy);
 };
 
@@ -67,3 +70,6 @@ Model.prototype.walk = function() {
     this._setState(this.WALKING);
 };
 
+Model.prototype.setAlpha = function(alpha) {
+    this._alpha = alpha;
+};

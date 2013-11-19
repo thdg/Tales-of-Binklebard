@@ -90,24 +90,24 @@ var spellbook =
         return spell;
     },
 	
-	    rake: function(lvl, dex)
+    rake: function(lvl, dex)
     {
         var spell = 
         {
             descr: {
                 range          : TILE_SIZE*1,
-				aoe            : 1.1*TILE_SIZE/3,
-				model          : new Animation ( g_sprites.rake, 0, 0, 48, 3, 200),
-				duration       : 0.5*SECS_TO_NOMINALS,
+                aoe            : 1.1*TILE_SIZE/3,
+                model          : new Animation ( g_sprites.rake, 0, 0, 48, 3, 200),
+                duration       : 0.5*SECS_TO_NOMINALS,
                 coolDown       : 0.5*SECS_TO_NOMINALS,
-				vel            : 0,
+                vel            : 0,
                 direction      : 0,
                 responseToFind : function() {}
             },
 
             cast : function(caster)
             {
-                var energycost = caster.energy*0.1; // blah, until later
+                var energycost = 20+lvl*2; // blah, until later
                 if(!caster.drainEnergy(energycost)) return;
 
                 this.descr.target = function (entity) { 
@@ -128,6 +128,44 @@ var spellbook =
                 entityManager.createEffect(this.descr);
             }
         }
+        return spell;
+    },
+
+    fade: function(lvl,dex)
+    {
+        var spell =
+        {
+            descr: {
+                render      : function () {},
+                aoe         : 1,
+                duration    : lvl * 2 * SECS_TO_NOMINALS,
+                coolDown    : 0.5 * SECS_TO_NOMINALS,
+                update      : function(du) {
+                                this.duration -= du;
+
+                                if (this.duration <= 0)
+                                {
+                                    this.kill();
+                                }
+                                if (this._isDeadNow) 
+                                    return entityManager.KILL_ME_NOW;
+                              }
+            },
+
+            cast : function(caster)
+            {
+                var energycost = 40+lvl*2; // blah, until later
+                if( !caster.drainEnergy( energycost ) ) return;
+
+                caster.setFading(true);
+
+                this.descr.kill = function() {
+                    this._isDeadNow = true;
+                    caster.setFading( false );
+                }
+                entityManager.createEffect(this.descr);
+            }
+        };
         return spell;
     }
 	

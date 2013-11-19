@@ -39,8 +39,9 @@ Character.prototype.experience   = 0;
 
 Character.prototype.hp           = 100;
 Character.prototype.armor        = 25;
+Character.prototype.missChange   = 0;
 Character.prototype.energy       = 100;
-Character.prototype.damage       = 10;
+Character.prototype.damage       = 8;
 
 Character.prototype.damageTaken  = 0;
 Character.prototype.energyUsed   = 0;
@@ -74,7 +75,7 @@ Character.prototype.strike = function()
 
     if ( target && this.doingDamage <= 0)
     {
-        var totalDamage = this.damage + this.str+this.dex;
+        var totalDamage = Math.floor(this.damage + this.str/2+this.dex/3);
         this.doingDamage = 0.5*SECS_TO_NOMINALS;
         target.takeDamage(totalDamage);
     }
@@ -149,7 +150,7 @@ Character.prototype.getRadius = function () {
 
 Character.prototype.lvlup = function () {
     this.lvl++;
-	particleManager.generateTextParticle(this.cx, this.cy, "lvl up!", '#FFFF00', 1000);
+	particleManager.generateTextParticle(this.cx, this.cy, "level "+this.lvl, '#FFFF00', 1000);
     this.updateStats();
 	this.nextExp = this.nextLvl(this.lvl);
 };
@@ -173,14 +174,19 @@ Character.prototype.nextLvl = function(lvl) {
 
 Character.prototype.takeDamage = function (damage, ignoreArmor) {
 
-    if (ignoreArmor===undefined) ignoreArmor = false;
+    if ( ignoreArmor === undefined ) ignoreArmor = false;
 
     var damageReduction = ignoreArmor ? 1 : this.armor/this.hp;
     var totalDamage = damage * damageReduction;
-    this.damageTaken += totalDamage;
-    particleManager.generateSplash(this.cx, this.cy, 20);
+    if ( this.missChange <= Math.random())
+    {
+        this.damageTaken += totalDamage;
+        particleManager.generateSplash(this.cx, this.cy, 20);
+    }
+    else
+        particleManager.generateTextParticle(this.cx, this.cy, 'Miss', '#FF0000');
 
-    if (this.damageTaken>this.hp) this.kill();
+    if ( this.damageTaken > this.hp ) this.kill();
 };
 
 Character.prototype.heal = function (hpBoost) {

@@ -7,7 +7,6 @@ function Animation(sprite, startX, startY, frameSize, frames, interval, rotation
     if (interval === undefined) interval = 0;
 	if (reflect === undefined) reflect = false;
 
-    this._sprite    = sprite
     this._frames    = frames;
     this._startX    = startX;
     this._startY    = startY;
@@ -17,6 +16,7 @@ function Animation(sprite, startX, startY, frameSize, frames, interval, rotation
     this._timeTilNextFrame = interval;
     this._activeFrame = 0;
 
+    this.sprite     = sprite;
     this.rotation   = rotation;
     this.reflect    = reflect;
 }
@@ -42,7 +42,7 @@ Animation.prototype.update = function(du) {
 Animation.prototype.drawCentredAt = function(ctx, cx, cy) {
     
     var startX = this._startX+this._activeFrame*this._frameSize;
-    this._sprite.drawFrameCenterdAt(
+    this.sprite.drawFrameCenterdAt(
         ctx, 
         cx, cy, 
         startX, this._startY,

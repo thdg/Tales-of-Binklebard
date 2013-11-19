@@ -8,8 +8,13 @@ function Sprite(image) {
     this.scale  = 1;
 }
 
+Sprite.prototype.alpha = 1.0;
+
 Sprite.prototype.drawAt = function (ctx, x, y) {
+    ctx.save();
+    ctx.globalAlpha = this.alpha;
     ctx.drawImage(this.image, x, y);
+    ctx.restore();
 };
 
 Sprite.prototype.drawCentredAt = function (ctx, cx, cy, rotation, reflect) {
@@ -23,6 +28,7 @@ Sprite.prototype.drawCentredAt = function (ctx, cx, cy, rotation, reflect) {
     ctx.save();
     ctx.translate(cx, cy);
     ctx.rotate(rotation);
+    ctx.globalAlpha = this.alpha;
 
 //    ctx.scale(this.scale,this.scale);
 
@@ -46,6 +52,7 @@ Sprite.prototype.drawFrameCenterdAt = function (ctx, cx, cy, startX, startY, siz
     ctx.save();
     ctx.translate(cx, cy);
     ctx.rotate(rotation);
+    ctx.globalAlpha = this.alpha;
 
     if (reflect) ctx.scale(-this.scale, this.scale);
     else ctx.scale(this.scale, this.scale);
