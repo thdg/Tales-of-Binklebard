@@ -10,6 +10,15 @@
             canvas {
                 cursor: pointer;
             }
+            .blah {
+                display: block;
+                width: 800px;
+                margin: 10px auto;
+            }
+            .blah > .map {
+                width: 795px;
+                height: 200px;
+            }
         </style>   
     </head>
     <body bgcolor="chucknorris">
@@ -17,6 +26,12 @@
         <canvas id="myCanvas" width="800" height="600">
             <p>Sorry, but your browser does not support the HTML5 canvas tag.</p>
         </canvas>
+
+        <div class="blah">
+            <textarea class="map">Press Export to get map string</textarea>
+            <button id="import">Import</button>
+            <button id="export">Export</button>
+        </div>
         
         <!-- game engine stuff -->
         <script src="../js/engine/globals.js"></script>
@@ -48,5 +63,19 @@
         <script src="./mapEditor.js"></script>
 
         <script src="./EDITOR.js"></script>
+        <script>
+            document.getElementById('export').onclick = function() {
+                var map = world.getMap();
+                var map_string = map2string(map);
+                console.log(map_string);
+                document.getElementsByClassName('map')[0].value = map;
+            };
+            document.getElementById('import').onclick = function() {
+                var map_string = document.getElementsByClassName('map')[0].value;
+                var map = string2map(map_string);
+                console.log(map);
+                world.setMap(map);
+            };
+        </script>
     </body>
 </html>

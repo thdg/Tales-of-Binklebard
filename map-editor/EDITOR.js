@@ -71,9 +71,9 @@ function preloadDone() {
     
     
     //Random generate the World map.
-    var map = generateMap(50,50);
-    var highlands = new Region(map.map, map.heightmap); 
-    world.addRegion(highlands);
+    var map = generateBasicMap(100,100);
+    var basicMap = new Region(map.map, map.heightmap); 
+    world.addRegion(basicMap);
 
     main.init();
     camera.flyingMode = true;

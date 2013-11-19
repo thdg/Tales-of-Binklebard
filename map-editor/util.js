@@ -1,109 +1,19 @@
 "use strict";
 
-function generateMap(width, height) {
+function generateBasicMap(width, height) {
     
     var map = [];
-    
+
     for (var i=0; i<height; i++) {
         map.push([]);
         for (var j=0; j<width; j++) {
-            // put grass in by default
-            map[i][j] = tiles.FOREST.FILL; 
+            map[i][j] = 0;
         }
     }
 
-    map = makeClearing(map, width, height);
+    var heightmap = makeHightmap(map);
 
-     
-    // make it an island
-    for (var i=0; i<height; i++) {
-        for (var j=0; j<width; j++) {
-            if (i<2 || height-2-1<i || j<2 || width-2-1<j) map[i][j] = tiles.FOREST.FILL; 
-        }
-    }
-
-    makeRivers(map, width, height);
-    makePaths(map, width, height);
-    map = doubleMap(map,width,height);
-
-    map = fixChunks(map, tiles.FOREST);
-    map = fixChunks(map, tiles.WATER);
-    map = fixChunks(map, tiles.MUD);
-
-    var final_map = []
-    for (var i=1; i<height*2-1; i++) {
-        final_map.push([]);
-        for (var j=1; j<width*2-1; j++) {
-            final_map[i-1][j-1] = map[i][j];
-        }
-    }
-
-    var heightmap = makeHightmap(final_map);
-    final_map = makeFlowers(final_map);
-    return { map: final_map, heightmap: heightmap };
-}
-
-function makeClearing(map, width, height) {
-
-    var w = width, h=height, x=0, y=0;
-    for (var i=y; i<y+h; i++) {
-        for (var j=x; j<x+w; j++) {
-            if (Math.random()<0.7)
-                map[i][j] = tiles.GRASS;
-        }
-    }
-
-    // fill holes
-    for (var i=y+1; i<y+h-1; i++) {
-        for (var j=x+1; j<x+w-1; j++) {
-            if (map[i-1][j] !== tiles.GRASS && 
-                map[i+1][j] !== tiles.GRASS &&
-                map[i][j-1] !== tiles.GRASS && 
-                map[i][j+1] !== tiles.GRASS) {
-                    map[i][j] = tiles.FOREST.FILL;
-            }
-
-        }
-    }
-
-    return map;
-}
-
-function makeRivers(map, width, height) {
-
-    var x = util.randInt(10,width-11);
-    var y = util.randInt(10,height-11);
-
-    for (var i=0; i<=y+1; i++) {
-        map[i][x] = tiles.WATER.FILL;
-        map[i][x+1] = tiles.WATER.FILL;
-    }
-    for (var i=0; i<=x+1; i++) {
-        map[y][i] = tiles.WATER.FILL;
-        map[y+1][i] = tiles.WATER.FILL;
-    }
-
-    return map;
-}
-
-function makePaths(map, width, height) {
-
-    var x = 5, y = 5;
-
-    for (var i=y; i<=height-y+1; i++) {
-        map[i][x] = tiles.MUD.FILL;
-        map[i][x+1] = tiles.MUD.FILL;
-        map[i][width-x] = tiles.MUD.FILL;
-        map[i][width-x+1] = tiles.MUD.FILL;
-    }
-    for (var i=x; i<=width-x+1; i++) {
-        map[y][i] = tiles.MUD.FILL;
-        map[y+1][i] = tiles.MUD.FILL;
-        map[height-y][i] = tiles.MUD.FILL;
-        map[height-y+1][i] = tiles.MUD.FILL;
-    }
-
-    return map;
+    return { map: map, heightmap: heightmap };
 }
 
 function makeHightmap(map) {
@@ -121,31 +31,31 @@ function makeHightmap(map) {
     return heightmap;
 }
 
-function printMap(map) {
+function map2string(map) {
 
+    var map_string = '';
     for (var i=0; i<map.length; i++) {
-        var row = '';
-        for (var j=0; j<map[i].length; j++) {
-            row += map[i][j]+' ';
-        }
-        console.log(row);
+        map_string += (map[i] + ';\n');
     }
+    return map_string;
 }
 
-function doubleMap(map, width, height) {
+function string2map(map_string) {
 
-    var biggerMap = [];
-    
-    for (var i=0; i<height*2; i++) {
-        biggerMap.push([]);
-        for (var j=0; j<width*2; j++) {
-            var x = Math.floor(j/2);
-            var y = Math.floor(i/2);
-            biggerMap[i][j] = map[y][x]; 
-        }
+    var map = [];
+    var rows = map_string.split(';\n');
+    for (var i=0; i<rows.length; i++) {
+        map.push(rows[i].split(','));
     }
 
-    return biggerMap;
+    for (var i=0; i<map.length; i++) {
+        for (var j=0; j<map[i].length; j++) {
+            var tile = parseInt(map[i][j]);
+            if (tile === NaN) console.log('map error, tile is not integer');
+            map[i][j] = tile;
+        }
+    }
+    return map;
 }
 
 function makeFlowers(map) {

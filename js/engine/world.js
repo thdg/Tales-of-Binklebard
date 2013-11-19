@@ -32,6 +32,14 @@ var world = {
 		return this._activeRegion._map;
 	},
 
+	setMap: function(map) {
+		this._activeRegion.setMap(map);
+	},
+
+	setHeightmap: function(heightmap) {
+		this._activeRegion.setHeightmap(heightmap);
+	},
+
 	findTile: function(x,y) {
 		return this._activeRegion.findTile(x,y);
 	},

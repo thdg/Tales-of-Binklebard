@@ -21,6 +21,14 @@ function Region(map, heightmap, dynamicObjects) {
     this.drawHeightmap = false;
 }
 
+Region.prototype.setHeightmap = function (heightmap) {
+    this._hightmap = heightmap;
+}
+
+Region.prototype.setMap = function (map) {
+    this._map = map;
+}
+
 Region.prototype.update = function (du) {
     
 }

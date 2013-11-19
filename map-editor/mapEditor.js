@@ -28,6 +28,9 @@ var mapEditor = {
 		fixChunks(world.getMap(), tiles.FOREST);
 		fixChunks(world.getMap(), tiles.WATER);
 		fixChunks(world.getMap(), tiles.MUD);
+
+		var heightmap = makeHightmap(world.getMap());
+		world.setHeightmap(heightmap);
 	},
 
 	changeTile: function() {
