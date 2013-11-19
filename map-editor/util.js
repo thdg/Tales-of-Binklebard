@@ -35,7 +35,7 @@ function map2string(map) {
 
     var map_string = '';
     for (var i=0; i<map.length; i++) {
-        map_string += (map[i] + ';\n');
+        map_string += (map[i] + ';');
     }
     return map_string;
 }
@@ -43,8 +43,8 @@ function map2string(map) {
 function string2map(map_string) {
 
     var map = [];
-    var rows = map_string.split(';\n');
-    for (var i=0; i<rows.length; i++) {
+    var rows = map_string.split(';');
+    for (var i=0; i<rows.length-1; i++) {
         map.push(rows[i].split(','));
     }
 

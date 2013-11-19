@@ -91,7 +91,16 @@ function requestPreloads() {
 		rogue         	 : "img/classes/rogue_alpha.png",
     };
 
-    imagesPreload(requiredImages, g_images, preloadDone);
+    imagesPreload(requiredImages, g_images, preloadMap);
+}
+
+var g_map = '';
+
+function preloadMap() {
+	$.get('maps/highlands.txt', function(data) {
+		g_map = data;
+		preloadDone();
+	})
 }
 
 var g_sprites = {};
@@ -151,8 +160,9 @@ function preloadDone() {
 	/**************************************************/
     
 	//Random generate the World map.
-    var map = generateMap(50,50);
-    var highlands = new Region(map.map, map.heightmap); 
+    var map = string2map(g_map);
+    var heightmap = makeHightmap(map);
+    var highlands = new Region(map, heightmap); 
     world.addRegion(highlands);
 
 	//initialize game components

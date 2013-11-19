@@ -12,8 +12,14 @@ function Region(map, heightmap, dynamicObjects) {
     this._hightmap = heightmap;
     this._dynamicObjects = dynamicObjects;
 
-    this._mapHeight = map.length,
-    this._mapWidth = map[0].length,
+    this._mapHeight = map.length;
+    var minLength = map[0].length;
+    for (var i=0; i<map.length; i++) {
+        minLength = minLength>map[i].length ? 
+                        map[i].length :
+                        minLength;
+    }
+    this._mapWidth = minLength;
 
     this.height = map.length*tilesheet.tileSize;
     this.width = map[0].length*tilesheet.tileSize;
