@@ -70,18 +70,30 @@ var entityManager = {
 	
     KILL_ME_NOW : -1,
 
+    generateRogue : function() {
+        var rogue = new Humanoid(g_sprites.rogue);
+        var character = new Rogue({model: rogue, cx:200, cy:200});
+        this._character.push(character);
+        camera.centerAt(character);
+        UIManager.follow(character);
+    },
+
+    generateWizard : function() {
+        var wizard = new Humanoid(g_sprites.rogue);
+        var character = new Wizard({model: wizard, cx:200, cy:200});
+        this._character.push(character);
+        camera.centerAt(character);
+        UIManager.follow(character);
+    },
+
     deferredSetup : function () {
         this._categories = [this._items, this._soldiers, this._character, this._effects];
     },
 
     init: function() {
-        var rogue = new Humanoid(g_sprites.rogue);
-        var character = new Rogue({model: rogue, cx:200, cy:200});
-        this._character.push(character);
+        this.generateRogue();
         this._generateSoldiers(100);
         this._generateCamp();
-        camera.centerAt(character);
-		UIManager.follow(character);
     },
 
     createEffect: function (descr) {
