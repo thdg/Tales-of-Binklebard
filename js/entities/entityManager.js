@@ -98,6 +98,10 @@ var entityManager = {
         return this._character[0];
     },
 
+    updateSoldiers : function(lvl) {
+        this._forEachOf(this._soldiers, Soldier.prototype.updateDamage);
+    },
+
     update: function(du) {
 
         for (var c = 0; c < this._categories.length; ++c) {

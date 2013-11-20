@@ -21,9 +21,12 @@ Soldier.prototype = new Entity();
 Soldier.prototype.margin = 7;
 Soldier.prototype.height = 0;
 
-Soldier.prototype.damage      = 12;
+Soldier.prototype.lvl         = 1;
+Soldier.prototype.baseDamage  = 25;
+Soldier.prototype.damage      = 25;
 Soldier.prototype.doingDamage = 0;
 Soldier.prototype.isEnemy     = true;
+
 
 Soldier.prototype.randomizeVelocity = function () {
 
@@ -35,6 +38,11 @@ Soldier.prototype.randomizeVelocity = function () {
     this.vel = util.randRange(MIN_SPEED, MAX_SPEED) / SECS_TO_NOMINALS;
 };
 
+Soldier.prototype.updateDamage = function () {
+    this.lvl++;
+    this.damage = this.baseDamage * this.lvl;
+
+};
 
 Soldier.prototype.update = function (du) {
 

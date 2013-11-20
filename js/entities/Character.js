@@ -156,6 +156,7 @@ Character.prototype.lvlup = function () {
 	particleManager.generateTextParticle(this.cx, this.cy, "level "+this.lvl, '#FFFF00', 1000);
     this.updateStats();
 	this.nextExp = this.nextLvl(this.lvl);
+    entityManager.updateSoldiers(this.lvl);
 };
 
 Character.prototype.addExp = function (expReward) {
@@ -170,6 +171,10 @@ Character.prototype.addExp = function (expReward) {
 Character.prototype.nextLvl = function(lvl) {
 
     return ((lvl * lvl * 1000) + lvl * 2000);
+};
+
+Character.prototype.getLvl = function() {
+    return this.lvl;
 };
 
 Character.prototype.takeDamage = function (damage, ignoreArmor) {
