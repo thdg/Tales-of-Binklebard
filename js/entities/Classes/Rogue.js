@@ -27,7 +27,7 @@ function Rogue(descr) {
 	
 	this.missChange = 0.01 * this.dex;
 
-	this.rake         = spellbook.rake(1,this.dex);
+	this.rake = spellbook.rake(1,this.dex);
 }
 
 Rogue.prototype = new Character();
@@ -62,7 +62,7 @@ Rogue.prototype.updateStats = function () {
 	
     this.rake = spellbook.rake(this.lvl,this.dex);
 	
-	if (this.lvl >= 3){
+	if (this.lvl === 3){
         this.fade = spellbook.fade(this.lvl,this.dex);
 	}
 };
