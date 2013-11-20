@@ -15,6 +15,15 @@ function Cleric(descr) {
 	this.wis + 2;
     this.dex - 2;
 	
+	this.lifeRegen = 0.5 * this.spirit;
+	this.energyRegen = 1 *this.spirit;
+	
+	this.critChance	 = 0.35 * this.dex;
+	this.critModifier = 0.2 * this.str;
+	
+	this.spellCritChance = 0.35 * this.wis;
+	this.spellCritModifier = 0.2 * this.wis;
+	
 	this.Heal         = spellbook.heal(1,1);
 }
 
@@ -37,6 +46,11 @@ Cleric.prototype.updateStats = function () {
     this.armor = this.dex * 20;
     this.hp = this.str * 50;
     this.damage = this.str * 5 + this.wis;
+	this.critChance	 = 0.35 * this.dex;
+	this.critModifier = 0.2 * this.str;
+	
+	this.spellCritChance = 0.35 * this.wis;
+	this.spellCritModifier = 0.3 * this.wis;
 };
 
 

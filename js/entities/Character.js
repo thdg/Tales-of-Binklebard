@@ -42,7 +42,12 @@ Character.prototype.hp           = 100;
 Character.prototype.armor        = 25;
 Character.prototype.missChange   = 0;
 Character.prototype.energy       = 100;
-Character.prototype.damage       = 8;
+Character.prototype.damage       = 0;
+
+Character.prototype.critChance	 = 0;
+Character.prototype.critModifier = 0;
+Character.prototype.spellCritChance = 0;
+Character.prototype.spellCritModifier = 0;
 
 Character.prototype.lifeRegen 	 = 0;
 Character.prototype.energyRegen  = 0;
@@ -58,7 +63,7 @@ Character.prototype.update = function (du) {
 
     spatialManager.unregister(this);
     renderingManager.unregister(this);
-    
+
     if (this._isDeadNow) return entityManager.KILL_ME_NOW;
 
     this.move(du);
@@ -72,19 +77,29 @@ Character.prototype.update = function (du) {
     renderingManager.register(this);
 };
 
-Character.prototype.strike = function()
-{
+Character.prototype.strike = function(){
     var strikeX = 16*Math.cos(util.getRadFromDir(this.direction));
     var strikeY = 16*Math.sin(util.getRadFromDir(this.direction));
     var target = spatialManager.findEntityInRange(this.cx+strikeX,this.cy+strikeY,15);
 
-    if ( target && this.doingDamage <= 0 )
-    {
-        g_audio.strike.play();
-        var totalDamage = Math.floor(this.damage + this.str/2+this.dex/3);
-        this.doingDamage = 1.2*SECS_TO_NOMINALS;
+    if ( target && this.doingDamage <= 0){
+		g_audio.strike.play()
+        var totalDamage = this.critCheck();
+        this.doingDamage = 0.5*SECS_TO_NOMINALS;
         target.takeDamage(totalDamage);
     }
+};
+
+Character.prototype.critCheck = function(){
+	if (this.critChance >= (Math.random() * 100)){
+	
+        return ((this.damage + this.str) * this.critModifier);
+        particleManager.generateSplash(this.cx, this.cy, 20);
+    }
+    else{
+		return (this.damage + this.str);
+		particleManager.generateSplash(this.cx, this.cy, 20);
+	}
 };
 
 Character.prototype.move = function (du) {

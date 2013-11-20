@@ -152,14 +152,19 @@ var spellbook =
 
             cast : function(caster)
             {
-                var energycost = 40+lvl*2; // blah, until later
+                var energycost = caster.energy*0.2; // blah, until later
                 if( !caster.drainEnergy( energycost ) ) return;
 
-                caster.setFading(true);
-
+				var fade = true;
+				if ( fade === true )
+				{
+					caster.missChange += 0.33;
+					caster.model.setAlpha( 0.5 );
+				}
                 this.descr.kill = function() {
                     this._isDeadNow = true;
-                    caster.setFading( false );
+                    caster.missChange = 0.01 * this.dex;
+					caster.model.setAlpha( 1.0 );
                 }
                 entityManager.createEffect(this.descr);
             }

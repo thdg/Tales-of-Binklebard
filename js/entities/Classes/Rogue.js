@@ -22,6 +22,11 @@ function Rogue(descr) {
     this.lifeRegen   = 0.5 * this.spirit;
     this.energyRegen = 1   * this.spirit;
 	
+	this.critChance	 = Math.ceil(0.35 * this.dex);
+	this.critModifier = Math.ceil(0.2 * this.str);
+	
+	this.missChange = 0.01 * this.dex;
+
 	this.rake         = spellbook.rake(1,this.dex);
 }
 
@@ -45,7 +50,15 @@ Rogue.prototype.updateStats = function () {
 
     this.armor = this.dex * 20;
     this.hp = this.str * 50;
-    this.damage = this.str * 5 + this.dex;
+    this.damage = this.str * 5;
+	
+	this.critChance	 = Math.ceil(0.35 * this.dex);
+	this.critModifier = Math.ceil(0.2 * this.str);
+	
+	this.missChange = 0.01 * this.dex;
+	
+	this.lifeRegen = 0.5*this.spirit;
+	this.energyRegen = 1 *this.spirit;
 	
     this.rake = spellbook.rake(this.lvl,this.dex);
 	
@@ -84,19 +97,5 @@ Rogue.prototype.abilities = function(du)
             this.coolDown = 0;
             this.isCasting = false;
         }
-    }
-};
-
-Rogue.prototype.setFading = function(fade)
-{
-    if ( fade === true )
-    {
-        this.missChange = 0.5;
-        this.model.setAlpha( 0.5 );
-    }
-    else
-    {
-        this.missChange = 0;
-        this.model.setAlpha( 1.0 );
     }
 };

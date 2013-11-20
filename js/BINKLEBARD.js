@@ -86,6 +86,7 @@ function requestPreloads() {
 		uimap        	 : "img/UIpic/UImap.png",
 		globes         	 : "img/UIpic/globes.png",
 		myst         	 : "img/UIpic/myst.png",
+		characterScreen  : "img/UIpic/characterScreen.png",
 		
 		// classes
 		rogue         	 : "img/classes/rogue_alpha.png",
@@ -162,6 +163,8 @@ function preloadDone() {
 	g_sprites.globes = new Sprite(g_images.globes);
 	
 	g_sprites.myst = new Sprite(g_images.myst);
+	
+	g_sprites.characterScreen = new Sprite(g_images.characterScreen);
 	
 	/**************************************************/
     

@@ -11,7 +11,7 @@ function Soldier(descr) {
     this.randomizeVelocity();
 
     this.hp = 100;
-    this.armor = 50;
+    this.armor = 75;
     this.damageTaken = 0;
     this.expReward = 500;
 }
@@ -129,8 +129,8 @@ Soldier.prototype.takeDamage = function (damage, ignoreArmor) {
 
     if (ignoreArmor===undefined) ignoreArmor = false;
 
-    var damageReduction = ignoreArmor ? 1 : this.armor/this.hp;
-    var totalDamage = damage * damageReduction
+    var damageReduction = ignoreArmor ? 0 : this.armor/this.hp;
+    var totalDamage = Math.floor(damage * (1 - damageReduction));
     this.damageTaken += totalDamage;
     particleManager.generateTextParticle(this.cx, this.cy, totalDamage);
     particleManager.generateSplash(this.cx, this.cy, 20);
