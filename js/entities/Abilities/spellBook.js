@@ -64,8 +64,9 @@ var spellbook =  {
                 var manacost = caster.energy*0.1; // blah, until later
                 if(!caster.drainEnergy(manacost)) return;
 
-                this.descr.target         = function (entity) { 
-                    entity.takeDamage(this.damage,true);
+                this.descr.target = function (entity) {
+                    var dmg = caster.spellCritCheck(this.damage,entity.cx,entity.cy);
+                    entity.takeDamage(dmg,true);
                     particleManager.generateSplash(this.cx, this.cy, 20, '#FF00FF');
                 };
 

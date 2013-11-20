@@ -21,10 +21,10 @@ function Wizard(descr) {
 	this.lifeRegen = 0.5 * this.spirit;
 	this.energyRegen = 1.5 *this.spirit;
 	
-	this.critChance	 = Math.ceil(0.35 * this.dex);
+	this.critChance	  = Math.ceil(0.35 * this.dex);
 	this.critModifier = Math.ceil(0.2 * this.str);
 	
-	this.spellCritChance = Math.ceil(0.35 * this.wis);
+	this.spellCritChance   = Math.ceil(0.35 * this.wis);
 	this.spellCritModifier = Math.ceil(0.3 * this.wis);
 	
     this.magicMissile = spellbook.magicMissile(1,1);
@@ -55,7 +55,7 @@ Wizard.prototype.updateStats = function () {
     this.armor  = this.dex * 20;
     this.hp     = this.str * 50;
     this.damage = this.str * 5 + this.wis;
-	this.critChance	 = Math.ceil(0.35 * this.dex);
+	this.critChance	  = Math.ceil(0.35 * this.dex);
 	this.critModifier = Math.ceil(0.2 * this.str);
 	
 	this.spellCritChance = Math.ceil(0.35 * this.wis);

@@ -83,7 +83,7 @@ Character.prototype.strike = function(){
     var target = spatialManager.findEntityInRange(this.cx+strikeX,this.cy+strikeY,15);
 
     if ( target && this.doingDamage <= 0){
-		g_audio.strike.play()
+        g_audio.strike.play()
         var totalDamage = this.critCheck();
         this.doingDamage = 0.5*SECS_TO_NOMINALS;
         target.takeDamage(totalDamage);
@@ -91,15 +91,19 @@ Character.prototype.strike = function(){
 };
 
 Character.prototype.critCheck = function(){
-	if (this.critChance >= (Math.random() * 100)){
-	
+    if (this.critChance >= (Math.random() * 100)){
+        particleManager.generateTextParticle(this.cx, this.cy, "Critical Hit!");
         return ((this.damage + this.str) * this.critModifier);
-        particleManager.generateSplash(this.cx, this.cy, 20);
     }
-    else{
-		return (this.damage + this.str);
-		particleManager.generateSplash(this.cx, this.cy, 20);
-	}
+    else return (this.damage + this.str);
+};
+
+Character.prototype.spellCritCheck = function(damage,cx,cy){
+    if (this.critChance >= (Math.random() * 100)) {
+        particleManager.generateTextParticle(cx, cy, "Critical Hit!");
+        return damage * this.critModifier;
+    }
+    else return damage;
 };
 
 Character.prototype.move = function (du) {
