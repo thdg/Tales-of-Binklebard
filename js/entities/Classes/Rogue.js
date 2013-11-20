@@ -19,8 +19,8 @@ function Rogue(descr) {
     this.dex + 2;
     this.str - 2;
 	
-	this.lifeRegen = 0.5*this.spirit;
-	this.energyRegen = 1 *this.spirit;
+    this.lifeRegen   = 0.5 * this.spirit;
+    this.energyRegen = 1   * this.spirit;
 	
 	this.rake         = spellbook.rake(1,this.dex);
 }

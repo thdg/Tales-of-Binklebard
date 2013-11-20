@@ -14,6 +14,9 @@ function Wizard(descr) {
 	
     this.wis + 2;
     this.str - 2;
+
+    this.lifeRegen  = 0.5 * this.spirit;
+    this.energyRegen = 1  * this.spirit;
 	
 	this.MagicMissile = spellbook.magicMissile(1,1)
 }

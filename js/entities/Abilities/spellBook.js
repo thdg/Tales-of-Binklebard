@@ -62,9 +62,8 @@ var spellbook =
                 model          : new Animation ( g_sprites.magicMissile, 0, 0, 48 ),
                 duration       : SECS_TO_NOMINALS,
                 coolDown       : 0.5*SECS_TO_NOMINALS,
-				vel            : 0,
-                direction      : 0,
-                responseToFind : function() {this.killl();}
+				vel            : 300/SECS_TO_NOMINALS,
+                responseToFind : function() { this.kill(); },
             },
 
             cast : function(caster)
@@ -73,15 +72,14 @@ var spellbook =
                 if(!caster.drainEnergy(manacost)) return;
 
                 this.descr.target         = function (entity) { 
-                    entity.takeDamage(this.damage);
+                    entity.takeDamage(this.damage,true);
                     particleManager.generateSplash(this.cx, this.cy, 20, '#FF00FF');
                 };
 
-                var distance 			  = caster.getRadius()+this.descr.aoe+1;
-                var rad                   = util.getRadFromDir(caster.direction);
-                this.descr.cx             = caster.cx+distance*Math.cos(rad);
-                this.descr.cy             = caster.cy+distance*Math.sin(rad);
-                this.descr.direction      = caster.direction;
+                var distance = caster.getRadius() + this.descr.aoe + 1;
+                var pos = _inFrontOf(caster,distance);
+                for (var property in pos) { this.descr[property] = pos[property]; }          
+                
                 this.descr.model.rotation = util.getRadFromDir(caster.direction);
                 this.descr.damage         = 40+Math.floor(caster.lvl/3)*40+caster.wis;
                 entityManager.createEffect(this.descr);
@@ -167,6 +165,50 @@ var spellbook =
             }
         };
         return spell;
+    },
+    /*  
+    armor: function(lvl,wis)
+    {
+
+        var spell =
+        {
+            descr: {
+                range       : TILE_SIZE*1,
+                aoe         : 1,
+                hp          : lvl*10;
+                model       : new Animation ( g_sprites.armor, 0, 0, 48, 3, 200),
+                duration    : 15*SECS_TO_NOMINALS,
+                coolDown    : 0.5*SECS_TO_NOMINALS,
+                update      : function(du) {
+                                this.duration -= du;
+                                this.move();
+                                if (this.duration <= 0 || this.hp <= 0)
+                                {
+                                    this.kill();
+                                }
+                                if (this._isDeadNow) 
+                                    return entityManager.KILL_ME_NOW;
+                              }
+            },
+
+            cast: function (caster)
+            {
+                var manacost = 40;
+                if(!caster.drainEnergy(manacost)) return;
+                this.descr.oldTakeDamage = caster.takeDamage;
+                this.descr.energyArmor   = 
+                caster.takeDamage = function() { this.energyArmor.takeDamage(); }
+                this.descr.move   = function() { this.cx = caster.cx; this.cy = caster.cy; };
+                this.descr.cx     = caster.cx;
+                this.descr.cy     = caster.cy;
+                this.descr.kill   = function() {};
+                entityManager.createEffect(this.descr);
+                
+            }
+            
+        };
+        return spell;
     }
+    */
 	
 };

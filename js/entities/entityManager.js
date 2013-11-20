@@ -91,7 +91,7 @@ var entityManager = {
     },
 
     init: function() {
-        this.generateRogue();
+        this.generateWizard();
         this._generateSoldiers(100);
         this._generateCamp();
     },
