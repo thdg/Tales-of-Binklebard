@@ -20,12 +20,12 @@ Character.prototype.KEY_LEFT  = LEFT_ARROW;
 Character.prototype.KEY_RIGHT = RIGHT_ARROW;
 
 Character.prototype.marginBottom = 7;
+Character.prototype.height = 0;
 
 Character.prototype.direction = FACE_DOWN; // default direction
 
 Character.prototype.KEY_ATTACK = ' '.charCodeAt(0);
 
-// NEEDS REFINEMENT
 Character.prototype.isCasting    = false;
 Character.prototype.coolDown     = 0;
 
@@ -62,6 +62,8 @@ Character.prototype.update = function (du) {
 
     var energyRegen = 0.5*this.spirit/SECS_TO_NOMINALS*du;
     this.energyUsed = Math.max(0, this.energyUsed-energyRegen);
+    var damageRegen = 0.2*this.str/SECS_TO_NOMINALS*du;
+    this.damageTaken = Math.max(0, this.damageTaken-damageRegen);
 
     spatialManager.register(this);
     renderingManager.register(this);
@@ -159,7 +161,7 @@ Character.prototype.addExp = function (expReward) {
 
     this.experience = this.experience + expReward;
     particleManager.generateTextParticle(this.cx, this.cy, expReward + " exp", '#FFFF00');
-    if (this.experience >= this.nextExp) {
+    if (this.experience >= this.nextExp) {      
         this.lvlup();
     }
 };
@@ -186,7 +188,7 @@ Character.prototype.takeDamage = function (damage, ignoreArmor) {
     else
         particleManager.generateTextParticle(this.cx, this.cy, 'Miss', '#FF0000');
 
-    if ( this.damageTaken > this.hp ) this.kill();
+    if ( this.damageTaken >= this.hp ) this.kill();
 };
 
 Character.prototype.heal = function (hpBoost) {

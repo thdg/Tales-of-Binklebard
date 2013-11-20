@@ -57,7 +57,7 @@ Effect.prototype.move = function (du)
             break;
     }
 
-    if (world.collidesWith(this.cx, this.cy, this.getRadius())) {
+    if (world.collidesWith(this.cx, this.cy, this.getRadius(), this.height)) {
         this._isDeadNow = true;
     }
 }

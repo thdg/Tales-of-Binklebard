@@ -48,18 +48,20 @@ Region.prototype.findTile = function (x, y) {
     return {x: tileX, y: tileY};
 }
 
-Region.prototype.collidesWith = function (x, y, r) {
+Region.prototype.collidesWith = function (x, y, r, h) {
 
-    return this.collidePoint(x-r,y) ||
-           this.collidePoint(x+r,y) ||
-           this.collidePoint(x,y-r) ||
-           this.collidePoint(x,y+r);
+    return this.collidePoint(x-r,y,h) ||
+           this.collidePoint(x+r,y,h) ||
+           this.collidePoint(x,y-r,h) ||
+           this.collidePoint(x,y+r,h);
 }
 
-Region.prototype.collidePoint = function (x, y) {
+Region.prototype.collidePoint = function (x, y, h) {
+
+    if (h===undefined) h = 0;
 
     var tile = this.findTile(x,y);
-    if (this._hightmap[tile.y][tile.x]===0) return false;
+    if (this._hightmap[tile.y][tile.x]<=h) return false;
 
     return true;
 }
@@ -102,7 +104,7 @@ Region.prototype.render = function (ctx) {
             for (var j = startX; j<endX; j++) {
                 var posX = j*tileSize;
                 var posY = i*tileSize;
-                if (row[j]===1)
+                if (row[j]>0)
                     util.fillBox(ctx, posX, posY, tileSize, tileSize);
             }
         }

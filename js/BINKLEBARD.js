@@ -97,6 +97,9 @@ function requestPreloads() {
 var g_map = '';
 
 function preloadMap() {
+	// okey, I know jQuery is a library, 
+	// and we are not supposed to use libraries,
+	// but this is soooooo much easier
 	$.get('maps/highlands.txt', function(data) {
 		g_map = data;
 		preloadDone();

@@ -23,8 +23,10 @@ function makeHightmap(map) {
     for (var i=0; i<map.length; i++) {
         heightmap.push([]);
         for (var j=0; j<map[i].length; j++) {
-            // put grass in by default
-            heightmap[i][j] = isPartOf(map[i][j],tiles.MUD) || map[i][j]===0 ? 0 : 1; 
+            var height = 0;
+            if (isPartOf(map[i][j],tiles.FOREST)) height = 10;
+            if (isPartOf(map[i][j],tiles.WATER)) height = 5;
+            heightmap[i][j] = height; 
         }
     }
 

@@ -18,7 +18,9 @@ function Soldier(descr) {
 
 Soldier.prototype = new Entity();
 
-Soldier.prototype.margin      = 7;
+Soldier.prototype.margin = 7;
+Soldier.prototype.height = 0;
+
 Soldier.prototype.damage      = 12;
 Soldier.prototype.doingDamage = 0;
 Soldier.prototype.isEnemy     = true;
@@ -125,7 +127,7 @@ Soldier.prototype.takeDamage = function (damage, ignoreArmor) {
     particleManager.generateTextParticle(this.cx, this.cy, totalDamage);
     particleManager.generateSplash(this.cx, this.cy, 20);
 
-    if (this.damageTaken>this.hp) this.kill();
+    if (this.damageTaken>=this.hp) this.kill();
 };
 
 Soldier.prototype.getHpRatio = function () {

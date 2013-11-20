@@ -27,6 +27,7 @@ var spellbook =
                 coolDown    : 0.5*SECS_TO_NOMINALS,
 				vel         : 0,
                 direction   : 0,
+                height      : 5,
             },
 
             cast: function (caster)
@@ -64,7 +65,7 @@ var spellbook =
                 coolDown       : 0.5*SECS_TO_NOMINALS,
 				vel            : 0,
                 direction      : 0,
-                responseToFind : function() {this.killl();}
+                responseToFind : function() {this.kill();}
             },
 
             cast : function(caster)
@@ -72,7 +73,7 @@ var spellbook =
                 var manacost = caster.energy*0.1; // blah, until later
                 if(!caster.drainEnergy(manacost)) return;
 
-                this.descr.target         = function (entity) { 
+                this.descr.target = function (entity) { 
                     entity.takeDamage(this.damage);
                     particleManager.generateSplash(this.cx, this.cy, 20, '#FF00FF');
                 };

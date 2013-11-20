@@ -46,17 +46,6 @@ function GreenSoldier(sprite) {
         new Animation(sprite, frameSize * 0, frameSize * 2,frameSize, 4, 200);
     this._animations[this.FACE_RIGHT][this.WALKING] =
         new Animation(sprite, frameSize * 0, frameSize * 3,frameSize, 3, 200);
-    
-    /*
-    this._animations[this.FACE_LEFT][this.ATTACKING] =
-        new Animation(sprite, frameSize * 0, frameSize * 0, 4, 50);
-    this._animations[this.FACE_DOWN][this.ATTACKING] =
-        new Animation(sprite, frameSize * 0, frameSize * 1, 5, 50);
-    this._animations[this.FACE_UP][this.ATTACKING] =
-        new Animation(sprite, frameSize * 0, frameSize * 2, 5, 50);
-    this._animations[this.FACE_RIGHT][this.ATTACKING] =
-        new Animation(sprite, frameSize * 0, frameSize * 3, 4, 50);
-    */
 
     this._activeAnimation = this._animations[this._rotation][this._state];
 

@@ -76,7 +76,7 @@ var entityManager = {
 
     init: function() {
         var rogue = new Humanoid(g_sprites.rogue);
-        var character = new Rogue({model: rogue, cx:200, cy:200});
+        var character = new Wizard({model: rogue, cx:200, cy:200});
         this._character.push(character);
         this._generateSoldiers(200);
         this._generateCamp();
