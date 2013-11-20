@@ -76,7 +76,7 @@ var UIManager = {
 			ctx.fillStyle = 'blue';
 			ctx.fillText("Spirit: " + this._character.spirit,this._cx + 60, this._cy+ 170);
 			
-			ctx.font = "10px Calibri, sans-serif";
+			ctx.font = "12px Calibri, sans-serif";
 			
 			ctx.fillStyle = 'yellow';
 
@@ -90,6 +90,7 @@ var UIManager = {
 			ctx.fillText("Spell crit modifier: " + this._character.spellCritModifier,this._cx + 60, this._cy+ 390);
 			ctx.fillText("Life regen: " + this._character.lifeRegen + "/sec",this._cx + 60, this._cy+ 400);
 			ctx.fillText("Energy regen: " + this._character.energyRegen+ "/sec",this._cx + 60, this._cy+ 410);
+			ctx.fillText("Miss change: " + this._character.missChange+ "/sec",this._cx + 160, this._cy+ 320);
 			
 			ctx.font = "10px irish-grover, sans-serif";
 			ctx.fillStyle = oldStyle;

@@ -20,8 +20,8 @@ function Warrior(descr) {
 	this.lifeRegen = 1 * this.spirit;
 	this.energyRegen = 1 * this.spirit;
 	
-	this.critChance	 = 0.35 * this.dex;
-	this.critModifier = 0.2 * this.str;
+	this.critChance	 = Math.ceil(0.35 * this.dex);
+	this.critModifier = Math.ceil(0.2 * this.str);
 }
 
 Warrior.prototype = new Character();
@@ -42,8 +42,8 @@ Warrior.prototype.updateStats = function () {
     this.hp = this.str * 50;
     this.damage = this.str * 5 + this.str;
 	
-	this.critChance	 = 0.35 * this.dex;
-	this.critModifier = 0.2 * this.str;
+	this.critChance	 = Math.ceil(0.35 * this.dex);
+	this.critModifier = Math.ceil(0.2 * this.str);
 };
 
 Warrior.prototype.abilities = function(du)
