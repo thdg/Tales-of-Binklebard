@@ -21,7 +21,7 @@ function Wizard(descr) {
 Wizard.prototype = new Character();
 
 
-Character.prototype.KEY_MAGIC_MISSLE = '1'.charCodeAt(0);
+Wizard.prototype.KEY_MAGIC_MISSLE = '1'.charCodeAt(0);
 
 Wizard.prototype.updateStats = function () {
 

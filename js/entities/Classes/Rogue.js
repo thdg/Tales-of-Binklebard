@@ -27,8 +27,8 @@ function Rogue(descr) {
 
 Rogue.prototype = new Character();
 
-Character.prototype.KEY_RAKE = '1'.charCodeAt(0);
-Character.prototype.KEY_FADE = '2'.charCodeAt(0);
+Rogue.prototype.KEY_RAKE = '1'.charCodeAt(0);
+Rogue.prototype.KEY_FADE = '2'.charCodeAt(0);
 
 Rogue.prototype.updateStats = function () {
 
