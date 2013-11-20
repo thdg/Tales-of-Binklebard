@@ -17,7 +17,7 @@ function Wizard(descr) {
 
     this.lifeRegen  = 0.5 * this.spirit;
     this.energyRegen = 1  * this.spirit;
-	
+
 	this.lifeRegen = 0.5 * this.spirit;
 	this.energyRegen = 1.5 *this.spirit;
 	
@@ -27,13 +27,15 @@ function Wizard(descr) {
 	this.spellCritChance = Math.ceil(0.35 * this.wis);
 	this.spellCritModifier = Math.ceil(0.3 * this.wis);
 	
-	this.MagicMissile = spellbook.magicMissile(1,1)
+    this.magicMissile = spellbook.magicMissile(1,1);
+	this.spiritArmor  = spellbook.armor(1,1);
 }
 
 Wizard.prototype = new Character();
 
 
 Wizard.prototype.KEY_MAGIC_MISSLE = '1'.charCodeAt(0);
+Wizard.prototype.KEY_ARMOR        = '2'.charCodeAt(0);
 
 Wizard.prototype.updateStats = function () {
 
@@ -46,9 +48,12 @@ Wizard.prototype.updateStats = function () {
     if(this.lvl%3 === 0)
         this.str++;
 
+    this.magicMissile = spellbook.magicMissile(this.lvl,this.wis);
+    this.spiritArmor  = spellbook.armor(this.lvl,this.wis);
+
     this.energy = this.wis * 30;
-    this.armor = this.dex * 20;
-    this.hp = this.str * 50;
+    this.armor  = this.dex * 20;
+    this.hp     = this.str * 50;
     this.damage = this.str * 5 + this.wis;
 	this.critChance	 = Math.ceil(0.35 * this.dex);
 	this.critModifier = Math.ceil(0.2 * this.str);
@@ -59,16 +64,23 @@ Wizard.prototype.updateStats = function () {
 
 Wizard.prototype.abilities = function(du)
 {
-    if (keys[this.KEY_MAGIC_MISSLE] && !this.isCasting) 
-    {
+    if (keys[this.KEY_MAGIC_MISSLE] && !this.isCasting) {
         this.isCasting = true;
-        this.MagicMissile.cast(this);
-        this.coolDown = this.MagicMissile.descr.coolDown;
+        this.magicMissile.cast(this);
+        this.coolDown = this.magicMissile.descr.coolDown;
 
         this.model.attack(); //should be model.cast();
 
-    } else if(this.isCasting)
-    {
+    }
+    if (keys[this.KEY_ARMOR] && !this.isCasting) {
+        this.isCasting = true;
+        this.spiritArmor.cast(this);
+        this.coolDown = this.spiritArmor.descr.coolDown;
+
+        this.model.attack(); //should be model.cast();
+
+    }
+    if(this.isCasting) {
         this.coolDown -= du;
         if( this.coolDown <= 0)
         {

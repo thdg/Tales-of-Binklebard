@@ -67,10 +67,8 @@ Rogue.prototype.updateStats = function () {
 	}
 };
 
-Rogue.prototype.abilities = function(du)
-{
-    if ( keys[this.KEY_RAKE] && !this.isCasting ) 
-    {
+Rogue.prototype.abilities = function(du) {
+    if ( keys[this.KEY_RAKE] && !this.isCasting ) {
         this.isCasting = true;
         this.rake.cast(this);
         this.coolDown = this.rake.descr.coolDown;
@@ -79,8 +77,7 @@ Rogue.prototype.abilities = function(du)
 
     }
 
-    if ( keys[this.KEY_FADE] && !this.isCasting && this.fade ) 
-    {
+    if ( keys[this.KEY_FADE] && !this.isCasting && this.fade ) {
         this.isCasting = true;
         this.fade.cast(this);
         this.coolDown = this.fade.descr.coolDown;
@@ -89,13 +86,12 @@ Rogue.prototype.abilities = function(du)
 
     }
 
-    if(this.isCasting)
-    {
+    if(this.isCasting) 
         this.coolDown -= du;
-        if( this.coolDown <= 0)
-        {
+        if( this.coolDown <= 0) {
             this.coolDown = 0;
             this.isCasting = false;
         }
     }
 };
+

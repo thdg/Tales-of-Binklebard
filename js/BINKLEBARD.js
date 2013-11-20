@@ -74,6 +74,7 @@ function requestPreloads() {
         terrain          : "img/terrain.png",
         link             : "img/link_alpha.png",
         sparcles         : "img/Sparcles.png",
+        armor            : "img/classes/Armor.png",
 		rake             : "img/classes/rake.png",
         magicMissile     : "img/magicMissile.png",
         greenSoldier     : "img/greenMonster.png",
@@ -150,6 +151,9 @@ function preloadDone() {
     g_sprites.fireball.scale = 2.2;
 	
 	g_sprites.sparcles = new Sprite(g_images.sparcles);
+
+	g_sprites.armor = new Sprite(g_images.armor);
+	g_sprites.armor.scale = 2;
 	
 	g_sprites.rake = new Sprite(g_images.rake);
 	
