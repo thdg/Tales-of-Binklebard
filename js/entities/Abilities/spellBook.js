@@ -27,7 +27,6 @@ var spellbook =
                 coolDown    : 0.5*SECS_TO_NOMINALS,
 				vel         : 0,
                 direction   : 0,
-                height      : 5,
             },
 
             cast: function (caster)
@@ -65,7 +64,7 @@ var spellbook =
                 coolDown       : 0.5*SECS_TO_NOMINALS,
 				vel            : 0,
                 direction      : 0,
-                responseToFind : function() {this.kill();}
+                responseToFind : function() {this.killl();}
             },
 
             cast : function(caster)
@@ -73,7 +72,7 @@ var spellbook =
                 var manacost = caster.energy*0.1; // blah, until later
                 if(!caster.drainEnergy(manacost)) return;
 
-                this.descr.target = function (entity) { 
+                this.descr.target         = function (entity) { 
                     entity.takeDamage(this.damage);
                     particleManager.generateSplash(this.cx, this.cy, 20, '#FF00FF');
                 };
@@ -97,9 +96,9 @@ var spellbook =
         {
             descr: {
                 range          : TILE_SIZE*1,
-                aoe            : 1.1*TILE_SIZE/3,
-                model          : new Animation ( g_sprites.rake, 0, 0, 48, 3, 200),
-                duration       : 0.5*SECS_TO_NOMINALS,
+				aoe            : 1.1*TILE_SIZE/3,
+				model          : new Animation ( g_sprites.rake, 0, 0, 48, 3, 50),
+				duration       : 0.15*SECS_TO_NOMINALS,
                 coolDown       : 0.5*SECS_TO_NOMINALS,
                 vel            : 0,
                 direction      : 0,
@@ -108,7 +107,7 @@ var spellbook =
 
             cast : function(caster)
             {
-                var energycost = 20+lvl*2; // blah, until later
+                var energycost = caster.energy*0.4; // blah, until later
                 if(!caster.drainEnergy(energycost)) return;
 
                 this.descr.target = function (entity) { 
@@ -125,7 +124,7 @@ var spellbook =
                 var pos = _inFrontOf(caster,distance);
                 for (var property in pos) { this.descr[property] = pos[property]; }          
             				
-                this.descr.damage = 40 + Math.floor(caster.lvl/3) * 40 + caster.dex;
+                this.descr.damage = caster.damage + dex;
                 entityManager.createEffect(this.descr);
             }
         }

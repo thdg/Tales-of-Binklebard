@@ -20,14 +20,15 @@ Character.prototype.KEY_LEFT  = LEFT_ARROW;
 Character.prototype.KEY_RIGHT = RIGHT_ARROW;
 
 Character.prototype.marginBottom = 7;
-Character.prototype.height = 0;
 
 Character.prototype.direction = FACE_DOWN; // default direction
 
 Character.prototype.KEY_ATTACK = ' '.charCodeAt(0);
 
+// NEEDS REFINEMENT
 Character.prototype.isCasting    = false;
 Character.prototype.coolDown     = 0;
+//
 
 Character.prototype.str          = 12;
 Character.prototype.dex          = 12;
@@ -42,6 +43,9 @@ Character.prototype.armor        = 25;
 Character.prototype.missChange   = 0;
 Character.prototype.energy       = 100;
 Character.prototype.damage       = 8;
+
+Character.prototype.lifeRegen 	 = 0;
+Character.prototype.energyRegen  = 0;
 
 Character.prototype.damageTaken  = 0;
 Character.prototype.energyUsed   = 0;
@@ -60,11 +64,9 @@ Character.prototype.update = function (du) {
     this.abilities(du);
     this.model.update(du);
 
-    var energyRegen = 0.5*this.spirit/SECS_TO_NOMINALS*du;
-    this.energyUsed = Math.max(0, this.energyUsed-energyRegen);
-    var damageRegen = 0.2*this.str/SECS_TO_NOMINALS*du;
-    this.damageTaken = Math.max(0, this.damageTaken-damageRegen);
-
+    this.energyUsed = Math.max(0, this.energyUsed-this.energyRegen/SECS_TO_NOMINALS*du);
+	this.damageTaken = Math.max(0, this.damageTaken-this.lifeRegen/SECS_TO_NOMINALS*du);
+	
     spatialManager.register(this);
     renderingManager.register(this);
 };
@@ -75,13 +77,12 @@ Character.prototype.strike = function()
     var strikeY = 16*Math.sin(util.getRadFromDir(this.direction));
     var target = spatialManager.findEntityInRange(this.cx+strikeX,this.cy+strikeY,15);
 
-    if ( target && this.doingDamage <= 0)
-    {
-        var totalDamage = Math.floor(this.damage + this.str/2+this.dex/3);
+    if ( target && this.doingDamage <= 0){
+        var totalDamage = Math.floor(this.damage + this.str);
         this.doingDamage = 0.5*SECS_TO_NOMINALS;
         target.takeDamage(totalDamage);
     }
-}
+};
 
 Character.prototype.move = function (du) {
 
@@ -161,13 +162,10 @@ Character.prototype.addExp = function (expReward) {
 
     this.experience = this.experience + expReward;
     particleManager.generateTextParticle(this.cx, this.cy, expReward + " exp", '#FFFF00');
-    if (this.experience >= this.nextExp) {      
+    if (this.experience >= this.nextExp) {
         this.lvlup();
     }
 };
-
-// "abstract" mehthod
-Character.prototype.updateStats = function() { };
 
 Character.prototype.nextLvl = function(lvl) {
 
@@ -178,17 +176,20 @@ Character.prototype.takeDamage = function (damage, ignoreArmor) {
 
     if ( ignoreArmor === undefined ) ignoreArmor = false;
 
-    var damageReduction = ignoreArmor ? 1 : this.armor/this.hp;
-    var totalDamage = damage * damageReduction;
-    if ( this.missChange <= Math.random())
-    {
+    var damageReduction = ignoreArmor ? 0 : this.armor/this.hp;
+    var totalDamage = damage * (1 - damageReduction);
+     
+	if (this.missChange <= Math.random()){
+	
         this.damageTaken += totalDamage;
         particleManager.generateSplash(this.cx, this.cy, 20);
     }
-    else
+    else{
+	
         particleManager.generateTextParticle(this.cx, this.cy, 'Miss', '#FF0000');
+	}
 
-    if ( this.damageTaken >= this.hp ) this.kill();
+    if ( this.damageTaken > this.hp ) this.kill();
 };
 
 Character.prototype.heal = function (hpBoost) {

@@ -19,6 +19,9 @@ function Rogue(descr) {
     this.dex + 2;
     this.str - 2;
 	
+	this.lifeRegen = 0.5*this.spirit;
+	this.energyRegen = 1 *this.spirit;
+	
 	this.rake         = spellbook.rake(1,this.dex);
 }
 
@@ -32,20 +35,23 @@ Rogue.prototype.updateStats = function () {
     this.spirit++;
     this.dex++;
     
-    if (this.lvl%2 === 0)
+    if(this.lvl%2 === 0){
         this.wis++;
+	}
     
-    if (this.lvl%3 === 0)
+    if(this.lvl%3 === 0){
         this.str++;
+	}
 
-    if (this.lvl >= 3)
-        this.fade = spellbook.fade(this.lvl,this.dex)
-
-    this.energy = this.dex * 30;
     this.armor = this.dex * 20;
     this.hp = this.str * 50;
     this.damage = this.str * 5 + this.dex;
+	
     this.rake = spellbook.rake(this.lvl,this.dex);
+	
+	if (this.lvl >= 3){
+        this.fade = spellbook.fade(this.lvl,this.dex);
+	}
 };
 
 Rogue.prototype.abilities = function(du)
