@@ -58,6 +58,7 @@ Character.prototype.update = function (du) {
 
     spatialManager.unregister(this);
     renderingManager.unregister(this);
+    
     if (this._isDeadNow) return entityManager.KILL_ME_NOW;
 
     this.move(du);
@@ -77,9 +78,11 @@ Character.prototype.strike = function()
     var strikeY = 16*Math.sin(util.getRadFromDir(this.direction));
     var target = spatialManager.findEntityInRange(this.cx+strikeX,this.cy+strikeY,15);
 
-    if ( target && this.doingDamage <= 0){
-        var totalDamage = Math.floor(this.damage + this.str);
-        this.doingDamage = 0.5*SECS_TO_NOMINALS;
+    if ( target && this.doingDamage <= 0 )
+    {
+        g_audio.strike.play();
+        var totalDamage = Math.floor(this.damage + this.str/2+this.dex/3);
+        this.doingDamage = 1.2*SECS_TO_NOMINALS;
         target.takeDamage(totalDamage);
     }
 };
@@ -91,28 +94,28 @@ Character.prototype.move = function (du) {
     var oldX = this.cx;
     var oldY = this.cy;
 
-    if (keys[this.KEY_UP]){
+    if ( keys[this.KEY_UP] ){
         this.cy -= this.baseVel*du;
         this.direction = FACE_UP;
 
         this.model.walk();
         this.model.faceUp();
     }
-    if (keys[this.KEY_DOWN]){
+    if ( keys[this.KEY_DOWN] ){
         this.cy += this.baseVel*du;
         this.direction = FACE_DOWN;
 
         this.model.walk();
         this.model.faceDown();
     }
-    if (keys[this.KEY_LEFT]){
+    if ( keys[this.KEY_LEFT] ){
         this.cx -= this.baseVel*du;
         this.direction = FACE_LEFT;
 
         this.model.walk();
         this.model.faceLeft();
     }
-    if (keys[this.KEY_RIGHT]){
+    if ( keys[this.KEY_RIGHT] ){
         this.cx += this.baseVel*du;
         this.direction = FACE_RIGHT;
 
@@ -120,7 +123,7 @@ Character.prototype.move = function (du) {
         this.model.faceRight();
     }
 
-    if (keys[this.KEY_ATTACK]) {
+    if ( keys[this.KEY_ATTACK] ) {
         this.model.attack();
         this.strike();
     }

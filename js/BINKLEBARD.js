@@ -107,6 +107,7 @@ function preloadMap() {
 }
 
 var g_sprites = {};
+var g_audio   = {};
 
 function preloadDone() {
 
@@ -122,6 +123,8 @@ function preloadDone() {
 
     g_sprites.greenSoldier = new Sprite(g_images.greenSoldier);
     g_sprites.greenSoldier.scale = 1.8;
+
+    g_audio.strike = new Audio('audio/swordStrike.wav');
 	
 	/***************************************************
 	-------terrain------------------------------
