@@ -173,6 +173,7 @@ var entityManager = {
 
     updateSoldiers : function(lvl) {
         this._forEachOf(this._soldiers, Soldier.prototype.updateDamage);
+        this._forEachOf(this._bosses, Soldier.prototype.updateDamage);
     },
 
     getSoldierCount : function() {

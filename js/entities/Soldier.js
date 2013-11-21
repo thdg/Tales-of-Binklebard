@@ -214,10 +214,10 @@ Soldier.prototype._dropLoot = function () {
 };
 
 Soldier.prototype.makeBoss = function () {
-    this.hp = 5000;
+    this.hp = 10000;
     this.armor = 150;
-    this.damage = 300;
-    console.log("Boss ready");
+    this.damage = 250;
+    this.vel = 70 / SECS_TO_NOMINALS;
 };
 
 Soldier.prototype.render = function (ctx) {

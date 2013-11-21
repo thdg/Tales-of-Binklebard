@@ -69,7 +69,7 @@ var UIManager = {
     },
 
     renderWin : function (ctx) {
-        var count = entityManager.getSoldierCount;
+        var count = entityManager.getSoldierCount();
         if (count.soldiers === 0 || count.bosses === 0) {
             ctx.fillStyle = "yellow";
             var oldFont = ctx.font;
