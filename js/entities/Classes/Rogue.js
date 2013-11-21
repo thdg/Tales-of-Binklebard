@@ -10,12 +10,14 @@
 
 function Rogue(descr) {
 	
-    this.setup(descr);
-    this.randomizePos();
-    this.nextExp = this.nextLvl(this.lvl);
+	this.setup(descr);
+	this.randomizePos();
+	this.nextExp = this.nextLvl(this.lvl);
 	
     this.dex += 2;
     this.str -= 2;
+
+	this.updateStats();
 	
     this.lifeRegen   = 0.5 * this.spirit;
     this.energyRegen = 1   * this.spirit;

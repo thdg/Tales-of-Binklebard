@@ -12,8 +12,10 @@ function Cleric(descr) {
 	this.randomizePos();
 	this.nextExp = this.nextLvl(this.lvl);
 	
-	this.wis + 2;
-    this.dex - 2;
+	this.wis += 2;
+    this.dex -= 2;
+	
+	this.updateStats();
 	
 	this.lifeRegen = 0.5 * this.spirit;
 	this.energyRegen = 1 *this.spirit;

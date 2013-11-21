@@ -88,6 +88,11 @@ function requestPreloads() {
 		globes         	 : "img/UIpic/globes.png",
 		myst         	 : "img/UIpic/myst.png",
 		characterScreen  : "img/UIpic/characterScreen.png",
+		chest  			 : "img/UIpic/chest.png",
+		lifeflask	     : "img/UIpic/lifeflask.png",
+		manaflask	     : "img/UIpic/manaflask.png",
+		armorkit	     : "img/UIpic/armorkit.png",
+		weaponkit	     : "img/UIpic/weaponkit.png",
 		
 		// classes
 		rogue         	 : "img/classes/rogue_alpha.png",
@@ -173,6 +178,12 @@ function preloadDone() {
 	g_sprites.myst = new Sprite(g_images.myst);
 	
 	g_sprites.characterScreen = new Sprite(g_images.characterScreen);
+	
+	g_sprites.lifeflask = new Sprite(g_images.lifeflask);
+	g_sprites.manaflask = new Sprite(g_images.manaflask);
+	g_sprites.armorkit = new Sprite(g_images.armorkit);
+	g_sprites.weaponkit = new Sprite(g_images.weaponkit);
+	g_sprites.chest = new Sprite(g_images.chest);
 	
 	/**************************************************/
     

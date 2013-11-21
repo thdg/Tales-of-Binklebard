@@ -17,6 +17,8 @@ function Warrior(descr) {
     this.str += 2;
     this.wis -= 2;
 	
+	this.updateStats();
+
 	this.lifeRegen = 1 * this.spirit;
 	this.energyRegen = 1 * this.spirit;
 	
