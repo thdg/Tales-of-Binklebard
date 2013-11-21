@@ -19,11 +19,10 @@ Item.prototype.render = function (ctx) {
     util.fillCircle(ctx, this.cx, this.cy, 5, "red");
 };
 
-Item.prototype.drop = function (cx, c) {
+Item.prototype.drop = function (cx, cy) {
     this._isDeadNow = false;
     this.timeAlive = 0;
-    this.cx = cx;
-    this.cy = cy;
+    this.setPos(cx, cy);
     entityManager.addItem(this);
 }
 

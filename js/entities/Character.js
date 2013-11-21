@@ -174,9 +174,9 @@ Character.prototype.move = function (du) {
 
 Character.prototype.pickUp = function(du) {
 
-    if ( keys[this.PICK_UP] ){
+    if ( eatkey(this.PICK_UP) ){
         var loot = entityManager.findNearestItem(this.cx, this.cy);
-        if (loot.theDistanceSq<15*15) loot.theItem.pickUp(this);
+        if (loot && loot.theDistanceSq<15*15) loot.theItem.pickUp(this);
     }
 };
 
