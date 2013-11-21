@@ -58,21 +58,11 @@ Soldier.prototype.findPlayer = function () {
             monsterPos = [ floor(monster.posX/32), floor(monster.posY/32)];
 
         if (dist < 40000 && !this.chasing) {
-            this.path = findPath(world.getHeightMap(), monsterPos, playerPos);
-            if (this.path !== []) {
-                this.chasing = true;
-                this.step = 0;
-            }
-        } 
-        if (dist < 40000 && this.chasing) {
-            if (this.step >= this.path.length)
-                this.path = findPath(world.getHeightMap(), monsterPos, playerPos);
-            
-        } 
+            this.chasing = true;
+        }
         else if (dist > 50000 && this.chasing) {
             this.chasing = false;
-            this.step = 0;
-        }
+        } 
 
 };
 
@@ -104,17 +94,17 @@ Soldier.prototype.move = function (du) {
     var oldX = this.cx;
     var oldY = this.cy;
 
-    if (this.chasing && this.step < this.path.length) {
-        var tileX = this.path[this.step][0],
-            tileY = this.path[this.step][1],
-            soldierTileX = Math.floor(this.cx/32),
-            soldierTileY = Math.floor(this.cy/32);
-
-        if ( tileX < soldierTileX) this.walkWest(du);
-        else if (tileX > soldierTileX) this.walkEast(du);
-        else if (tileY < soldierTileY) this.walkNorth(du);
-        else if (tileY > soldierTileY) this.walkSouth(du);
-        else if (tileX === soldierTileX && tileY === soldierTileY) this.step++;
+    if (this.chasing ) {
+        var player = entityManager.getCharacter().getPos(),
+        monster = this.getPos(),
+        floor = Math.floor,
+        playerPos = [ floor(player.posX/32), floor(player.posY/32)],
+        monsterPos = [ floor(monster.posX/32), floor(monster.posY/32)];
+       
+        if( playerPos[0] < monsterPos[0] ) this.walkWest(du);
+        if( playerPos[0] > monsterPos[0] ) this.walkEast(du);
+        if( playerPos[1] < monsterPos[1] ) this.walkNorth(du);
+        if( playerPos[1] > monsterPos[1] ) this.walkSouth(du);
 
 
     } else {
