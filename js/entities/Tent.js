@@ -20,14 +20,14 @@ Tent.prototype.update = function(du)
     renderingManager.unregister(this);
     renderingManager.register(this);
     spatialManager.register(this);
-}
+};
 
 Tent.prototype.render = function(ctx)
 {
     this.sprite.drawCentredAt(ctx,this.cx+this.marginX,this.cy+this.marginY);
-}
+};
 
 Tent.prototype.getRadius = function()
 {
 	return TILE_SIZE*1.5;
-}
+};

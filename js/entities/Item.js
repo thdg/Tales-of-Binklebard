@@ -23,7 +23,7 @@ Item.prototype.drop = function (cx, cy) {
     this.timeAlive = 0;
     this.setPos(cx, cy);
     entityManager.addItem(this);
-}
+};
 
 function HealingPotion(descr) {
     this.setup(descr);
@@ -37,7 +37,7 @@ HealingPotion.prototype.pickUp = function (hustler) {
 
     hustler.backpack.healingPotions += 1;
     this.kill();
-}
+};
 
 function EnergyPotion(descr) {
     this.setup(descr);
@@ -51,7 +51,7 @@ EnergyPotion.prototype.pickUp = function (hustler) {
 
     hustler.backpack.energyPotions += 1;
     this.kill();
-}
+};
 
 function ArmorSet(descr) {
     this.setup(descr);
@@ -110,7 +110,7 @@ function WeponSet(descr) {
     this.spiritBonus = Math.random()<0.75 ? 0 : Math.ceil(Math.random()*6);
 
     this.damageBonus = 10 + Math.ceil(Math.random()*40);
-};
+}
 
 WeponSet.prototype = new Item();
 
@@ -133,7 +133,7 @@ WeponSet.prototype.takeOff = function(owner) {
 
     var pos = owner.getPos();
     this.drop(pos.posX, pos.posY);
-}
+};
 
 WeponSet.prototype.pickUp = function (hustler) {
 
@@ -165,4 +165,4 @@ Backpack.prototype.update = function (carrier) {
         this.energyPotions--;
     }
 
-}
+};

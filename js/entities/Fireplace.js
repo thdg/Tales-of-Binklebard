@@ -18,9 +18,9 @@ Fireplace.prototype.update = function(du)
     this.animation.update(du);
     renderingManager.register(this);
     spatialManager.register(this);
-}
+};
 
 Fireplace.prototype.render = function(ctx)
 {
     this.animation.drawCentredAt(ctx,this.cx,this.cy);
-}
+};

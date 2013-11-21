@@ -47,12 +47,12 @@ Character.prototype.missChange   = 0;
 Character.prototype.energy       = 100;
 Character.prototype.damage       = 0;
 
-Character.prototype.critChance	 = 0;
+Character.prototype.critChance   = 0;
 Character.prototype.critModifier = 0;
 Character.prototype.spellCritChance = 0;
 Character.prototype.spellCritModifier = 0;
 
-Character.prototype.lifeRegen 	 = 0;
+Character.prototype.lifeRegen    = 0;
 Character.prototype.energyRegen  = 0;
 
 Character.prototype.damageTaken  = 0;
@@ -78,8 +78,8 @@ Character.prototype.update = function (du) {
     if (this.backpack) this.backpack.update(this);
 
     this.energyUsed = Math.max(0, this.energyUsed-this.energyRegen/SECS_TO_NOMINALS*du);
-	this.damageTaken = Math.max(0, this.damageTaken-this.lifeRegen/SECS_TO_NOMINALS*du);
-	
+    this.damageTaken = Math.max(0, this.damageTaken-this.lifeRegen/SECS_TO_NOMINALS*du);
+    
     spatialManager.register(this);
     renderingManager.register(this);
 };
@@ -98,7 +98,6 @@ Character.prototype.strike = function(){
 };
 
 Character.prototype.cast = function(spell) {
-        console.log(spell);
         this.isCasting = true;
         spell.cast(this);
         this.coolDown = spell.descr.coolDown;
@@ -198,9 +197,9 @@ Character.prototype.getRadius = function () {
 
 Character.prototype.lvlup = function () {
     this.lvl++;
-	particleManager.generateTextParticle(this.cx, this.cy, "level "+this.lvl, '#FFFF00', 1000);
+    particleManager.generateTextParticle(this.cx, this.cy, "level "+this.lvl, '#FFFF00', 1000);
     this.updateStats();
-	this.nextExp = this.nextLvl(this.lvl);
+    this.nextExp = this.nextLvl(this.lvl);
     entityManager.updateSoldiers(this.lvl);
 };
 
@@ -229,15 +228,15 @@ Character.prototype.takeDamage = function (damage, ignoreArmor) {
     var damageReduction = ignoreArmor ? 0 : this.armor/this.hp;
     var totalDamage = damage * (1 - damageReduction);
      
-	if (this.missChange <= Math.random()){
-	
+    if (this.missChange <= Math.random()){
+    
         this.damageTaken += totalDamage;
         particleManager.generateSplash(this.cx, this.cy, 20);
     }
     else{
-	
+    
         particleManager.generateTextParticle(this.cx, this.cy, 'Miss', '#FF0000');
-	}
+    }
 
     if ( this.damageTaken > this.hp ) this.kill();
 };

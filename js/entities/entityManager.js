@@ -67,7 +67,7 @@ var entityManager = {
     },
 
     // PUBLIC METHODS
-	
+    
     KILL_ME_NOW : -1,
 
     generateRogue : function() {
@@ -128,8 +128,8 @@ var entityManager = {
         this._soldiers.push(soldier);
         return soldier;
     },
-	
-	getCharacter : function() {
+    
+    getCharacter : function() {
         return this._character[0];
     },
 

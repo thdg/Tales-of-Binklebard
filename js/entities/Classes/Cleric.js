@@ -9,21 +9,21 @@
 function Cleric(descr) {
 
     this.setup(descr);
-	this.randomizePos();
-	this.nextExp = this.nextLvl(this.lvl);
-	
-	this.wis += 2;
+    this.randomizePos();
+    this.nextExp = this.nextLvl(this.lvl);
+    
+    this.wis += 2;
     this.dex -= 2;
-	
-	
-	this.lifeRegen = 0.5 * this.spirit;
-	this.energyRegen = 1 *this.spirit;
-	
-	this.critChance	 = Math.ceil(0.35 * this.dex);
-	this.critModifier = Math.ceil(0.2 * this.str);
-	
-	this.spellCritChance = Math.ceil(0.35 * this.wis);
-	this.spellCritModifier = Math.ceil(0.3 * this.wis);
+    
+    
+    this.lifeRegen = 0.5 * this.spirit;
+    this.energyRegen = 1 *this.spirit;
+    
+    this.critChance  = Math.ceil(0.35 * this.dex);
+    this.critModifier = Math.ceil(0.2 * this.str);
+    
+    this.spellCritChance = Math.ceil(0.35 * this.wis);
+    this.spellCritModifier = Math.ceil(0.3 * this.wis);
 
     this.updateStats();
 }
@@ -51,20 +51,20 @@ Cleric.prototype.updateStats = function () {
     this.armor = this.dex * 20;
     this.hp = this.str * 50;
     this.damage = this.str * 5 + this.wis;
-	
-	this.critChance	 = Math.ceil(0.35 * this.dex);
-	this.critModifier = Math.ceil(0.2 * this.str);
-	
-	this.spellCritChance = Math.ceil(0.35 * this.wis);
-	this.spellCritModifier = Math.ceil(0.3 * this.wis);
+    
+    this.critChance  = Math.ceil(0.35 * this.dex);
+    this.critModifier = Math.ceil(0.2 * this.str);
+    
+    this.spellCritChance = Math.ceil(0.35 * this.wis);
+    this.spellCritModifier = Math.ceil(0.3 * this.wis);
 };
 
 
 Cleric.prototype.abilities = function(du) {
-    if (keys[this.KEY_HEAL] && !this.isCasting) {
+    if (keys[this.KEY_HEAL] && !this.isCasting)
         this.cast(this.heal);
 
-    if (keys[this.KEY_ARMOR] && !this.isCasting) {
+    if (keys[this.KEY_ARMOR] && !this.isCasting)
         this.cast(this.spiritArmor);
 
     if(this.isCasting) {

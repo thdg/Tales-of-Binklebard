@@ -9,7 +9,7 @@ function gatherInputs() {
 
 function mouseHandler(evt) {
     mapEditor.changeTile();
-};
+}
 
 // GAME-SPECIFIC UPDATE LOGIC
 
@@ -72,7 +72,7 @@ function preloadDone() {
     
     //Random generate the World map.
     var map = generateBasicMap(100,100);
-    var basicMap = new Region(map.map, map.heightmap); 
+    var basicMap = new Region(map.map, map.heightmap);
     world.addRegion(basicMap);
 
     main.init();

@@ -9,22 +9,22 @@
 // A generic contructor which accepts an arbitrary descriptor object
 
 function Rogue(descr) {
-	
-	this.setup(descr);
-	this.randomizePos();
-	this.nextExp = this.nextLvl(this.lvl);
-	
+    
+    this.setup(descr);
+    this.randomizePos();
+    this.nextExp = this.nextLvl(this.lvl);
+    
     this.dex += 2;
     this.str -= 2;
 
-	this.updateStats();
-	
+    this.updateStats();
+    
     this.lifeRegen   = 0.5 * this.spirit;
     this.energyRegen = 1   * this.spirit;
-	
-    this.critChance	 = Math.ceil(0.35 * this.dex);
+    
+    this.critChance  = Math.ceil(0.35 * this.dex);
     this.critModifier = Math.ceil(0.2 * this.str);
-	
+    
     this.missChange = 0.01 * this.dex;
 
     this.updateStats();
@@ -42,29 +42,29 @@ Rogue.prototype.updateStats = function () {
     
     if(this.lvl%2 === 0){
         this.wis++;
-	}
+    }
     
     if(this.lvl%3 === 0){
         this.str++;
-	}
+    }
 
     this.armor = this.dex * 20;
     this.hp = this.str * 50;
     this.damage = this.str * 5;
-	
-	this.critChance	 = Math.ceil(0.35 * this.dex);
-	this.critModifier = Math.ceil(0.2 * this.str);
-	
-	this.missChange = 0.01 * this.dex;
-	
-	this.lifeRegen = 0.5*this.spirit;
-	this.energyRegen = 1 *this.spirit;
-	
+    
+    this.critChance  = Math.ceil(0.35 * this.dex);
+    this.critModifier = Math.ceil(0.2 * this.str);
+    
+    this.missChange = 0.01 * this.dex;
+    
+    this.lifeRegen = 0.5*this.spirit;
+    this.energyRegen = 1 *this.spirit;
+    
     this.rake = spellbook.rake(this.lvl,this.dex);
-	
-	if (this.lvl >= 3){
+    
+    if (this.lvl >= 3){
         this.fade = spellbook.fade(this.lvl,this.dex);
-	}
+    }
 };
 
 Rogue.prototype.abilities = function(du) {

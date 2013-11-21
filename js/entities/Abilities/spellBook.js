@@ -40,12 +40,12 @@ var spellbook =  {
                 this.descr.cy = caster.cy;
                 this.descr.hpBoost = 20+caster.wis;
                 entityManager.createEffect(this.descr);
-				
+                
             }
-			
+            
         };
         return spell;
-		
+        
     },
 
     magicMissile: function(lvl, wis) {
@@ -57,7 +57,7 @@ var spellbook =  {
                 height         : 7, 
                 duration       : SECS_TO_NOMINALS,
                 coolDown       : 0.5*SECS_TO_NOMINALS,
-				vel            : 300/SECS_TO_NOMINALS,
+                vel            : 300/SECS_TO_NOMINALS,
                 responseToFind : function() { this.kill(); },
             },
 
@@ -79,17 +79,17 @@ var spellbook =  {
                 this.descr.damage         = 40+Math.floor(caster.lvl/3)*40+caster.wis;
                 entityManager.createEffect(this.descr);
             }
-        }
+        };
         return spell;
     },
-	
+    
     rake: function(lvl, dex) {
         var spell =  {
             descr: {
                 range          : TILE_SIZE*1,
-				aoe            : 1.1*TILE_SIZE/3,
-				model          : new Animation ( g_sprites.rake, 0, 0, 48, 3, 50),
-				duration       : 0.15*SECS_TO_NOMINALS,
+                aoe            : 1.1*TILE_SIZE/3,
+                model          : new Animation ( g_sprites.rake, 0, 0, 48, 3, 50),
+                duration       : 0.15*SECS_TO_NOMINALS,
                 coolDown       : 0.5*SECS_TO_NOMINALS,
                 vel            : 0,
                 direction      : 0,
@@ -113,11 +113,11 @@ var spellbook =  {
                 var distance = caster.getRadius() + this.descr.aoe + 1;
                 var pos = _inFrontOf(caster,distance);
                 for (var property in pos) { this.descr[property] = pos[property]; }          
-            				
+                            
                 this.descr.damage = caster.damage + dex;
                 entityManager.createEffect(this.descr);
             }
-        }
+        };
         return spell;
     },
 
@@ -146,14 +146,14 @@ var spellbook =  {
 
                 if( !caster.drainEnergy( energycost ) ) return;
 
-				caster.missChange += 0.33;
-				caster.model.setAlpha( 0.5 );
-				
+                caster.missChange += 0.33;
+                caster.model.setAlpha( 0.5 );
+                
                 this.descr.kill = function() {
                     this._isDeadNow = true;
                     caster.missChange = 0.01 * this.dex;
-					caster.model.setAlpha( 1.0 );
-                }
+                    caster.model.setAlpha( 1.0 );
+                };
                 entityManager.createEffect(this.descr);
             }
         };
@@ -277,7 +277,7 @@ var spellbook =  {
                 entityManager.createEffect(this.descr);
             }
 
-        }
+        };
         return ability;
     }
 

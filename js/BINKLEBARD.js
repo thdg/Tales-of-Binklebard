@@ -113,7 +113,7 @@ function preloadMap() {
 	$.get('maps/highlands.txt', function(data) {
 		g_map = data;
 		preloadDone();
-	})
+	});
 }
 
 var g_sprites = {};
@@ -198,7 +198,7 @@ function preloadDone() {
 	//Random generate the World map.
     var map = string2map(g_map);
     var heightmap = makeHightmap(map);
-    var highlands = new Region(map, heightmap); 
+    var highlands = new Region(map, heightmap);
     world.addRegion(highlands);
 
 	//initialize game components

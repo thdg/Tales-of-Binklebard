@@ -146,25 +146,25 @@ Soldier.prototype.walkNorth = function(du) {
     else this.cy -= this.vel * du;
     this.model.walk();
     this.model.faceUp();
-}
+};
 Soldier.prototype.walkSouth= function(du) {
     if(this.chasing) this.cy += this.vel*1.5 * du;
     else this.cy += this.vel * du;
     this.model.walk();
     this.model.faceDown();
-}
+};
 Soldier.prototype.walkWest = function(du) {
     if(this.chasing) this.cx -= this.vel*1.5 * du;
     else this.cx -= this.vel * du;
     this.model.walk();
     this.model.faceLeft();
-}   
+};
 Soldier.prototype.walkEast = function(du) {
     if(this.chasing) this.cx += this.vel*1.5 * du;
     else this.cx += this.vel * du;
     this.model.walk();
-    this.model.faceRight();   
-}
+    this.model.faceRight();
+};
 
 Soldier.prototype.hit = function(collision)
 {
@@ -179,7 +179,7 @@ Soldier.prototype.hit = function(collision)
         collision.takeDamage(this.damage);
 
     }
-}
+};
 
 Soldier.prototype.getRadius = function () {
     return (ANIMATION_FRAME_SIZE / 2) * 0.6;
@@ -229,24 +229,24 @@ Soldier.prototype.renderHP = function (ctx) {
                   hpLeft>0.25 ? "orange" : "red";
 
     util.fillBox(
-        ctx, 
-        x-w/2-padding, 
-        y-offsetY-padding, 
-        w+padding*2, 
+        ctx,
+        x-w/2-padding,
+        y-offsetY-padding,
+        w+padding*2,
         h+padding*2,
         "black"
     );
     util.fillBox(
-        ctx, 
-        x-w/2, 
-        y-offsetY, 
-        w*hpLeft, 
-        h, 
+        ctx,
+        x-w/2,
+        y-offsetY,
+        w*hpLeft,
+        h,
         hpStyle
     );
-}
+};
 
 Soldier.prototype.setDirection = function(direction)
 {
     this.direction = direction%4;
-}
+};

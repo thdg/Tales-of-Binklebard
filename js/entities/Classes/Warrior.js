@@ -9,18 +9,18 @@
 // A generic contructor which accepts an arbitrary descriptor object
 
 function Warrior(descr) {
-	
+    
     this.setup(descr);
     this.randomizePos();
     this.nextExp = this.nextLvl(this.lvl);
-	
+    
     this.str += 2;
     this.wis -= 2;
-	
+    
     this.lifeRegen = 1 * this.spirit;
     this.energyRegen = 1 * this.spirit;
-	
-    this.critChance	 = Math.ceil(0.35 * this.dex);
+    
+    this.critChance  = Math.ceil(0.35 * this.dex);
     this.critModifier = Math.ceil(0.2 * this.str);
 
     this.updateStats();
@@ -49,7 +49,7 @@ Warrior.prototype.updateStats = function () {
     this.sweep = spellbook.sweep(this.lvl,this.str);
     if (this.lvl >= 3) this.fling = spellbook.fling(this.lvl,this.str);
 
-    this.critChance	 = Math.ceil(0.35 * this.dex);
+    this.critChance  = Math.ceil(0.35 * this.dex);
     this.critModifier = Math.ceil(0.2 * this.str);
 };
 
