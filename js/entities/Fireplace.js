@@ -4,8 +4,8 @@
 
 function Fireplace(descr)
 {
-	this.animation = new Animation(g_sprites.campfire,0,0,50,5,200);
-	this.setup(descr);
+    this.animation = new Animation(g_sprites.campfire,0,0,50,5,200);
+    this.setup(descr);
 }
 
 Fireplace.prototype = new Entity();

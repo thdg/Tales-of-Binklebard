@@ -4,8 +4,8 @@
 
 function Tent(descr)
 {
-	this.randomizePos();
-	this.sprite = g_sprites.tent;
+    this.randomizePos();
+    this.sprite = g_sprites.tent;
 }
 
 Tent.prototype = new Entity();
@@ -29,5 +29,5 @@ Tent.prototype.render = function(ctx)
 
 Tent.prototype.getRadius = function()
 {
-	return TILE_SIZE*1.5;
+    return TILE_SIZE*1.5;
 };
