@@ -52,6 +52,7 @@ var UIManager = {
         this.map.drawAt(ctx, this._cx, this._cy);
         
         this.renderXp(ctx);
+        this.renderClass(ctx);
         this.drawMiniMapArea(ctx, this._character.getPos());
         this.renderWin(ctx);
         this.renderGameOver(ctx);
@@ -74,9 +75,17 @@ var UIManager = {
             ctx.fillStyle = "yellow";
             var oldFont = ctx.font;
             ctx.font = "42px irish-grover, sans-serif";
-            ctx.fillText("YOU WIN", this._cx+300, this._cy+200);
+            ctx.fillText("YOU WIN", this._cx+320, this._cy+200);
             ctx.font = oldFont;
         }
+    },
+
+    renderClass : function(ctx) {
+            ctx.fillStyle = "yellow";
+            var oldFont = ctx.font;
+            ctx.font = "20px irish-grover, sans-serif";
+            ctx.fillText("Binklebard the " + this._character.getModel(), this._cx+10, this._cy+20);
+            ctx.font = oldFont;
     },
 
     renderScreens : function (ctx) {

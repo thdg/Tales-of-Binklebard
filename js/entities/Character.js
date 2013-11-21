@@ -8,7 +8,6 @@
 \************************************************************************/
 
 function Character(descr) {
-
 }
 
 Character.prototype = new Entity();
@@ -193,6 +192,10 @@ Character.prototype.render = function (ctx) {
 
 Character.prototype.getRadius = function () {
     return (ANIMATION_FRAME_SIZE / 2) * 0.6;
+};
+
+Character.prototype.getModel = function () {
+    return this.playerClass;
 };
 
 Character.prototype.lvlup = function () {

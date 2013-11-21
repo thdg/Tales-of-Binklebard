@@ -86,6 +86,7 @@ var entityManager = {
         var rogue = new Humanoid(g_sprites.rogue);
         var character = new Rogue({model: rogue, cx:200, cy:200});
         this._character.push(character);
+        this._character[0].playerClass = "Rogue";
         camera.centerAt(character);
         UIManager.follow(character);
     },
@@ -94,6 +95,7 @@ var entityManager = {
         var wizard = new Humanoid(g_sprites.wizard);
         var character = new Wizard({model: wizard, cx:200, cy:200});
         this._character.push(character);
+        this._character[0].playerClass = "Wizard";
         camera.centerAt(character);
         UIManager.follow(character);
     },
@@ -102,6 +104,7 @@ var entityManager = {
         var warrior = new Humanoid(g_sprites.warrior);
         var character = new Warrior({model: warrior, cx:200, cy:200});
         this._character.push(character);
+        this._character[0].playerClass = "Warrior";
         camera.centerAt(character);
         UIManager.follow(character);
     },
@@ -110,6 +113,7 @@ var entityManager = {
         var cleric = new Humanoid(g_sprites.cleric);
         var character = new Cleric({model: cleric, cx:200, cy:200});
         this._character.push(character);
+        this._character[0].playerClass = "Cleric";
         camera.centerAt(character);
         UIManager.follow(character);
     },
