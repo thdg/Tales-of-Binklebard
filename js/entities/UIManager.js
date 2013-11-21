@@ -73,8 +73,11 @@ var UIManager = {
 			
 			this.lFlask.drawAt(ctx, this._cx + 255, this._cy + 222);
 			this.mFlask.drawAt(ctx, this._cx + 181 , this._cy + 222);
-			this.aKit.drawAt(ctx, this._cx + 102, this._cy + 222);
-			this.wKit.drawAt(ctx, this._cx + 28, this._cy + 222);
+
+			if (this._character.backpack.armorSet)
+				this.aKit.drawAt(ctx, this._cx + 102, this._cy + 222);
+			if (this._character.backpack.weponSet)
+				this.wKit.drawAt(ctx, this._cx + 28, this._cy + 222);
 			
 			var life = this._character.backpack.healingPotions;
 			var energy = this._character.backpack.energyPotions;

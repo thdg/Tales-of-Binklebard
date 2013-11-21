@@ -15,8 +15,7 @@ Item.prototype.update = function (du) {
 
 Item.prototype.render = function (ctx) {
 
-    //this.model.render(ctx);
-    util.fillCircle(ctx, this.cx, this.cy, 5, "red");
+    this.sprite.drawCentredAt(ctx, this.cx, this.cy);
 };
 
 Item.prototype.drop = function (cx, cy) {

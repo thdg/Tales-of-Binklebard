@@ -213,6 +213,7 @@ Soldier.prototype._dropLoot = function () {
     entityManager.generateLoot({
         cx : this.cx,
         cy : this.cy,
+        sprite : g_sprites.chest
     });
 };
 
