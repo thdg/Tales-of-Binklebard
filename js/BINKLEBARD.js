@@ -74,6 +74,7 @@ function requestPreloads() {
         terrain          : "img/terrain.png",
         link             : "img/link_alpha.png",
         sparcles         : "img/Sparcles.png",
+        armor            : "img/classes/Armor.png",
 		rake             : "img/classes/rake.png",
         magicMissile     : "img/magicMissile.png",
         greenSoldier     : "img/greenMonster.png",
@@ -86,9 +87,11 @@ function requestPreloads() {
 		uimap        	 : "img/UIpic/UImap.png",
 		globes         	 : "img/UIpic/globes.png",
 		myst         	 : "img/UIpic/myst.png",
+		characterScreen  : "img/UIpic/characterScreen.png",
 		
 		// classes
 		rogue         	 : "img/classes/rogue_alpha.png",
+		wizard         	 : "img/classes/wizard_alpha.png",
     };
 
     imagesPreload(requiredImages, g_images, preloadMap);
@@ -107,6 +110,7 @@ function preloadMap() {
 }
 
 var g_sprites = {};
+var g_audio   = {};
 
 function preloadDone() {
 
@@ -119,9 +123,14 @@ function preloadDone() {
 	
 	g_sprites.rogue = new Sprite(g_images.rogue);
     g_sprites.rogue.scale = 2;
+	
+	g_sprites.wizard = new Sprite(g_images.wizard);
+    g_sprites.wizard.scale = 2;
 
     g_sprites.greenSoldier = new Sprite(g_images.greenSoldier);
     g_sprites.greenSoldier.scale = 1.8;
+
+    g_audio.strike = new Audio('audio/swordStrike.wav');
 	
 	/***************************************************
 	-------terrain------------------------------
@@ -146,6 +155,9 @@ function preloadDone() {
     g_sprites.fireball.scale = 2.2;
 	
 	g_sprites.sparcles = new Sprite(g_images.sparcles);
+
+	g_sprites.armor = new Sprite(g_images.armor);
+	g_sprites.armor.scale = 2;
 	
 	g_sprites.rake = new Sprite(g_images.rake);
 	
@@ -159,6 +171,8 @@ function preloadDone() {
 	g_sprites.globes = new Sprite(g_images.globes);
 	
 	g_sprites.myst = new Sprite(g_images.myst);
+	
+	g_sprites.characterScreen = new Sprite(g_images.characterScreen);
 	
 	/**************************************************/
     

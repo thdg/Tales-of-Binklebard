@@ -48,8 +48,8 @@ var world = {
 		return this._activeRegion.findTile(x,y);
 	},
 
-	collidesWith: function(x, y, r) {
-		return this._activeRegion.collidesWith(x, y, r);
+	collidesWith: function(x, y, r, h) {
+		return this._activeRegion.collidesWith(x, y, r, h);
 	},
 
 	getHeight: function() {

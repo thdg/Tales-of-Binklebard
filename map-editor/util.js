@@ -35,6 +35,8 @@ function makeHightmap(map) {
 
 function map2string(map) {
 
+    map = makeFlowers(map);
+
     var map_string = '';
     for (var i=0; i<map.length; i++) {
         map_string += (map[i] + ';');
@@ -64,7 +66,8 @@ function makeFlowers(map) {
 
     for (var i=0; i<map.length; i++) {
         for (var j=0; j<map[i].length; j++) {
-            if (map[i][j]===0 && Math.random()<0.2)
+            if ((map[i][j]===0 || map[i][j]===1 || map[i][j]===2 ) 
+                && Math.random()<0.2)
                 map[i][j] = util.randInt(0,3); 
         }
     }

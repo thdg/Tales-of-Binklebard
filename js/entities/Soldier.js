@@ -11,7 +11,7 @@ function Soldier(descr) {
     this.randomizeVelocity();
 
     this.hp = 100;
-    this.armor = 50;
+    this.armor = 75;
     this.damageTaken = 0;
     this.expReward = 500;
 
@@ -140,7 +140,7 @@ Soldier.prototype.move = function (du) {
         collision) {
         this.cx = oldX;
         this.cy = oldY;
-        if (collision && 
+        if (collision && entityManager.getCharacter() &&
             collision.getSpatialID() === entityManager.getCharacter().getSpatialID())
             return;
         if(!this.chasing) this.randomizeVelocity();
@@ -174,8 +174,10 @@ Soldier.prototype.walkEast = function(du) {
 
 Soldier.prototype.hit = function(collision)
 {
-    var characterID = entityManager.getCharacter().getSpatialID();
-    
+    var character = entityManager.getCharacter()
+    if (!character) return;
+
+    var characterID = character.getSpatialID();
     if (characterID === collision.getSpatialID() && this.doingDamage <= 0)
     {
         this.doingDamage = 0.25*SECS_TO_NOMINALS;
@@ -193,13 +195,16 @@ Soldier.prototype.takeDamage = function (damage, ignoreArmor) {
 
     if (ignoreArmor===undefined) ignoreArmor = false;
 
-    var damageReduction = ignoreArmor ? 1 : this.armor/this.hp;
-    var totalDamage = damage * damageReduction
+    var damageReduction = ignoreArmor ? 0 : this.armor/this.hp;
+    var totalDamage = Math.floor(damage * (1 - damageReduction));
     this.damageTaken += totalDamage;
     particleManager.generateTextParticle(this.cx, this.cy, totalDamage);
     particleManager.generateSplash(this.cx, this.cy, 20);
 
-    if (this.damageTaken>=this.hp) this.kill();
+    if (this.damageTaken>=this.hp) {
+        this.kill();
+        if (Math.random()<0.5) this._dropLoot();
+    }
 };
 
 Soldier.prototype.getHpRatio = function () {

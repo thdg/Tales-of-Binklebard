@@ -6,6 +6,9 @@ var UIManager = {
 		this.bar = g_sprites.uibar;
 		this.map = g_sprites.uimap;
 		
+		this.cScreen = g_sprites.characterScreen;
+		this.cScreen.alpha = 0.95;
+
 		this.bGlobes = g_sprites.globes;
 		this.myst = g_sprites.myst;
 		
@@ -14,12 +17,17 @@ var UIManager = {
 		this.posXp = 0;
 	},
 
+	chaScreen : 'C'.charCodeAt(0),
+	cTrue : false,
+	
 	update: function(du) {
 		var pos = camera.getPos();
 		this.hpRatio = this._character.getHpRatio();
 		this.energyRatio = this._character.getEnergyRatio();
 		this._cx = pos.posX;
 		this._cy = pos.posY;
+		
+		this.whatToRender();
 		
 		this.calculateBar();
 	},
@@ -33,6 +41,8 @@ var UIManager = {
 		this.globes(ctx);
 		this.myst.drawAt(ctx, this._cx, this._cy);
 		
+		this.renderScreens(ctx);
+		
 		this.bar.drawAt(ctx, this._cx, this._cy);
 		this.map.drawAt(ctx, this._cx, this._cy);
 		
@@ -40,6 +50,62 @@ var UIManager = {
 		this.drawMiniMapArea(ctx, this._character.getPos());
 	},
 
+	renderScreens : function (ctx) {
+		if (this.cTrue){
+			this.cScreen.drawAt(ctx, this._cx, this._cy+ 23);
+			
+			var oldStyle = ctx.fillStyle;
+			ctx.fillStyle = 'black';
+			ctx.strokeText("Level: " + this._character.lvl, this._cx + 60, this._cy+ 90);
+			ctx.fillStyle = 'red';
+			ctx.fillText("Level: " + this._character.lvl, this._cx + 60, this._cy+ 90);
+			
+			ctx.strokeText("Strength: " + this._character.str, this._cx + 60, this._cy+ 110);
+			ctx.fillStyle = 'red';
+			ctx.fillText("Strength: " + this._character.str,this._cx + 60, this._cy+ 110);
+			
+			ctx.strokeText("Dexterity: " + this._character.dex, this._cx + 60, this._cy+ 130);
+			ctx.fillStyle = 'green';
+			ctx.fillText("Dexterity: " + this._character.dex,this._cx + 60, this._cy+ 130);
+			
+			ctx.strokeText("Wisdom: " + this._character.wis, this._cx + 60, this._cy+ 150);
+			ctx.fillStyle = 'purple';
+			ctx.fillText("Wisdom: " + this._character.wis,this._cx + 60, this._cy+ 150);
+			
+			ctx.strokeText("Spirit: " + this._character.spirit, this._cx + 60, this._cy+ 170);
+			ctx.fillStyle = 'blue';
+			ctx.fillText("Spirit: " + this._character.spirit,this._cx + 60, this._cy+ 170);
+			
+			ctx.font = "12px Calibri, sans-serif";
+			
+			ctx.fillStyle = 'yellow';
+
+			ctx.fillText("hp: " + this._character.hp,this._cx + 60, this._cy+ 320);
+			ctx.fillText("armor: " + this._character.armor,this._cx + 60, this._cy+ 330);
+			ctx.fillText("energy: " + this._character.energy,this._cx + 60, this._cy+ 340);
+			ctx.fillText("damage: " + this._character.damage,this._cx + 60, this._cy+ 350);
+			ctx.fillText("Crit chance: " + this._character.critChance,this._cx + 60, this._cy+ 360);
+			ctx.fillText("Crit modifier: " + this._character.critModifier,this._cx + 60, this._cy+ 370);
+			ctx.fillText("Spell crit chance: " + this._character.spellCritChance,this._cx + 60, this._cy+ 380);
+			ctx.fillText("Spell crit modifier: " + this._character.spellCritModifier,this._cx + 60, this._cy+ 390);
+			ctx.fillText("Life regen: " + this._character.lifeRegen + "/sec",this._cx + 60, this._cy+ 400);
+			ctx.fillText("Energy regen: " + this._character.energyRegen+ "/sec",this._cx + 60, this._cy+ 410);
+			ctx.fillText("Miss change: " + this._character.missChange+ "/sec",this._cx + 160, this._cy+ 320);
+			
+			ctx.font = "10px irish-grover, sans-serif";
+			ctx.fillStyle = oldStyle;
+		}
+	},
+	
+	whatToRender : function () {
+		if (keys[this.chaScreen] && this.cTrue === false){
+			this.cTrue = true;
+		}
+		else if (keys[this.chaScreen] && this.cTrue === true){
+			this.cTrue = false;
+		}
+	},
+	
 	renderXp : function (ctx) {
 		var startX = 200,
 			finishX = 600,

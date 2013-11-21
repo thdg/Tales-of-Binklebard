@@ -29,7 +29,7 @@ var entityManager = {
         }
     },
 
-    _findNearestItem : function(posX, posY) {
+    findNearestItem : function(posX, posY) {
         var closestItem = null,
             closestIndex = -1,
             closestSq = 1000 * 1000;
@@ -49,7 +49,7 @@ var entityManager = {
         }
         return {
             theItem : closestItem,
-            theIndex: closestIndex
+            theDistanceSq: closestSq
         };
     },
 
@@ -70,18 +70,30 @@ var entityManager = {
 	
     KILL_ME_NOW : -1,
 
+    generateRogue : function() {
+        var rogue = new Humanoid(g_sprites.rogue);
+        var character = new Rogue({model: rogue, cx:200, cy:200});
+        this._character.push(character);
+        camera.centerAt(character);
+        UIManager.follow(character);
+    },
+
+    generateWizard : function() {
+        var wizard = new Humanoid(g_sprites.wizard);
+        var character = new Wizard({model: wizard, cx:200, cy:200});
+        this._character.push(character);
+        camera.centerAt(character);
+        UIManager.follow(character);
+    },
+
     deferredSetup : function () {
         this._categories = [this._items, this._soldiers, this._character, this._effects];
     },
 
     init: function() {
-        var rogue = new Humanoid(g_sprites.rogue);
-        var character = new Rogue({model: rogue, cx:200, cy:200});
-        this._character.push(character);
+        this.generateWizard();
         this._generateSoldiers(100);
         this._generateCamp();
-        camera.centerAt(character);
-		UIManager.follow(character);
     },
 
     createEffect: function (descr) {
@@ -96,6 +108,25 @@ var entityManager = {
 	
 	getCharacter : function() {
         return this._character[0];
+    },
+
+    generateLoot : function(descr) {
+        var loot = Math.random();
+        if (loot<0.4) {
+            this._items.push(new HealingPotion(descr));
+        } else
+        if (loot<0.8) {
+            this._items.push(new EnergyPotion(descr));
+        } else
+        if (loot<0.9) {
+            this._items.push(new ArmorSet(descr));
+        } else {
+            this._items.push(new WeponSet(descr));
+        }
+    },
+
+    addItem : function(Item) {
+        this._items.push(Item);
     },
 
     updateSoldiers : function(lvl) {

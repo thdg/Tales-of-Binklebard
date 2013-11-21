@@ -18,12 +18,15 @@ Character.prototype.KEY_UP    = UP_ARROW;
 Character.prototype.KEY_DOWN  = DOWN_ARROW;
 Character.prototype.KEY_LEFT  = LEFT_ARROW;
 Character.prototype.KEY_RIGHT = RIGHT_ARROW;
+Character.prototype.PICK_UP   = util.charCode('E');
+Character.prototype.USE_HP    = util.charCode('V');
+Character.prototype.USE_EP    = util.charCode('B');
 
 Character.prototype.marginBottom = 7;
 
 Character.prototype.direction = FACE_DOWN; // default direction
 
-Character.prototype.KEY_ATTACK = ' '.charCodeAt(0);
+Character.prototype.KEY_ATTACK = util.charCode(' ');
 
 // NEEDS REFINEMENT
 Character.prototype.isCasting    = false;
@@ -42,7 +45,12 @@ Character.prototype.hp           = 100;
 Character.prototype.armor        = 25;
 Character.prototype.missChange   = 0;
 Character.prototype.energy       = 100;
-Character.prototype.damage       = 8;
+Character.prototype.damage       = 0;
+
+Character.prototype.critChance	 = 0;
+Character.prototype.critModifier = 0;
+Character.prototype.spellCritChance = 0;
+Character.prototype.spellCritModifier = 0;
 
 Character.prototype.lifeRegen 	 = 0;
 Character.prototype.energyRegen  = 0;
@@ -51,6 +59,8 @@ Character.prototype.damageTaken  = 0;
 Character.prototype.energyUsed   = 0;
 Character.prototype.doingDamage  = 0;
 
+Character.prototype.backpack = new Backpack();
+
 Character.prototype.update = function (du) {
     
     if (this.doingDamage <  0 ) this.doingDamage -= du;
@@ -58,11 +68,14 @@ Character.prototype.update = function (du) {
 
     spatialManager.unregister(this);
     renderingManager.unregister(this);
+
     if (this._isDeadNow) return entityManager.KILL_ME_NOW;
 
     this.move(du);
+    this.pickUp(du);
     this.abilities(du);
     this.model.update(du);
+    if (this.backpack) this.backpack.update(this);
 
     this.energyUsed = Math.max(0, this.energyUsed-this.energyRegen/SECS_TO_NOMINALS*du);
 	this.damageTaken = Math.max(0, this.damageTaken-this.lifeRegen/SECS_TO_NOMINALS*du);
@@ -71,17 +84,33 @@ Character.prototype.update = function (du) {
     renderingManager.register(this);
 };
 
-Character.prototype.strike = function()
-{
+Character.prototype.strike = function(){
     var strikeX = 16*Math.cos(util.getRadFromDir(this.direction));
     var strikeY = 16*Math.sin(util.getRadFromDir(this.direction));
     var target = spatialManager.findEntityInRange(this.cx+strikeX,this.cy+strikeY,15);
 
     if ( target && this.doingDamage <= 0){
-        var totalDamage = Math.floor(this.damage + this.str);
+        g_audio.strike.play()
+        var totalDamage = this.critCheck();
         this.doingDamage = 0.5*SECS_TO_NOMINALS;
         target.takeDamage(totalDamage);
     }
+};
+
+Character.prototype.critCheck = function(){
+    if (this.critChance >= (Math.random() * 100)){
+        particleManager.generateTextParticle(this.cx, this.cy, "Critical Hit!");
+        return ((this.damage + this.str) * this.critModifier);
+    }
+    else return (this.damage + this.str);
+};
+
+Character.prototype.spellCritCheck = function(damage,cx,cy){
+    if (this.critChance >= (Math.random() * 100)) {
+        particleManager.generateTextParticle(cx, cy, "Critical Hit!");
+        return damage * this.critModifier;
+    }
+    else return damage;
 };
 
 Character.prototype.move = function (du) {
@@ -91,28 +120,28 @@ Character.prototype.move = function (du) {
     var oldX = this.cx;
     var oldY = this.cy;
 
-    if (keys[this.KEY_UP]){
+    if ( keys[this.KEY_UP] ){
         this.cy -= this.baseVel*du;
         this.direction = FACE_UP;
 
         this.model.walk();
         this.model.faceUp();
     }
-    if (keys[this.KEY_DOWN]){
+    if ( keys[this.KEY_DOWN] ){
         this.cy += this.baseVel*du;
         this.direction = FACE_DOWN;
 
         this.model.walk();
         this.model.faceDown();
     }
-    if (keys[this.KEY_LEFT]){
+    if ( keys[this.KEY_LEFT] ){
         this.cx -= this.baseVel*du;
         this.direction = FACE_LEFT;
 
         this.model.walk();
         this.model.faceLeft();
     }
-    if (keys[this.KEY_RIGHT]){
+    if ( keys[this.KEY_RIGHT] ){
         this.cx += this.baseVel*du;
         this.direction = FACE_RIGHT;
 
@@ -120,7 +149,7 @@ Character.prototype.move = function (du) {
         this.model.faceRight();
     }
 
-    if (keys[this.KEY_ATTACK]) {
+    if ( keys[this.KEY_ATTACK] ) {
         this.model.attack();
         this.strike();
     }
@@ -141,6 +170,14 @@ Character.prototype.move = function (du) {
         this.cx = oldX;
     }
 
+};
+
+Character.prototype.pickUp = function(du) {
+
+    if ( keys[this.PICK_UP] ){
+        var loot = entityManager.findNearestItem(this.cx, this.cy);
+        if (loot.theDistanceSq<15*15) loot.theItem.pickUp(this);
+    }
 };
 
 Character.prototype.render = function (ctx) {
@@ -200,6 +237,11 @@ Character.prototype.takeDamage = function (damage, ignoreArmor) {
 Character.prototype.heal = function (hpBoost) {
     this.damageTaken = Math.max(0, this.damageTaken-hpBoost);
     particleManager.generateTextParticle(this.cx, this.cy, hpBoost, '#00FF00');
+};
+
+Character.prototype.energyBoost = function (energyBoost) {
+    this.energyUsed = Math.max(0, this.energyUsed-energyBoost);
+    particleManager.generateTextParticle(this.cx, this.cy, energyBoost, '#0000FF');
 };
 
 Character.prototype.getHpRatio = function () {

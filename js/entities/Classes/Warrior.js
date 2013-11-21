@@ -16,6 +16,12 @@ function Warrior(descr) {
 	
     this.str + 2;
     this.wis - 2;
+	
+	this.lifeRegen = 1 * this.spirit;
+	this.energyRegen = 1 * this.spirit;
+	
+	this.critChance	 = Math.ceil(0.35 * this.dex);
+	this.critModifier = Math.ceil(0.2 * this.str);
 }
 
 Warrior.prototype = new Character();
@@ -35,6 +41,9 @@ Warrior.prototype.updateStats = function () {
     this.armor = this.dex * 20;
     this.hp = this.str * 50;
     this.damage = this.str * 5 + this.str;
+	
+	this.critChance	 = Math.ceil(0.35 * this.dex);
+	this.critModifier = Math.ceil(0.2 * this.str);
 };
 
 Warrior.prototype.abilities = function(du)
