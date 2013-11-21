@@ -150,13 +150,13 @@ var spatialManager = {
         var oldStyle = ctx.strokeStyle;
         ctx.strokeStyle = "red";
         
-        for (var i=0; i<=world.getWidth(); i+=this._divider) {
-            util.stroke(ctx,0,i,world.getWidth(),i);
-            util.stroke(ctx,i,0,i,world.getHeight());
+        for (var k=0; k<=world.getWidth(); k+=this._divider) {
+            util.stroke(ctx,0,k,world.getWidth(),k);
+            util.stroke(ctx,k,0,k,world.getHeight());
         }
 
         for (var i=0; i<this._entities.length; i++) {
-            var col = this._entities[i]
+            var col = this._entities[i];
             if (col) {
                 for (var j=0; j<col.length; j++) {
                     var row = col[j];

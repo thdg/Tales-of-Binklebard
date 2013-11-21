@@ -5,7 +5,7 @@ function Animation(sprite, startX, startY, frameSize, frames, interval, rotation
     if (rotation === undefined)  rotation = 0;
     if (frames === undefined) frames = 1;
     if (interval === undefined) interval = 0;
-	if (reflect === undefined) reflect = false;
+    if (reflect === undefined) reflect = false;
 
     this._frames    = frames;
     this._startX    = startX;
@@ -49,5 +49,5 @@ Animation.prototype.drawCentredAt = function(ctx, cx, cy) {
         this._frameSize, this._frameSize, 
         this.rotation, this.reflect
     );
-}
+};
 

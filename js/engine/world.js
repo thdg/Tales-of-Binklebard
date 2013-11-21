@@ -8,73 +8,73 @@
 
 var world = {
 
-	// "PRIVATE" DATA
+    // "PRIVATE" DATA
 
-	_regions : [],
-	_activeRegion : undefined,
+    _regions : [],
+    _activeRegion : undefined,
 
-	// "PRIVATE" METHODS
+    // "PRIVATE" METHODS
 
 
 
-	// PUBLIC METHODS
+    // PUBLIC METHODS
 
-	addRegion: function(region) {
-	    this._regions.push(region);
-	    this._activeRegion = region;
-	},
+    addRegion: function(region) {
+        this._regions.push(region);
+        this._activeRegion = region;
+    },
 
-	getRegion: function() {
-	    return this._activeRegion;
-	},
+    getRegion: function() {
+        return this._activeRegion;
+    },
 
-	getMap: function() {
-		return this._activeRegion._map;
-	},
+    getMap: function() {
+        return this._activeRegion._map;
+    },
 
-	setMap: function(map) {
-		this._activeRegion.setMap(map);
-	},
+    setMap: function(map) {
+        this._activeRegion.setMap(map);
+    },
 
-	setHeightmap: function(heightmap) {
-		this._activeRegion.setHeightmap(heightmap);
-	},
+    setHeightmap: function(heightmap) {
+        this._activeRegion.setHeightmap(heightmap);
+    },
 
-	getHeightMap: function() {
-		return this._activeRegion._heightmap;
-	},
+    getHeightMap: function() {
+        return this._activeRegion._heightmap;
+    },
 
-	findTile: function(x,y) {
-		return this._activeRegion.findTile(x,y);
-	},
+    findTile: function(x,y) {
+        return this._activeRegion.findTile(x,y);
+    },
 
-	collidesWith: function(x, y, r, h) {
-		return this._activeRegion.collidesWith(x, y, r, h);
-	},
+    collidesWith: function(x, y, r, h) {
+        return this._activeRegion.collidesWith(x, y, r, h);
+    },
 
-	getHeight: function() {
-	    return this._activeRegion.height;
-	},
+    getHeight: function() {
+        return this._activeRegion.height;
+    },
 
-	getWidth: function() {
-	    return this._activeRegion.width;
-	},
+    getWidth: function() {
+        return this._activeRegion.width;
+    },
 
-	update: function(du) {
-	    this._activeRegion.update(du);
-	    tiles.update(du);
-	},
+    update: function(du) {
+        this._activeRegion.update(du);
+        tiles.update(du);
+    },
 
-	render: function(ctx) {
-	    this._activeRegion.render(ctx);
-	},
+    render: function(ctx) {
+        this._activeRegion.render(ctx);
+    },
 
-	exportMap: function() {
-		return {map: this._activeRegion._map, heightmap: this._activeRegion._heightmap}
-	},
+    exportMap: function() {
+        return {map: this._activeRegion._map, heightmap: this._activeRegion._heightmap};
+    },
 
-	importMap: function(map, heightmap) {
-		this._activeRegion = new Region(map, heightmap);
-	},
+    importMap: function(map, heightmap) {
+        this._activeRegion = new Region(map, heightmap);
+    },
 
 };

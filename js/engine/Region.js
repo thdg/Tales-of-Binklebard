@@ -47,7 +47,7 @@ Region.prototype.findTile = function (x, y) {
 
     var tileSize = tilesheet.tileSize;
     var tileX = util.keepBetween(Math.floor(x/tileSize),0,this._mapHeight);
-    var tileY = util.keepBetween(Math.floor(y/tileSize),0,this._mapWidth);;
+    var tileY = util.keepBetween(Math.floor(y/tileSize),0,this._mapWidth);
 
     return {x: tileX, y: tileY};
 };

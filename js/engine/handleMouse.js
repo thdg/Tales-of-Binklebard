@@ -15,9 +15,9 @@ function handleMouse(evt) {
     var button = evt.buttons === undefined ? evt.which : evt.buttons;
     // or if the mouse is not over canvas,
     var onCanvas = g_canvas.offsetLeft < evt.clientX && 
-    			   evt.clientX < g_canvas.offsetLeft+g_canvas.width &&
-    			   g_canvas.offsetTop < evt.clientY && 
-    			   evt.clientY < g_canvas.offsetTop+g_canvas.height;
+                   evt.clientX < g_canvas.offsetLeft+g_canvas.width &&
+                   g_canvas.offsetTop < evt.clientY && 
+                   evt.clientY < g_canvas.offsetTop+g_canvas.height;
     // then bail
     if (!button || !onCanvas) return;
     
