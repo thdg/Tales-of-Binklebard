@@ -102,9 +102,9 @@ Soldier.prototype.move = function (du) {
         monsterPos = [ floor(monster.posX/32), floor(monster.posY/32)];
        
         if( playerPos[0] < monsterPos[0] ) this.walkWest(du);
-        if( playerPos[0] > monsterPos[0] ) this.walkEast(du);
-        if( playerPos[1] < monsterPos[1] ) this.walkNorth(du);
-        if( playerPos[1] > monsterPos[1] ) this.walkSouth(du);
+        else if( playerPos[0] > monsterPos[0] ) this.walkEast(du);
+        else if( playerPos[1] < monsterPos[1] ) this.walkNorth(du);
+        else if( playerPos[1] > monsterPos[1] ) this.walkSouth(du);
 
 
     } else {
@@ -138,25 +138,25 @@ Soldier.prototype.move = function (du) {
 };
 
 Soldier.prototype.walkNorth = function(du) {
-    if(this.chasing) this.cy -= this.vel*1.3 * du;
+    if(this.chasing) this.cy -= this.vel*1.5 * du;
     else this.cy -= this.vel * du;
     this.model.walk();
     this.model.faceUp();
 }
 Soldier.prototype.walkSouth= function(du) {
-    if(this.chasing) this.cy += this.vel*1.3 * du;
+    if(this.chasing) this.cy += this.vel*1.5 * du;
     else this.cy += this.vel * du;
     this.model.walk();
     this.model.faceDown();
 }
 Soldier.prototype.walkWest = function(du) {
-    if(this.chasing) this.cx -= this.vel*1.3 * du;
+    if(this.chasing) this.cx -= this.vel*1.5 * du;
     else this.cx -= this.vel * du;
     this.model.walk();
     this.model.faceLeft();
 }   
 Soldier.prototype.walkEast = function(du) {
-    if(this.chasing) this.cx += this.vel*1.3 * du;
+    if(this.chasing) this.cx += this.vel*1.5 * du;
     else this.cx += this.vel * du;
     this.model.walk();
     this.model.faceRight();   
