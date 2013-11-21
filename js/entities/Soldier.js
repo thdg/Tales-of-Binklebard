@@ -27,10 +27,8 @@ Soldier.prototype.baseDamage  = 25;
 Soldier.prototype.damage      = 25;
 Soldier.prototype.doingDamage = 0;
 Soldier.prototype.isEnemy     = true;
-
 Soldier.prototype.chasing     = false;
-Soldier.prototype.path        = undefined;
-Soldier.prototype.step        = 0;
+
 
 
 Soldier.prototype.randomizeVelocity = function () { 
@@ -49,13 +47,11 @@ Soldier.prototype.updateDamage = function () {
 };
 
 Soldier.prototype.findPlayer = function () {
+    if(entityManager.getCharacter()) {
         var player = entityManager.getCharacter().getPos(),
             monster = this.getPos(),
-            floor = Math.floor,
             dist = util.distSq(player.posX, player.posY,
-                               monster.posX, monster.posY),
-            playerPos = [ floor(player.posX/32), floor(player.posY/32)],
-            monsterPos = [ floor(monster.posX/32), floor(monster.posY/32)];
+                               monster.posX, monster.posY);
 
         if (dist < 40000 && !this.chasing) {
             this.chasing = true;
@@ -63,7 +59,8 @@ Soldier.prototype.findPlayer = function () {
         else if (dist > 50000 && this.chasing) {
             this.chasing = false;
         } 
-
+    }
+        
 };
 
 Soldier.prototype.update = function (du) {
@@ -94,7 +91,7 @@ Soldier.prototype.move = function (du) {
     var oldX = this.cx;
     var oldY = this.cy;
 
-    if (this.chasing ) {
+    if (this.chasing && entityManager.getCharacter()) {
         var player = entityManager.getCharacter().getPos(),
         monster = this.getPos(),
         floor = Math.floor,

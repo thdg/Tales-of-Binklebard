@@ -77,8 +77,8 @@ function requestPreloads() {
         armor            : "img/classes/Armor.png",
 		rake             : "img/classes/rake.png",
         magicMissile     : "img/magicMissile.png",
-        greenSoldier     : "img/greenMonster.png",
-		fireball         : "img/fireball.png",
+        greenSoldier     : "img/GreenMonster.png",
+		fireball         : "img/Fireball.png",
 		tent         	 : "img/Tent.png",
 		campfire         : "img/campfire.png",
 		
