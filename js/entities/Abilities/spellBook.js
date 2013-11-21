@@ -106,6 +106,7 @@ var spellbook =  {
                     {
                         entity.takeDamage(this.damage,true);
                         this.removeFromScope();
+                        this.kill();
                     }
                 };
 
@@ -152,7 +153,7 @@ var spellbook =  {
                 
                 this.descr.kill = function() {
                     this._isDeadNow = true;
-                    caster.missChange = 0.01 * this.dex;
+                    caster.missChange = 0.01 * caster.dex;
                     caster.model.setAlpha( 1.0 );
                 };
                 entityManager.createEffect(this.descr);
