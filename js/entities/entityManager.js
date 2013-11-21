@@ -96,7 +96,7 @@ var entityManager = {
 
     generateCleric : function() {
         var cleric = new Humanoid(g_sprites.cleric);
-        var character = new Warrior({model: cleric, cx:200, cy:200});
+        var character = new Cleric({model: cleric, cx:200, cy:200});
         this._character.push(character);
         camera.centerAt(character);
         UIManager.follow(character);

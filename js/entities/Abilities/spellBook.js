@@ -31,14 +31,16 @@ var spellbook =  {
 
                 this.descr.findTarget = function(){ return caster; };
                 this.descr.responseToFind = function() {this.findTarget = function(){}};
-                this.descr.move   = function() { this.cx = caster.cx;this.cy = caster.cy; };
-                this.descr.target = function (entity) { 
+                this.descr.move   = function() { this.cx = caster.cx; this.cy = caster.cy; };
+                this.descr.target = function (entity) {
+                    console.log(entity); 
                     entity.heal(this.hpBoost);
                     this.removeFromScope();
+                    this.target = function(){};
                 };
                 this.descr.cx = caster.cx;
                 this.descr.cy = caster.cy;
-                this.descr.hpBoost = 20+caster.wis;
+                this.descr.hpBoost = 20 + caster.wis;
                 entityManager.createEffect(this.descr);
                 
             }

@@ -1,4 +1,4 @@
-//"use strict";
+"use strict";
 
 /************************************************************************\
 
@@ -30,8 +30,8 @@ function Cleric(descr) {
 
 Cleric.prototype = new Character();
 
-Cleric.prototype.KEY_HEAL  = '1'.charCodeAt(0);
-Cleric.prototype.KEY_ARMOR = '2'.charCodeAt(0);
+Cleric.prototype.KEY_CURE    = '1'.charCodeAt(0);
+Cleric.prototype.KEY_ARMOR   = '2'.charCodeAt(0);
 
 Cleric.prototype.updateStats = function () {
 
@@ -44,7 +44,7 @@ Cleric.prototype.updateStats = function () {
     if(this.lvl%3 === 0)
         this.dex++;
 
-    this.heal        = spellbook.heal (this.lvl,this.wis);
+    this.cure        = spellbook.heal (this.lvl,this.wis);
     this.spiritArmor = spellbook.armor(this.lvl,this.wis);
 
     this.energy = this.wis * 30;
@@ -61,10 +61,11 @@ Cleric.prototype.updateStats = function () {
 
 
 Cleric.prototype.abilities = function(du) {
-    if (keys[this.KEY_HEAL] && !this.isCasting)
-        this.cast(this.heal);
 
-    if (keys[this.KEY_ARMOR] && !this.isCasting)
+    if (keys[this.KEY_CURE] && !this.isCasting) 
+        this.cast(this.cure);
+
+    if (keys[this.KEY_ARMOR] && !this.isCasting) 
         this.cast(this.spiritArmor);
 
     if(this.isCasting) {
