@@ -29,6 +29,8 @@ var RIGHT_ARROW = 39;
 var DOWN_ARROW  = 40;
 var LEFT_ARROW  = 37;
 
+var ESC = 27;
+
 var ANIMATION_FRAME_SIZE = 48;
 var TILE_SIZE = 32;
 
