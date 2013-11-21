@@ -21,3 +21,13 @@ canvas {
 	text-shadow: black 2px 2px 2px, #360707 0 0 15px;
 	font-weight: 500;
 }
+
+.instructions {
+	width: 800px;
+	text-align: center;
+	margin: 10px auto;
+	font-size: 20px;
+	color: #FFA500;
+	text-shadow: black 2px 2px 2px, #360707 0 0 15px;
+	font-weight: 500;
+}
