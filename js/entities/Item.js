@@ -55,7 +55,7 @@ EnergyPotion.prototype.pickUp = function (hustler) {
 
 function ArmorSet(descr) {
     this.setup(descr);
-    this.duration = 10*SECS_TO_NOMINALS;
+    this.duration = 120*SECS_TO_NOMINALS;
     this.timeAlive = 0;
 
     this.strBonus = Math.random()<0.75 ? 0 : Math.ceil(Math.random()*6);
