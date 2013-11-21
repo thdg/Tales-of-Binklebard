@@ -47,19 +47,20 @@ Soldier.prototype.updateDamage = function () {
 };
 
 Soldier.prototype.findPlayer = function () {
-    if(entityManager.getCharacter()) {
-        var player = entityManager.getCharacter().getPos(),
-            monster = this.getPos(),
-            dist = util.distSq(player.posX, player.posY,
-                               monster.posX, monster.posY);
 
-        if (dist < 40000 && !this.chasing) {
-            this.chasing = true;
-        }
-        else if (dist > 50000 && this.chasing) {
-            this.chasing = false;
-        } 
+    if (!entityManager.getCharacter()) return;
+
+    var player = entityManager.getCharacter().getPos(),
+        monster = this.getPos(),
+        dist = util.distSq(player.posX, player.posY,
+                           monster.posX, monster.posY);
+
+    if (dist < 40000 && !this.chasing) {
+        this.chasing = true;
     }
+    else if (dist > 50000 && this.chasing) {
+        this.chasing = false;
+    } 
         
 };
 
@@ -91,12 +92,18 @@ Soldier.prototype.move = function (du) {
     var oldX = this.cx;
     var oldY = this.cy;
 
-    if (this.chasing && entityManager.getCharacter()) {
-        var player = entityManager.getCharacter().getPos(),
-        monster = this.getPos(),
-        floor = Math.floor,
-        playerPos = [ floor(player.posX/32), floor(player.posY/32)],
-        monsterPos = [ floor(monster.posX/32), floor(monster.posY/32)];
+
+    if (this.chasing) {
+        var player = entityManager.getCharacter();
+        if (!player) {
+            this.chasing = false;
+            return;
+        }
+        var player = player.getPos(),
+            monster = this.getPos(),
+            floor = Math.floor,
+            playerPos = [ floor(player.posX/32), floor(player.posY/32)],
+            monsterPos = [ floor(monster.posX/32), floor(monster.posY/32)];
        
         if( playerPos[0] < monsterPos[0] ) this.walkWest(du);
         else if( playerPos[0] > monsterPos[0] ) this.walkEast(du);
@@ -161,7 +168,7 @@ Soldier.prototype.walkEast = function(du) {
 
 Soldier.prototype.hit = function(collision)
 {
-    var character = entityManager.getCharacter()
+    var character = entityManager.getCharacter();
     if (!character) return;
 
     var characterID = character.getSpatialID();
@@ -202,6 +209,7 @@ Soldier.prototype._dropLoot = function () {
     entityManager.generateLoot({
         cx : this.cx,
         cy : this.cy,
+        sprite : g_sprites.chest
     });
 };
 

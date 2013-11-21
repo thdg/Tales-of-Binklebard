@@ -88,10 +88,17 @@ function requestPreloads() {
 		globes         	 : "img/UIpic/globes.png",
 		myst         	 : "img/UIpic/myst.png",
 		characterScreen  : "img/UIpic/characterScreen.png",
+		chest  			 : "img/UIpic/chest.png",
+		lifeflask	     : "img/UIpic/lifeflask.png",
+		manaflask	     : "img/UIpic/manaflask.png",
+		armorkit	     : "img/UIpic/armorkit.png",
+		weaponkit	     : "img/UIpic/weaponkit.png",
 		
 		// classes
 		rogue         	 : "img/classes/rogue_alpha.png",
 		wizard         	 : "img/classes/wizard_alpha.png",
+		warrior          : "img/classes/warrior_alpha.png",
+		cleric          : "img/classes/cleric_alpha.png",
     };
 
     imagesPreload(requiredImages, g_images, preloadMap);
@@ -126,6 +133,12 @@ function preloadDone() {
 	
 	g_sprites.wizard = new Sprite(g_images.wizard);
     g_sprites.wizard.scale = 2;
+	
+	g_sprites.warrior = new Sprite(g_images.warrior);
+    g_sprites.warrior.scale = 2;
+	
+	g_sprites.cleric = new Sprite(g_images.cleric);
+    g_sprites.cleric.scale = 2;
 
     g_sprites.greenSoldier = new Sprite(g_images.greenSoldier);
     g_sprites.greenSoldier.scale = 1.8;
@@ -173,6 +186,12 @@ function preloadDone() {
 	g_sprites.myst = new Sprite(g_images.myst);
 	
 	g_sprites.characterScreen = new Sprite(g_images.characterScreen);
+	
+	g_sprites.lifeflask = new Sprite(g_images.lifeflask);
+	g_sprites.manaflask = new Sprite(g_images.manaflask);
+	g_sprites.armorkit = new Sprite(g_images.armorkit);
+	g_sprites.weaponkit = new Sprite(g_images.weaponkit);
+	g_sprites.chest = new Sprite(g_images.chest);
 	
 	/**************************************************/
     

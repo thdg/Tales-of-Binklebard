@@ -12,6 +12,11 @@ var UIManager = {
 		this.bGlobes = g_sprites.globes;
 		this.myst = g_sprites.myst;
 		
+		this.lFlask = g_sprites.lifeflask;
+		this.mFlask = g_sprites.manaflask;
+		this.aKit = g_sprites.armorkit;
+		this.wKit = g_sprites.weaponkit;
+		
 		this._cx = 0;
 		this._cy = 0;
 		this.posXp = 0;
@@ -48,12 +53,41 @@ var UIManager = {
 		
 		this.renderXp(ctx);
 		this.drawMiniMapArea(ctx, this._character.getPos());
+		this.renderGameOver(ctx);
+	},
+
+	renderGameOver : function (ctx) {
+
+		if (this._character._isDeadNow) {
+			ctx.fillStyle = "red";
+			var oldFont = ctx.font;
+			ctx.font = "42px irish-grover, sans-serif";
+			ctx.fillText("GAME OVER", this._cx+300, this._cy+300);
+			ctx.font = oldFont;
+		}
 	},
 
 	renderScreens : function (ctx) {
 		if (this.cTrue){
 			this.cScreen.drawAt(ctx, this._cx, this._cy+ 23);
 			
+			this.lFlask.drawAt(ctx, this._cx + 255, this._cy + 222);
+			this.mFlask.drawAt(ctx, this._cx + 181 , this._cy + 222);
+
+			if (this._character.backpack.armorSet)
+				this.aKit.drawAt(ctx, this._cx + 102, this._cy + 222);
+			if (this._character.backpack.weponSet)
+				this.wKit.drawAt(ctx, this._cx + 28, this._cy + 222);
+			
+			var life = this._character.backpack.healingPotions;
+			var energy = this._character.backpack.energyPotions;
+			
+			ctx.font = "12px Calibri, sans-serif";
+			ctx.fillStyle = 'white';
+			ctx.fillText("" + life, this._cx + 257, this._cy+ 232);
+			ctx.fillText("" + energy, this._cx + 183, this._cy+ 232);
+		
+			ctx.font = "20px irish-grover, sans-serif";
 			var oldStyle = ctx.fillStyle;
 			ctx.fillStyle = 'black';
 			ctx.strokeText("Level: " + this._character.lvl, this._cx + 60, this._cy+ 90);
@@ -92,7 +126,7 @@ var UIManager = {
 			ctx.fillText("Energy regen: " + this._character.energyRegen+ "/sec",this._cx + 60, this._cy+ 410);
 			ctx.fillText("Miss change: " + this._character.missChange+ "/sec",this._cx + 160, this._cy+ 320);
 			
-			ctx.font = "10px irish-grover, sans-serif";
+			ctx.font = "20px irish-grover, sans-serif";
 			ctx.fillStyle = oldStyle;
 		}
 	},

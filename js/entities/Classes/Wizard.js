@@ -14,6 +14,11 @@ function Wizard(descr) {
 	
     this.wis += 2;
     this.str -= 2;
+<<<<<<< HEAD
+=======
+	
+	this.updateStats();
+>>>>>>> UI stuff
 
     this.lifeRegen  = 0.5 * this.spirit;
     this.energyRegen = 1  * this.spirit;
