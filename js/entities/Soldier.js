@@ -76,6 +76,7 @@ Soldier.prototype.update = function (du) {
         return entityManager.KILL_ME_NOW;
     }
 
+    if (!this.chasing && this.damageTaken >= 0.1) this.damageTaken -= 0.1;
     this.findPlayer();
     this.move(du);
     this.model.update(du);

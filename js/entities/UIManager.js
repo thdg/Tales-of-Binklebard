@@ -20,6 +20,7 @@ var UIManager = {
         this._cx = 0;
         this._cy = 0;
         this.posXp = 0;
+        this.hasWon = false;
     },
 
     chaScreen : 'C'.charCodeAt(0),
@@ -60,7 +61,7 @@ var UIManager = {
 
     renderGameOver : function (ctx) {
 
-        if (this._character._isDeadNow) {
+        if (this._character._isDeadNow && !this.hasWon) {
             ctx.fillStyle = "red";
             var oldFont = ctx.font;
             ctx.font = "42px irish-grover, sans-serif";
@@ -72,6 +73,7 @@ var UIManager = {
     renderWin : function (ctx) {
         var count = entityManager.getSoldierCount();
         if (count.soldiers === 0 || count.bosses === 0) {
+            this.hasWon = true;
             ctx.fillStyle = "yellow";
             var oldFont = ctx.font;
             ctx.font = "42px irish-grover, sans-serif";
