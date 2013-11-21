@@ -94,12 +94,27 @@ var entityManager = {
         UIManager.follow(character);
     },
 
+    generateCleric : function() {
+        var cleric = new Humanoid(g_sprites.cleric);
+        var character = new Warrior({model: cleric, cx:200, cy:200});
+        this._character.push(character);
+        camera.centerAt(character);
+        UIManager.follow(character);
+    },
+
     deferredSetup : function () {
         this._categories = [this._items, this._soldiers, this._character, this._effects];
     },
 
     init: function() {
-        this.generateWarrior();
+        var classNum = Math.floor(Math.random()*4);
+        console.log(classNum);
+        if( classNum === 0 ) this.generateWarrior();
+        if( classNum === 1 ) this.generateCleric ();
+        if( classNum === 2 ) this.generateRogue  ();
+        if( classNum === 3 ) this.generateWizard ();
+        
+        //this.generateWarrior();
         this._generateSoldiers(100);
         this._generateCamp();
     },

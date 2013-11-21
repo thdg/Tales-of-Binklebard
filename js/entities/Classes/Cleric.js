@@ -1,4 +1,4 @@
-"use strict";
+//"use strict";
 
 /************************************************************************\
 
@@ -15,7 +15,6 @@ function Cleric(descr) {
 	this.wis += 2;
     this.dex -= 2;
 	
-	this.updateStats();
 	
 	this.lifeRegen = 0.5 * this.spirit;
 	this.energyRegen = 1 *this.spirit;
@@ -25,13 +24,14 @@ function Cleric(descr) {
 	
 	this.spellCritChance = Math.ceil(0.35 * this.wis);
 	this.spellCritModifier = Math.ceil(0.3 * this.wis);
-	
-	this.Heal         = spellbook.heal(1,1);
+
+    this.updateStats();
 }
 
 Cleric.prototype = new Character();
 
-Cleric.prototype.KEY_HEAL = '1'.charCodeAt(0);
+Cleric.prototype.KEY_HEAL  = '1'.charCodeAt(0);
+Cleric.prototype.KEY_ARMOR = '2'.charCodeAt(0);
 
 Cleric.prototype.updateStats = function () {
 
@@ -43,6 +43,9 @@ Cleric.prototype.updateStats = function () {
     
     if(this.lvl%3 === 0)
         this.dex++;
+
+    this.heal        = spellbook.heal (this.lvl,this.wis);
+    this.spiritArmor = spellbook.armor(this.lvl,this.wis);
 
     this.energy = this.wis * 30;
     this.armor = this.dex * 20;
@@ -57,18 +60,14 @@ Cleric.prototype.updateStats = function () {
 };
 
 
-Cleric.prototype.abilities = function(du)
-{
-    if (keys[this.KEY_HEAL] && !this.isCasting) 
-    {
-        this.isCasting = true;
-        this.Heal.cast(this);
-        this.coolDown = this.Heal.descr.coolDown;
+Cleric.prototype.abilities = function(du) {
+    if (keys[this.KEY_HEAL] && !this.isCasting) {
+        this.cast(this.heal);
 
-        this.model.attack(); //should be model.cast();
+    if (keys[this.KEY_ARMOR] && !this.isCasting) {
+        this.cast(this.spiritArmor);
 
-    } else if(this.isCasting)
-    {
+    if(this.isCasting) {
         this.coolDown -= du;
         if( this.coolDown <= 0)
         {
