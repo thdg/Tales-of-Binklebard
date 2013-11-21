@@ -80,7 +80,7 @@ var entityManager = {
 
     generateWizard : function() {
         var wizard = new Humanoid(g_sprites.wizard);
-        var character = new Wizard({model: wizard, cx:200, cy:200});
+        var character = new Warrior({model: wizard, cx:200, cy:200});
         this._character.push(character);
         camera.centerAt(character);
         UIManager.follow(character);

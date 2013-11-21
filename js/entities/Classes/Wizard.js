@@ -12,8 +12,8 @@ function Wizard(descr) {
 	this.randomizePos();
 	this.nextExp = this.nextLvl(this.lvl);
 	
-    this.wis + 2;
-    this.str - 2;
+    this.wis += 2;
+    this.str -= 2;
 
     this.lifeRegen  = 0.5 * this.spirit;
     this.energyRegen = 1  * this.spirit;

@@ -108,7 +108,6 @@ Character.prototype.cast = function(spell) {
 
 Character.prototype.critCheck = function(){
     if (this.critChance >= (Math.random() * 100)){
-        particleManager.generateTextParticle(this.cx, this.cy, "Critical Hit!");
         return ((this.damage + this.str) * this.critModifier);
     }
     else return (this.damage + this.str);

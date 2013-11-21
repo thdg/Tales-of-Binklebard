@@ -16,8 +16,8 @@ function Rogue(descr) {
 
 	this.updateStats();
 	
-    this.dex + 2;
-    this.str - 2;
+    this.dex += 2;
+    this.str -= 2;
 	
     this.lifeRegen   = 0.5 * this.spirit;
     this.energyRegen = 1   * this.spirit;
@@ -62,7 +62,7 @@ Rogue.prototype.updateStats = function () {
 	
     this.rake = spellbook.rake(this.lvl,this.dex);
 	
-	if (this.lvl === 3){
+	if (this.lvl >= 3){
         this.fade = spellbook.fade(this.lvl,this.dex);
 	}
 };

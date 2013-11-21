@@ -29,7 +29,6 @@ Effect.prototype.update = function(du) {
     if ( target = this.findTarget() )
     {
         this.target(target);
-        //this.target = function(){};
     }
 
     if ( this._inSpatial ) spatialManager.register(this);
@@ -37,8 +36,7 @@ Effect.prototype.update = function(du) {
 };
 
 Effect.prototype.move = function (du) {
-    switch (this.direction)
-    {
+    switch (this.direction) {
         case (FACE_RIGHT):
             this.cx += this.vel*du;
             break;
@@ -62,16 +60,15 @@ Effect.prototype.getRadius = function () {
     return this.aoe;
 };
 
-Effect.prototype.render = function(ctx){
+Effect.prototype.render = function(ctx) {
     this.model.drawCentredAt(ctx,this.cx,this.cy);
 };
 
-Effect.prototype.findTarget = function(){
+Effect.prototype.findTarget = function() {
     var target = spatialManager.findEntityInRange(this.cx,this.cy,this.aoe);
     if (target === undefined) return;
     if (target.getSpatialID === this.doNotHit) return;
-    if (target)
-    {
+    if (target) {
         this.responseToFind(target);
     }
     return target;
