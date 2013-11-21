@@ -40,6 +40,10 @@ var world = {
 		this._activeRegion.setHeightmap(heightmap);
 	},
 
+	getHeightMap: function() {
+		return this._activeRegion._heightmap;
+	},
+
 	findTile: function(x,y) {
 		return this._activeRegion.findTile(x,y);
 	},

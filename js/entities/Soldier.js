@@ -14,6 +14,7 @@ function Soldier(descr) {
     this.armor = 50;
     this.damageTaken = 0;
     this.expReward = 500;
+
 }
 
 Soldier.prototype = new Entity();
@@ -27,9 +28,12 @@ Soldier.prototype.damage      = 25;
 Soldier.prototype.doingDamage = 0;
 Soldier.prototype.isEnemy     = true;
 
+Soldier.prototype.chasing     = false;
+Soldier.prototype.path        = undefined;
+Soldier.prototype.step        = 0;
 
-Soldier.prototype.randomizeVelocity = function () {
 
+Soldier.prototype.randomizeVelocity = function () { 
     var MIN_SPEED = 30,
         MAX_SPEED = 60;
 
@@ -41,6 +45,34 @@ Soldier.prototype.randomizeVelocity = function () {
 Soldier.prototype.updateDamage = function () {
     this.lvl++;
     this.damage = this.baseDamage * this.lvl;
+
+};
+
+Soldier.prototype.findPlayer = function () {
+        var player = entityManager.getCharacter().getPos(),
+            monster = this.getPos(),
+            floor = Math.floor,
+            dist = util.distSq(player.posX, player.posY,
+                               monster.posX, monster.posY),
+            playerPos = [ floor(player.posX/32), floor(player.posY/32)],
+            monsterPos = [ floor(monster.posX/32), floor(monster.posY/32)];
+
+        if (dist < 40000 && !this.chasing) {
+            this.path = findPath(world.getHeightMap(), monsterPos, playerPos);
+            if (this.path !== []) {
+                this.chasing = true;
+                this.step = 0;
+            }
+        } 
+        if (dist < 40000 && this.chasing) {
+            if (this.step >= this.path.length)
+                this.path = findPath(world.getHeightMap(), monsterPos, playerPos);
+            
+        } 
+        else if (dist > 50000 && this.chasing) {
+            this.chasing = false;
+            this.step = 0;
+        }
 
 };
 
@@ -56,6 +88,7 @@ Soldier.prototype.update = function (du) {
         return entityManager.KILL_ME_NOW;
     }
 
+    this.findPlayer();
     this.move(du);
     this.model.update(du);
 
@@ -71,28 +104,34 @@ Soldier.prototype.move = function (du) {
     var oldX = this.cx;
     var oldY = this.cy;
 
+    if (this.chasing && this.step < this.path.length) {
+        var tileX = this.path[this.step][0],
+            tileY = this.path[this.step][1],
+            soldierTileX = Math.floor(this.cx/32),
+            soldierTileY = Math.floor(this.cy/32);
 
-    if (this.direction === FACE_RIGHT) {
-        this.cx += this.vel * du;
-        this.model.walk();
-        this.model.faceRight();
+        if ( tileX < soldierTileX) this.walkWest(du);
+        else if (tileX > soldierTileX) this.walkEast(du);
+        else if (tileY < soldierTileY) this.walkNorth(du);
+        else if (tileY > soldierTileY) this.walkSouth(du);
+        else if (tileX === soldierTileX && tileY === soldierTileY) this.step++;
+
+
+    } else {
+        if (this.direction === FACE_RIGHT) {
+            this.walkEast(du);
+        }
+        else if (this.direction === FACE_UP) {
+            this.walkNorth(du);
+        }
+        else if (this.direction === FACE_LEFT) {
+            this.walkWest(du);
+        }
+        else if (this.direction === FACE_DOWN) {
+            this.walkSouth(du);
+        }
+        else this.randomizeVelocity();
     }
-    else if (this.direction === FACE_UP) {
-        this.cy -= this.vel * du;
-        this.model.walk();
-        this.model.faceUp();
-    }
-    else if (this.direction === FACE_LEFT) {
-        this.cx -= this.vel * du;
-        this.model.walk();
-        this.model.faceLeft();
-    }
-    else if (this.direction === FACE_DOWN) {
-        this.cy += this.vel * du;
-        this.model.walk();
-        this.model.faceDown();
-    }
-    else this.randomizeVelocity();
 
     var collision  = spatialManager.findEntityInRange(this.cx, this.cy, this.getRadius());
     if (collision) this.hit(collision);
@@ -104,9 +143,34 @@ Soldier.prototype.move = function (du) {
         if (collision && 
             collision.getSpatialID() === entityManager.getCharacter().getSpatialID())
             return;
-        this.randomizeVelocity();
+        if(!this.chasing) this.randomizeVelocity();
     }
 };
+
+Soldier.prototype.walkNorth = function(du) {
+    if(this.chasing) this.cy -= this.vel*1.3 * du;
+    else this.cy -= this.vel * du;
+    this.model.walk();
+    this.model.faceUp();
+}
+Soldier.prototype.walkSouth= function(du) {
+    if(this.chasing) this.cy += this.vel*1.3 * du;
+    else this.cy += this.vel * du;
+    this.model.walk();
+    this.model.faceDown();
+}
+Soldier.prototype.walkWest = function(du) {
+    if(this.chasing) this.cx -= this.vel*1.3 * du;
+    else this.cx -= this.vel * du;
+    this.model.walk();
+    this.model.faceLeft();
+}   
+Soldier.prototype.walkEast = function(du) {
+    if(this.chasing) this.cx += this.vel*1.3 * du;
+    else this.cx += this.vel * du;
+    this.model.walk();
+    this.model.faceRight();   
+}
 
 Soldier.prototype.hit = function(collision)
 {

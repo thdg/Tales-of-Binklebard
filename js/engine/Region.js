@@ -9,7 +9,7 @@
 function Region(map, heightmap, dynamicObjects) {
 
     this._map = map;
-    this._hightmap = heightmap;
+    this._heightmap = heightmap;
     this._dynamicObjects = dynamicObjects;
 
     this._mapHeight = map.length;
@@ -28,16 +28,20 @@ function Region(map, heightmap, dynamicObjects) {
 }
 
 Region.prototype.setHeightmap = function (heightmap) {
-    this._hightmap = heightmap;
-}
+    this._heightmap = heightmap;
+};
+
+Region.prototype.getHeightmap = function () {
+    return this._heightmap;
+};
 
 Region.prototype.setMap = function (map) {
     this._map = map;
-}
+};
 
 Region.prototype.update = function (du) {
     
-}
+};
 
 Region.prototype.findTile = function (x, y) {
 
@@ -46,7 +50,7 @@ Region.prototype.findTile = function (x, y) {
     var tileY = Math.floor(y/tileSize);
 
     return {x: tileX, y: tileY};
-}
+};
 
 Region.prototype.collidesWith = function (x, y, r, h) {
 
@@ -54,17 +58,17 @@ Region.prototype.collidesWith = function (x, y, r, h) {
            this.collidePoint(x+r,y,h) ||
            this.collidePoint(x,y-r,h) ||
            this.collidePoint(x,y+r,h);
-}
+};
 
 Region.prototype.collidePoint = function (x, y, h) {
 
     if (h===undefined) h = 0;
 
     var tile = this.findTile(x,y);
-    if (this._hightmap[tile.y][tile.x]<=h) return false;
+    if (this._heightmap[tile.y][tile.x]<=h) return false;
 
     return true;
-}
+};
 
 Region.prototype.render = function (ctx) {
 
@@ -100,7 +104,7 @@ Region.prototype.render = function (ctx) {
         ctx.fillStyle = 'red';
         ctx.globalAlpha = 0.5;
         for(var i = startY; i<endY; i++) {
-            var row = this._hightmap[i];
+            var row = this._heightmap[i];
             for (var j = startX; j<endX; j++) {
                 var posX = j*tileSize;
                 var posY = i*tileSize;

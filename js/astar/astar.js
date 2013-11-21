@@ -9,7 +9,7 @@ function findPath(world, pathStart, pathEnd) {
 
         // Everything above that number is assumed to
         // be a wall of some kind.
-        maxWalkableTileNum = 2,
+        maxWalkableTileNum = 4,
 
         // remember world dimensions
         worldWidth = world[0].length,
@@ -22,9 +22,9 @@ function findPath(world, pathStart, pathEnd) {
                 (world[x][y] <= maxWalkableTileNum));
     }
 
-    function DiagonalDistance(Point, Goal) {
-        // assumes diagonal distances are the same as cardinals(NSEW)
-        return max(abs(Point.x - Goal.x), abs(Point.y - Goal.y));
+    function ManhattanDistance(Point, Goal)
+    {   // linear movement - no diagonals - just cardinal directions (NSEW)
+        return abs(Point.x - Goal.x) + abs(Point.y - Goal.y);
     }
 
 
@@ -45,22 +45,7 @@ function findPath(world, pathStart, pathEnd) {
         if(myE) result.push({x:E, y:y});
         if(myS) result.push({x:x, y:S});
         if(myW) result.push({x:W, y:y});
-        DiagonalNeigbours(myN, myS, myE, myW, N, S, E, W, result);
         return result;
-    }
-
-    // returns every available North East, South East,
-    // South West or North West cell - no squeezing through
-    // "cracks" between two diagonals
-    function DiagonalNeigbours(myN, myS, myE, myW, N, S, E, W, result) {
-        if(myN) {
-            if(myE && canWalkHere(E, N)) { result.push({x:E, y:N}); }
-            if(myW && canWalkHere(W, N)) { result.push({x:W, y:N}); }
-        }
-        if(myS) {
-            if(myE && canWalkHere(E, S)) { result.push({x:E, y:S}); }
-            if(myW && canWalkHere(W, S)) { result.push({x:W, y:S}); }
-        }
     }
 
     // Node function, returns a new object with Node properties
@@ -139,9 +124,9 @@ function findPath(world, pathStart, pathEnd) {
                     myPath = new Node(myNode, myNeighbours[i]);
                     if (!AStar[myPath.value]){
                         // estimated cost of this particular route so far
-                        myPath.g = myNode.g + DiagonalDistance(myNeighbours[i], myNode);
+                        myPath.g = myNode.g + ManhattanDistance(myNeighbours[i], myNode);
                         // estimated cost of entire guessed route to the destination
-                        myPath.f = myPath.g + DiagonalDistance(myNeighbours[i], mypathEnd);
+                        myPath.f = myPath.g + ManhattanDistance(myNeighbours[i], mypathEnd);
                         // remember this new path for testing above
                         Open.push(myPath);
                         // mark this node in the world graph as visited
