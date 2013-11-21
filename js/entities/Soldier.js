@@ -213,6 +213,13 @@ Soldier.prototype._dropLoot = function () {
     });
 };
 
+Soldier.prototype.makeBoss = function () {
+    this.hp = 5000;
+    this.armor = 150;
+    this.damage = 300;
+    console.log("Boss ready");
+};
+
 Soldier.prototype.render = function (ctx) {
     this.model.drawCentredAt(ctx, this.cx, this.cy-this.margin);
     this.renderHP(ctx);

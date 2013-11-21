@@ -78,6 +78,7 @@ function requestPreloads() {
 		rake             : "img/classes/rake.png",
         magicMissile     : "img/magicMissile.png",
         greenSoldier     : "img/GreenMonster.png",
+        bossSoldier      : "img/BossMonster.png",
 		fireball         : "img/Fireball.png",
 		tent         	 : "img/Tent.png",
 		campfire         : "img/campfire.png",
@@ -142,6 +143,9 @@ function preloadDone() {
 
     g_sprites.greenSoldier = new Sprite(g_images.greenSoldier);
     g_sprites.greenSoldier.scale = 1.8;
+
+    g_sprites.bossSoldier = new Sprite(g_images.bossSoldier);
+    g_sprites.bossSoldier.scale = 2.5;
 
     g_audio.strike = new Audio('audio/swordStrike.wav');
 	

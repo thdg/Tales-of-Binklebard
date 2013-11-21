@@ -12,21 +12,33 @@ var entityManager = {
 
     _items     : [],
     _soldiers  : [],
+    _bosses    : [],
     _character : [],
     _effects   : [],
 
 
     // "PRIVATE" METHODS
 
-    _generateSoldiers : function(num) {
+    _generateSoldiers : function(soldiers, bosses) {
         var i,
-            goblin,
-            NUM_SOLDIERS = num;
+            greenSoldier,
+            bossSoldier,
+            NUM_SOLDIERS = soldiers,
+            NUM_BOSSES = bosses;
 
         for (i = 0; i < NUM_SOLDIERS; ++i) {
-            goblin = new GreenSoldier(g_sprites.greenSoldier);
-            this.generateSoldier({model: goblin});
+            greenSoldier = new GreenSoldier(g_sprites.greenSoldier);
+            this.generateSoldier({model: greenSoldier});
         }
+
+        for (i = 0; i < NUM_BOSSES; ++i) {
+            bossSoldier = new GreenSoldier(g_sprites.bossSoldier);
+            this.generateBoss({model: bossSoldier});
+        }
+        this._forEachOf(this._bosses, Soldier.prototype.makeBoss);
+
+
+
     },
 
     findNearestItem : function(posX, posY) {
@@ -103,7 +115,7 @@ var entityManager = {
     },
 
     deferredSetup : function () {
-        this._categories = [this._items, this._soldiers, this._character, this._effects];
+        this._categories = [this._items, this._soldiers, this._bosses, this._character, this._effects];
     },
 
     init: function() {
@@ -115,12 +127,19 @@ var entityManager = {
         if( classNum === 3 ) this.generateWizard ();
         
         //this.generateWarrior();
-        this._generateSoldiers(100);
+        this._generateSoldiers(100, 3);
         this._generateCamp();
     },
 
     createEffect: function (descr) {
         this._effects.push(new Effect(descr));
+    },
+
+    generateBoss: function(descr) {
+        var boss = new Soldier(descr);
+        this._bosses.push(boss);
+        return boss;
+        
     },
 
     generateSoldier : function(descr) {
@@ -157,7 +176,8 @@ var entityManager = {
     },
 
     getSoldierCount : function() {
-        return this._soldiers.length;
+        return { soldiers: this._soldiers.length,
+                 bosses: this._bosses.length };
     },
 
     update: function(du) {
