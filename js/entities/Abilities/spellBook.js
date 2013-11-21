@@ -16,13 +16,13 @@ var spellbook =  {
     heal: function(lvl, wis) {
         var spell = {
             descr: {
-                range       : TILE_SIZE*1,
-                aoe         : 1,
-                model       : new Animation ( g_sprites.sparcles, 0, 0, 48, 3, 200),
-                duration    : SECS_TO_NOMINALS,
-                coolDown    : 0.5*SECS_TO_NOMINALS,
-                vel         : 0,
-                direction   : 0,
+                range     : TILE_SIZE*1,
+                aoe       : 1,
+                model     : new Animation ( g_sprites.sparcles, 0, 0, 48, 3, 200),
+                duration  : SECS_TO_NOMINALS,
+                coolDown  : 0.5*SECS_TO_NOMINALS,
+                vel       : 0,
+                direction : 0,
             },
 
             cast: function (caster) {
@@ -33,7 +33,6 @@ var spellbook =  {
                 this.descr.responseToFind = function() {this.findTarget = function(){}};
                 this.descr.move   = function() { this.cx = caster.cx; this.cy = caster.cy; };
                 this.descr.target = function (entity) {
-                    console.log(entity); 
                     entity.heal(this.hpBoost);
                     this.removeFromScope();
                     this.target = function(){};
@@ -126,11 +125,11 @@ var spellbook =  {
     fade: function(lvl,dex) {
         var spell = {
             descr: {
-                render      : function () {},
-                aoe         : 1,
-                duration    : lvl * 2 * SECS_TO_NOMINALS,
-                coolDown    : 0.5 * SECS_TO_NOMINALS,
-                update      : function(du) {
+                render   : function () {},
+                aoe      : 1,
+                duration : lvl * 2 * SECS_TO_NOMINALS,
+                coolDown : 0.5 * SECS_TO_NOMINALS,
+                update   : function(du) {
                                 this.duration -= du;
 
                                 if (this.duration <= 0)
@@ -166,16 +165,16 @@ var spellbook =  {
 
         var spell = {
             descr: {
-                range       : TILE_SIZE*1,
-                aoe         : 1,
-                armor       : lvl*10,
-                model       : new Animation ( g_sprites.armor, 0, 0, 48),
-                duration    : 10*SECS_TO_NOMINALS,
-                coolDown    : 0.5*SECS_TO_NOMINALS,
-                vel         : 0,
-                target      : function() {},
-                findTarget  : function() {},
-                takeDamage  : function(dmg) {
+                range      : TILE_SIZE*1,
+                aoe        : 1,
+                armor      : lvl*10,
+                model      : new Animation ( g_sprites.armor, 0, 0, 48),
+                duration   : 10*SECS_TO_NOMINALS,
+                coolDown   : 0.5*SECS_TO_NOMINALS,
+                vel        : 0,
+                target     : function() {},
+                findTarget : function() {},
+                takeDamage : function(dmg) {
                     this.hp -= dmg;
                     if (this.hp <= 0) this.kill();
                 }
@@ -246,7 +245,6 @@ var spellbook =  {
 
     sweep : function(lvl,str) {
         var ability = {
-
             descr   : {
                 range          : TILE_SIZE*(str-10),
                 aoe            : TILE_SIZE*2,
@@ -271,7 +269,6 @@ var spellbook =  {
             },
 
             cast : function(caster) {
-
                 var energycost = 10;
                 if(!caster.drainEnergy(energycost)) return;
                 this.descr.cx = caster.cx;

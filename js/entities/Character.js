@@ -97,10 +97,10 @@ Character.prototype.strike = function(){
 };
 
 Character.prototype.cast = function(spell) {
-        this.isCasting = true;
-        spell.cast(this);
-        this.coolDown = spell.descr.coolDown;
-        this.model.attack(); //should be model.cast();
+    this.isCasting = true;
+    spell.cast(this);
+    this.coolDown = spell.descr.coolDown;
+    this.model.attack(); //should be model.cast();
 };
 
 
@@ -164,22 +164,21 @@ Character.prototype.move = function (du) {
     var collisionY = spatialManager.findEntityInRange(oldX, this.cy, this.getRadius());
 
     var collision = collisionX || collisionY;
-    if (collision && collision.setDirection) {
+    if (collision && collision.setDirection) 
         collision.setDirection(this.direction+2);
-    }
+    
 
-    if (world.collidesWith(oldX, this.cy, this.getRadius()) || (collisionY && collisionY.isEnemy)) {
+    if (world.collidesWith(oldX, this.cy, this.getRadius()) || (collisionY && collisionY.isEnemy)) 
         this.cy = oldY;
-    }
+    
 
-    if (world.collidesWith(this.cx, oldY, this.getRadius()) || (collisionX && collisionX.isEnemy)) {
+    if (world.collidesWith(this.cx, oldY, this.getRadius()) || (collisionX && collisionX.isEnemy)) 
         this.cx = oldX;
-    }
+    
 
 };
 
 Character.prototype.pickUp = function(du) {
-
     if ( eatKey(this.PICK_UP) ){
         var loot = entityManager.findNearestItem(this.cx, this.cy);
         if (loot && loot.theDistanceSq<15*15) loot.theItem.pickUp(this);
@@ -207,7 +206,6 @@ Character.prototype.lvlup = function () {
 };
 
 Character.prototype.addExp = function (expReward) {
-
     this.experience = this.experience + expReward;
     particleManager.generateTextParticle(this.cx, this.cy, expReward + " exp", '#FFFF00');
     if (this.experience >= this.nextExp) {
@@ -216,7 +214,6 @@ Character.prototype.addExp = function (expReward) {
 };
 
 Character.prototype.nextLvl = function(lvl) {
-
     return ((lvl * lvl * 1000) + lvl * 2000);
 };
 
@@ -225,21 +222,16 @@ Character.prototype.getLvl = function() {
 };
 
 Character.prototype.takeDamage = function (damage, ignoreArmor) {
-
     if ( ignoreArmor === undefined ) ignoreArmor = false;
 
     var damageReduction = ignoreArmor ? 0 : this.armor/this.hp;
     var totalDamage = damage * (1 - damageReduction);
      
     if (this.missChange <= Math.random()){
-    
         this.damageTaken += totalDamage;
         particleManager.generateSplash(this.cx, this.cy, 20);
     }
-    else{
-    
-        particleManager.generateTextParticle(this.cx, this.cy, 'Miss', '#FF0000');
-    }
+    else particleManager.generateTextParticle(this.cx, this.cy, 'Miss', '#FF0000');
 
     if ( this.damageTaken > this.hp ) this.kill();
 };
@@ -255,17 +247,14 @@ Character.prototype.energyBoost = function (energyBoost) {
 };
 
 Character.prototype.getHpRatio = function () {
-
     return Math.max(0,(this.hp-this.damageTaken)/this.hp);
 };
 
 Character.prototype.getEnergyRatio = function () {
-
     return Math.max(0,(this.energy-this.energyUsed)/this.energy);
 };
 
 Character.prototype.drainEnergy = function (cost) {
-
     if (this.energyUsed+cost>this.energy) return false;
 
     this.energyUsed += cost;
