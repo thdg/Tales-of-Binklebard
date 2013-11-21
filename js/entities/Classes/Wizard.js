@@ -26,9 +26,8 @@ function Wizard(descr) {
 	
 	this.spellCritChance   = Math.ceil(0.35 * this.wis);
 	this.spellCritModifier = Math.ceil(0.3 * this.wis);
-	
-    this.magicMissile = spellbook.magicMissile(1,this.wis);
-	this.spiritArmor  = spellbook.armor(1,this.wis);
+
+    this.updateStats();
 }
 
 Wizard.prototype = new Character();

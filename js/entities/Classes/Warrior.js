@@ -19,11 +19,11 @@ function Warrior(descr) {
 	
 	this.lifeRegen = 1 * this.spirit;
 	this.energyRegen = 1 * this.spirit;
-
-    this.sweep = spellbook.sweep(1,this.str);
 	
 	this.critChance	 = Math.ceil(0.35 * this.dex);
 	this.critModifier = Math.ceil(0.2 * this.str);
+
+    this.updateStats();
 }
 
 Warrior.prototype = new Character();

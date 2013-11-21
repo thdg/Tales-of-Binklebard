@@ -10,11 +10,9 @@
 
 function Rogue(descr) {
 	
-	this.setup(descr);
-	this.randomizePos();
-	this.nextExp = this.nextLvl(this.lvl);
-
-	this.updateStats();
+    this.setup(descr);
+    this.randomizePos();
+    this.nextExp = this.nextLvl(this.lvl);
 	
     this.dex += 2;
     this.str -= 2;
@@ -22,12 +20,12 @@ function Rogue(descr) {
     this.lifeRegen   = 0.5 * this.spirit;
     this.energyRegen = 1   * this.spirit;
 	
-	this.critChance	 = Math.ceil(0.35 * this.dex);
-	this.critModifier = Math.ceil(0.2 * this.str);
+    this.critChance	 = Math.ceil(0.35 * this.dex);
+    this.critModifier = Math.ceil(0.2 * this.str);
 	
-	this.missChange = 0.01 * this.dex;
+    this.missChange = 0.01 * this.dex;
 
-	this.rake = spellbook.rake(1,this.dex);
+    this.updateStats();
 }
 
 Rogue.prototype = new Character();
