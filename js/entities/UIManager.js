@@ -53,6 +53,7 @@ var UIManager = {
         
         this.renderXp(ctx);
         this.drawMiniMapArea(ctx, this._character.getPos());
+        this.renderWin(ctx);
         this.renderGameOver(ctx);
     },
 
@@ -63,6 +64,17 @@ var UIManager = {
             var oldFont = ctx.font;
             ctx.font = "42px irish-grover, sans-serif";
             ctx.fillText("GAME OVER", this._cx+300, this._cy+300);
+            ctx.font = oldFont;
+        }
+    },
+
+    renderWin : function (ctx) {
+
+        if (!entityManager.getSoldierCount()) {
+            ctx.fillStyle = "yellow";
+            var oldFont = ctx.font;
+            ctx.font = "42px irish-grover, sans-serif";
+            ctx.fillText("YOU WIN", this._cx+300, this._cy+200);
             ctx.font = oldFont;
         }
     },

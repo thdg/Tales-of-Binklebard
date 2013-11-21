@@ -156,6 +156,10 @@ var entityManager = {
         this._forEachOf(this._soldiers, Soldier.prototype.updateDamage);
     },
 
+    getSoldierCount : function() {
+        return this._soldiers.length;
+    },
+
     update: function(du) {
 
         for (var c = 0; c < this._categories.length; ++c) {
