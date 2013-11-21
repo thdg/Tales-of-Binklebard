@@ -19,9 +19,11 @@ Item.prototype.render = function (ctx) {
     util.fillCircle(ctx, this.cx, this.cy, 5, "red");
 };
 
-Item.prototype.revive = function () {
+Item.prototype.drop = function (cx, c) {
     this._isDeadNow = false;
     this.timeAlive = 0;
+    this.cx = cx;
+    this.cy = cy;
     entityManager.addItem(this);
 }
 
@@ -58,12 +60,12 @@ function ArmorSet(descr) {
     this.duration = 10*SECS_TO_NOMINALS;
     this.timeAlive = 0;
 
-    this.StrBonus = Math.random()<0.75 ? 0 : Math.ceil(Math.random*6);
-    this.WisBonus = Math.random()<0.75 ? 0 : Math.ceil(Math.random*6);
-    this.DexBonus = Math.random()<0.75 ? 0 : Math.ceil(Math.random*6);
-    this.SpiritBonus = Math.random()<0.75 ? 0 : Math.ceil(Math.random*6);
+    this.strBonus = Math.random()<0.75 ? 0 : Math.ceil(Math.random()*6);
+    this.wisBonus = Math.random()<0.75 ? 0 : Math.ceil(Math.random()*6);
+    this.dexBonus = Math.random()<0.75 ? 0 : Math.ceil(Math.random()*6);
+    this.spiritBonus = Math.random()<0.75 ? 0 : Math.ceil(Math.random()*6);
 
-    this.armorBonus = 20 + Math.random()*40;
+    this.armorBonus = 20 + Math.ceil(Math.random()*40);
 }
 
 ArmorSet.prototype = new Item();
@@ -74,7 +76,7 @@ ArmorSet.prototype.putOn = function(owner) {
     owner.dex += this.dexBonus;
     owner.spirit += this.spiritBonus;
 
-    owner.armor += armorBonus;
+    owner.armor += this.armorBonus;
 };
 
 ArmorSet.prototype.takeOff = function(owner) {
@@ -83,9 +85,10 @@ ArmorSet.prototype.takeOff = function(owner) {
     owner.dex -= this.dexBonus;
     owner.spirit -= this.spiritBonus;
 
-    owner.armor -= armorBonus;
+    owner.armor -= this.armorBonus;
 
-    this.revive();
+    var pos = owner.getPos();
+    this.drop(pos.posX, pos.posY);
 };
 
 ArmorSet.prototype.pickUp = function (hustler) {
@@ -103,13 +106,15 @@ function WeponSet(descr) {
     this.duration = 10*SECS_TO_NOMINALS;
     this.timeAlive = 0;
 
-    this.strBonus = Math.random()<0.75 ? 0 : Math.ceil(Math.random*6);
-    this.wisBonus = Math.random()<0.75 ? 0 : Math.ceil(Math.random*6);
-    this.dexBonus = Math.random()<0.75 ? 0 : Math.ceil(Math.random*6);
-    this.spiritBonus = Math.random()<0.75 ? 0 : Math.ceil(Math.random*6);
+    this.strBonus = Math.random()<0.75 ? 0 : Math.ceil(Math.random()*6);
+    this.wisBonus = Math.random()<0.75 ? 0 : Math.ceil(Math.random()*6);
+    this.dexBonus = Math.random()<0.75 ? 0 : Math.ceil(Math.random()*6);
+    this.spiritBonus = Math.random()<0.75 ? 0 : Math.ceil(Math.random()*6);
 
-    this.damageBonus = 10 + Math.random()*40;
+    this.damageBonus = 10 + Math.ceil(Math.random()*40);
 };
+
+WeponSet.prototype = new Item();
 
 WeponSet.prototype.putOn = function(owner) {
     owner.str += this.strBonus;
@@ -117,7 +122,7 @@ WeponSet.prototype.putOn = function(owner) {
     owner.dex += this.dexBonus;
     owner.spirit += this.spiritBonus;
 
-    owner.damage += damageBonus;
+    owner.damage += this.damageBonus;
 };
 
 WeponSet.prototype.takeOff = function(owner) {
@@ -126,12 +131,11 @@ WeponSet.prototype.takeOff = function(owner) {
     owner.dex -= this.dexBonus;
     owner.spirit -= this.spiritBonus;
 
-    owner.damage -= damageBonus;
+    owner.damage -= this.damageBonus;
 
-    this.revive();
+    var pos = owner.getPos();
+    this.drop(pos.posX, pos.posY);
 }
-
-WeponSet.prototype = new Item();
 
 WeponSet.prototype.pickUp = function (hustler) {
 
