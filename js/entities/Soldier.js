@@ -14,6 +14,7 @@ function Soldier(descr) {
     this.armor = 75;
     this.damageTaken = 0;
     this.expReward = 500;
+    this.regen = 0.1;
 
 }
 
@@ -28,6 +29,8 @@ Soldier.prototype.damage      = 25;
 Soldier.prototype.doingDamage = 0;
 Soldier.prototype.isEnemy     = true;
 Soldier.prototype.chasing     = false;
+Soldier.prototype.aggroRange  = 40000;
+Soldier.prototype.chaseRange  = 50000;
 
 
 
@@ -55,10 +58,10 @@ Soldier.prototype.findPlayer = function () {
         dist = util.distSq(player.posX, player.posY,
                            monster.posX, monster.posY);
 
-    if (dist < 40000 && !this.chasing) {
+    if (dist < this.aggroRange && !this.chasing) {
         this.chasing = true;
     }
-    else if (dist > 50000 && this.chasing) {
+    else if (dist > this.chaseRange && this.chasing) {
         this.chasing = false;
     } 
         
@@ -76,7 +79,7 @@ Soldier.prototype.update = function (du) {
         return entityManager.KILL_ME_NOW;
     }
 
-    if (!this.chasing && this.damageTaken >= 0.1) this.damageTaken -= 0.1;
+    if (!this.chasing && this.damageTaken >= this.regen) this.damageTaken -= this.regen;
     this.findPlayer();
     this.move(du);
     this.model.update(du);
@@ -218,6 +221,9 @@ Soldier.prototype.makeBoss = function () {
     this.hp = 10000;
     this.armor = 150;
     this.damage = 250;
+    this.regen = 5;
+    this.aggroRange *= 2;
+    this.chaseRange *= 2;
     this.vel = 70 / SECS_TO_NOMINALS;
 };
 
