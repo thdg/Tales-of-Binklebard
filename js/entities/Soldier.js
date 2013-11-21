@@ -49,6 +49,9 @@ Soldier.prototype.updateDamage = function () {
 };
 
 Soldier.prototype.findPlayer = function () {
+
+        if (!entityManager.getCharacter()) return;
+
         var player = entityManager.getCharacter().getPos(),
             monster = this.getPos(),
             floor = Math.floor,
@@ -95,11 +98,16 @@ Soldier.prototype.move = function (du) {
     var oldY = this.cy;
 
     if (this.chasing ) {
-        var player = entityManager.getCharacter().getPos(),
-        monster = this.getPos(),
-        floor = Math.floor,
-        playerPos = [ floor(player.posX/32), floor(player.posY/32)],
-        monsterPos = [ floor(monster.posX/32), floor(monster.posY/32)];
+        var player = entityManager.getCharacter();
+        if (!player) {
+            this.chasing = false;
+            return;
+        }
+        var player = player.getPos(),
+            monster = this.getPos(),
+            floor = Math.floor,
+            playerPos = [ floor(player.posX/32), floor(player.posY/32)],
+            monsterPos = [ floor(monster.posX/32), floor(monster.posY/32)];
        
         if( playerPos[0] < monsterPos[0] ) this.walkWest(du);
         else if( playerPos[0] > monsterPos[0] ) this.walkEast(du);

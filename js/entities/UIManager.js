@@ -53,6 +53,18 @@ var UIManager = {
 		
 		this.renderXp(ctx);
 		this.drawMiniMapArea(ctx, this._character.getPos());
+		this.renderGameOver(ctx);
+	},
+
+	renderGameOver : function (ctx) {
+
+		if (this._character._isDeadNow) {
+			ctx.fillStyle = "red";
+			var oldFont = ctx.font;
+			ctx.font = "42px irish-grover, sans-serif";
+			ctx.fillText("GAME OVER", this._cx+300, this._cy+300);
+			ctx.font = oldFont;
+		}
 	},
 
 	renderScreens : function (ctx) {
