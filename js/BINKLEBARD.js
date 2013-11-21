@@ -98,6 +98,7 @@ function requestPreloads() {
 		rogue         	 : "img/classes/rogue_alpha.png",
 		wizard         	 : "img/classes/wizard_alpha.png",
 		warrior          : "img/classes/warrior_alpha.png",
+		cleric          : "img/classes/cleric_alpha.png",
     };
 
     imagesPreload(requiredImages, g_images, preloadMap);
@@ -135,6 +136,9 @@ function preloadDone() {
 	
 	g_sprites.warrior = new Sprite(g_images.warrior);
     g_sprites.warrior.scale = 2;
+	
+	g_sprites.cleric = new Sprite(g_images.cleric);
+    g_sprites.cleric.scale = 2;
 
     g_sprites.greenSoldier = new Sprite(g_images.greenSoldier);
     g_sprites.greenSoldier.scale = 1.8;
