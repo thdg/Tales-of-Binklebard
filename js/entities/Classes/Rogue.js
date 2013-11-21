@@ -68,25 +68,13 @@ Rogue.prototype.updateStats = function () {
 };
 
 Rogue.prototype.abilities = function(du) {
-    if ( keys[this.KEY_RAKE] && !this.isCasting ) {
-        this.isCasting = true;
-        this.rake.cast(this);
-        this.coolDown = this.rake.descr.coolDown;
+    if ( keys[this.KEY_RAKE] && !this.isCasting ) 
+        this.cast(this.rake);
 
-        this.model.attack(); //should be model.cast();
+    if ( keys[this.KEY_FADE] && !this.isCasting && this.fade ) 
+        this.cast(this.fade);
 
-    }
-
-    if ( keys[this.KEY_FADE] && !this.isCasting && this.fade ) {
-        this.isCasting = true;
-        this.fade.cast(this);
-        this.coolDown = this.fade.descr.coolDown;
-
-        this.model.attack(); //should be model.cast();
-
-    }
-
-    if(this.isCasting) 
+    if(this.isCasting) {
         this.coolDown -= du;
         if( this.coolDown <= 0) {
             this.coolDown = 0;

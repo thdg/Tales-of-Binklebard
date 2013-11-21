@@ -13,15 +13,15 @@ var _inFrontOf = function(that,distance) {
 };
 
 var spellbook =  {
-	heal: function(lvl, wis) {
+    heal: function(lvl, wis) {
         var spell = {
             descr: {
-				range       : TILE_SIZE*1,
-				aoe         : 1,
-				model       : new Animation ( g_sprites.sparcles, 0, 0, 48, 3, 200),
-				duration    : SECS_TO_NOMINALS,
+                range       : TILE_SIZE*1,
+                aoe         : 1,
+                model       : new Animation ( g_sprites.sparcles, 0, 0, 48, 3, 200),
+                duration    : SECS_TO_NOMINALS,
                 coolDown    : 0.5*SECS_TO_NOMINALS,
-				vel         : 0,
+                vel         : 0,
                 direction   : 0,
             },
 
@@ -30,6 +30,7 @@ var spellbook =  {
                 if(!caster.drainEnergy(manacost)) return;
 
                 this.descr.findTarget = function(){ return caster; };
+                this.descr.responseToFind = function() {this.findTarget = function(){}};
                 this.descr.move   = function() { this.cx = caster.cx;this.cy = caster.cy; };
                 this.descr.target = function (entity) { 
                     entity.heal(this.hpBoost);
@@ -73,7 +74,7 @@ var spellbook =  {
                 var distance = caster.getRadius() + this.descr.aoe + 1;
                 var pos = _inFrontOf(caster,distance);
                 for (var property in pos) { this.descr[property] = pos[property]; }          
-                
+
                 this.descr.model.rotation = util.getRadFromDir(caster.direction);
                 this.descr.damage         = 40+Math.floor(caster.lvl/3)*40+caster.wis;
                 entityManager.createEffect(this.descr);
@@ -179,9 +180,8 @@ var spellbook =  {
             },
 
             cast: function (caster) {
-                var manacost = 40;
-
-                if(!caster.drainEnergy(manacost)) return;
+                var energycost = 40;
+                if(!caster.drainEnergy(energycost)) return;
                 
                 caster.armor += this.descr.armor;
                 this.descr.move   = function() { this.cx = caster.cx; this.cy = caster.cy; };
@@ -197,6 +197,88 @@ var spellbook =  {
             
         };
         return spell;
+    },
+
+    fling : function(lvl,str) {
+        var ability = {
+
+            descr   : {
+                range    : TILE_SIZE*(str-10),
+                aoe      : TILE_SIZE/2,
+                damage   : 10+str,
+                duration : 2,
+                coolDown : 0.2*SECS_TO_NOMINALS,
+                vel      : 300/SECS_TO_NOMINALS,
+                model    : { update : function(){} },
+                render   : function() {},
+                responseToFind : function (entity) {
+                    this.duration = (str-10)*SECS_TO_NOMINALS;
+                    entity.takeDamage(this.damage);
+                    this.responseToFind = function(){};
+                },
+                target   : function (entity) {
+                    if (entity.isEnemy === false) return;
+                    this.aoe = entity.getRadius()+10;
+                    entity.direction = this.direction;
+                    spatialManager.unregister(entity);
+                    entity.cx = this.cx;
+                    entity.cy = this.cy;  
+                    spatialManager.register(entity); 
+                }
+            },
+
+            cast : function(caster) {
+
+                var energycost = 15;
+                if(!caster.drainEnergy(energycost)) return;
+                var distance = caster.getRadius() + this.descr.aoe + 1;
+                var pos = _inFrontOf(caster,distance);
+                for (var property in pos) { this.descr[property] = pos[property]; }
+                entityManager.createEffect(this.descr);
+
+            }
+
+        }
+        return ability;
+    },
+
+    sweep : function(lvl,str) {
+        var ability = {
+
+            descr   : {
+                range          : TILE_SIZE*(str-10),
+                aoe            : TILE_SIZE*2,
+                damage         : 20+str,
+                duration       : 1.5,
+                coolDown       : 0.2*SECS_TO_NOMINALS,
+                vel            : 0,
+                model          : { update : function () { } },
+                height         : 100,
+                render         : function () { },
+                responseToFind : function () { this.kill(); },
+                findTarget     : function () {
+                    return spatialManager.findEachEntityInRange(this.cx,this.cy,this.aoe);
+                },
+                target         : function (entities) {
+                    for (key in entities) {
+                        if (entities[key].isEnemy) {
+                            entities[key].takeDamage(this.damage);
+                        }
+                    }
+                }
+            },
+
+            cast : function(caster) {
+
+                var energycost = 10;
+                if(!caster.drainEnergy(energycost)) return;
+                this.descr.cx = caster.cx;
+                this.descr.cy = caster.cy;
+                entityManager.createEffect(this.descr);
+            }
+
+        }
+        return ability;
     }
-	
+
 };

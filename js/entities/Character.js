@@ -97,6 +97,15 @@ Character.prototype.strike = function(){
     }
 };
 
+Character.prototype.cast = function(spell) {
+        console.log(spell);
+        this.isCasting = true;
+        spell.cast(this);
+        this.coolDown = spell.descr.coolDown;
+        this.model.attack(); //should be model.cast();
+};
+
+
 Character.prototype.critCheck = function(){
     if (this.critChance >= (Math.random() * 100)){
         particleManager.generateTextParticle(this.cx, this.cy, "Critical Hit!");

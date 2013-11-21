@@ -27,8 +27,8 @@ function Wizard(descr) {
 	this.spellCritChance   = Math.ceil(0.35 * this.wis);
 	this.spellCritModifier = Math.ceil(0.3 * this.wis);
 	
-    this.magicMissile = spellbook.magicMissile(1,1);
-	this.spiritArmor  = spellbook.armor(1,1);
+    this.magicMissile = spellbook.magicMissile(1,this.wis);
+	this.spiritArmor  = spellbook.armor(1,this.wis);
 }
 
 Wizard.prototype = new Character();
@@ -64,22 +64,12 @@ Wizard.prototype.updateStats = function () {
 
 Wizard.prototype.abilities = function(du)
 {
-    if (keys[this.KEY_MAGIC_MISSLE] && !this.isCasting) {
-        this.isCasting = true;
-        this.magicMissile.cast(this);
-        this.coolDown = this.magicMissile.descr.coolDown;
+    if (keys[this.KEY_MAGIC_MISSLE] && !this.isCasting) 
+        this.cast(this.magicMissile);
 
-        this.model.attack(); //should be model.cast();
-
-    }
-    if (keys[this.KEY_ARMOR] && !this.isCasting) {
-        this.isCasting = true;
-        this.spiritArmor.cast(this);
-        this.coolDown = this.spiritArmor.descr.coolDown;
-
-        this.model.attack(); //should be model.cast();
-
-    }
+    if (keys[this.KEY_ARMOR] && !this.isCasting) 
+        this.cast(this.spiritArmor);
+    
     if(this.isCasting) {
         this.coolDown -= du;
         if( this.coolDown <= 0)

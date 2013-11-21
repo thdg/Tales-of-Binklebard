@@ -1,9 +1,8 @@
-// ============
+// ==================
 // SPELLEFFECT OBJECT
-// ============
+// ==================
 
-function Effect(descr)
-{
+function Effect(descr) {
     this.setup(descr);
 }
 
@@ -12,8 +11,7 @@ Effect.prototype = new Entity();
 Effect.prototype._isDeadNow = false;
 Effect.prototype._inSpatial = true;
 
-Effect.prototype.update = function(du)
-{
+Effect.prototype.update = function(du) {
     spatialManager.unregister(this);
     renderingManager.unregister(this);
 
@@ -31,15 +29,14 @@ Effect.prototype.update = function(du)
     if ( target = this.findTarget() )
     {
         this.target(target);
-        this.target = function(){};
+        //this.target = function(){};
     }
 
     if ( this._inSpatial ) spatialManager.register(this);
     renderingManager.register(this);
 };
 
-Effect.prototype.move = function (du)
-{
+Effect.prototype.move = function (du) {
     switch (this.direction)
     {
         case (FACE_RIGHT):
@@ -57,33 +54,29 @@ Effect.prototype.move = function (du)
     }
 
     if (world.collidesWith(this.cx, this.cy, this.getRadius(), this.height)) {
-        this._isDeadNow = true;
+        this.kill();
     }
-}
+};
 
-Effect.prototype.getRadius = function () 
-{
+Effect.prototype.getRadius = function () {
     return this.aoe;
 };
 
-Effect.prototype.render = function(ctx)
-{
+Effect.prototype.render = function(ctx){
     this.model.drawCentredAt(ctx,this.cx,this.cy);
 };
 
-Effect.prototype.findTarget = function()
-{
+Effect.prototype.findTarget = function(){
     var target = spatialManager.findEntityInRange(this.cx,this.cy,this.aoe);
     if (target === undefined) return;
     if (target.getSpatialID === this.doNotHit) return;
     if (target)
     {
-        this.responseToFind();
+        this.responseToFind(target);
     }
     return target;
 };
 
-Effect.prototype.removeFromScope = function()
-{
+Effect.prototype.removeFromScope = function(){
     this._inSpatial = false;
 };

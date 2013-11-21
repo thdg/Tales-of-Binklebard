@@ -113,6 +113,26 @@ var spatialManager = {
         }
     },
 
+    findEachEntityInRange: function(posX, posY, radius) {
+
+        var frame = this.findFrame({posX: posX, posY: posY});
+        var entities = this.getFrames(
+            {i: frame.i-this._collisionMargin,
+             j: frame.j-this._collisionMargin},
+            {i: frame.i+this._collisionMargin,
+             j: frame.j+this._collisionMargin}
+        );
+        var entitiesInRange = [];
+        for (var i=0; i<entities.length; i++) {
+            var pos = entities[i].entity.getPos();
+            var rad = entities[i].entity.getRadius();
+            if (this.doCollide(pos, rad, posX, posY, radius)) {
+                entitiesInRange.push(entities[i].entity);
+            }
+        }
+        return entitiesInRange;
+    },
+
     doCollide: function(pos, rad, posX, posY, radius) {
 
         var dist = util.distSq(
