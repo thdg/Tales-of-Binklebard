@@ -29,7 +29,7 @@ var entityManager = {
         }
     },
 
-    _findNearestItem : function(posX, posY) {
+    findNearestItem : function(posX, posY) {
         var closestItem = null,
             closestIndex = -1,
             closestSq = 1000 * 1000;
@@ -49,7 +49,7 @@ var entityManager = {
         }
         return {
             theItem : closestItem,
-            theIndex: closestIndex
+            theDistanceSq: closestSq
         };
     },
 
@@ -108,6 +108,25 @@ var entityManager = {
 	
 	getCharacter : function() {
         return this._character[0];
+    },
+
+    generateLoot : function(descr) {
+        var loot = Math.random();
+        if (loot<0.4) {
+            this._items.push(new HealingPotion(descr));
+        } else
+        if (loot<0.8) {
+            this._items.push(new EnergyPotion(descr));
+        } else
+        if (loot<0.9) {
+            this._items.push(new ArmorSet(descr));
+        } else {
+            this._items.push(new WeponSet(descr));
+        }
+    },
+
+    addItem : function(Item) {
+        this._items.push(Item);
     },
 
     updateSoldiers : function(lvl) {

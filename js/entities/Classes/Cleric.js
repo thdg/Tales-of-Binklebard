@@ -29,7 +29,7 @@ function Cleric(descr) {
 
 Cleric.prototype = new Character();
 
-Character.prototype.KEY_HEAL         = '1'.charCodeAt(0);
+Cleric.prototype.KEY_HEAL = '1'.charCodeAt(0);
 
 Cleric.prototype.updateStats = function () {
 

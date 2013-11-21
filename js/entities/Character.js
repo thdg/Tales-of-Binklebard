@@ -18,12 +18,15 @@ Character.prototype.KEY_UP    = UP_ARROW;
 Character.prototype.KEY_DOWN  = DOWN_ARROW;
 Character.prototype.KEY_LEFT  = LEFT_ARROW;
 Character.prototype.KEY_RIGHT = RIGHT_ARROW;
+Character.prototype.PICK_UP   = util.charCode('E');
+Character.prototype.USE_HP    = util.charCode('V');
+Character.prototype.USE_EP    = util.charCode('B');
 
 Character.prototype.marginBottom = 7;
 
 Character.prototype.direction = FACE_DOWN; // default direction
 
-Character.prototype.KEY_ATTACK = ' '.charCodeAt(0);
+Character.prototype.KEY_ATTACK = util.charCode(' ');
 
 // NEEDS REFINEMENT
 Character.prototype.isCasting    = false;
@@ -56,6 +59,8 @@ Character.prototype.damageTaken  = 0;
 Character.prototype.energyUsed   = 0;
 Character.prototype.doingDamage  = 0;
 
+Character.prototype.backpack = new Backpack();
+
 Character.prototype.update = function (du) {
     
     if (this.doingDamage <  0 ) this.doingDamage -= du;
@@ -67,8 +72,10 @@ Character.prototype.update = function (du) {
     if (this._isDeadNow) return entityManager.KILL_ME_NOW;
 
     this.move(du);
+    this.pickUp(du);
     this.abilities(du);
     this.model.update(du);
+    if (this.backpack) this.backpack.update(this);
 
     this.energyUsed = Math.max(0, this.energyUsed-this.energyRegen/SECS_TO_NOMINALS*du);
 	this.damageTaken = Math.max(0, this.damageTaken-this.lifeRegen/SECS_TO_NOMINALS*du);
@@ -165,6 +172,14 @@ Character.prototype.move = function (du) {
 
 };
 
+Character.prototype.pickUp = function(du) {
+
+    if ( keys[this.PICK_UP] ){
+        var loot = entityManager.findNearestItem(this.cx, this.cy);
+        if (loot.theDistanceSq<15*15) loot.theItem.pickUp(this);
+    }
+};
+
 Character.prototype.render = function (ctx) {
     this.model.drawCentredAt(ctx, this.cx, this.cy-this.marginBottom);
 };
@@ -222,6 +237,11 @@ Character.prototype.takeDamage = function (damage, ignoreArmor) {
 Character.prototype.heal = function (hpBoost) {
     this.damageTaken = Math.max(0, this.damageTaken-hpBoost);
     particleManager.generateTextParticle(this.cx, this.cy, hpBoost, '#00FF00');
+};
+
+Character.prototype.energyBoost = function (energyBoost) {
+    this.energyUsed = Math.max(0, this.energyUsed-energyBoost);
+    particleManager.generateTextParticle(this.cx, this.cy, energyBoost, '#0000FF');
 };
 
 Character.prototype.getHpRatio = function () {

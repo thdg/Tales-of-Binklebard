@@ -101,7 +101,7 @@ Soldier.prototype.move = function (du) {
         collision) {
         this.cx = oldX;
         this.cy = oldY;
-        if (collision && 
+        if (collision && entityManager.getCharacter() &&
             collision.getSpatialID() === entityManager.getCharacter().getSpatialID())
             return;
         this.randomizeVelocity();
@@ -110,8 +110,10 @@ Soldier.prototype.move = function (du) {
 
 Soldier.prototype.hit = function(collision)
 {
-    var characterID = entityManager.getCharacter().getSpatialID();
-    
+    var character = entityManager.getCharacter()
+    if (!character) return;
+
+    var characterID = character.getSpatialID();
     if (characterID === collision.getSpatialID() && this.doingDamage <= 0)
     {
         this.doingDamage = 0.25*SECS_TO_NOMINALS;
@@ -135,7 +137,10 @@ Soldier.prototype.takeDamage = function (damage, ignoreArmor) {
     particleManager.generateTextParticle(this.cx, this.cy, totalDamage);
     particleManager.generateSplash(this.cx, this.cy, 20);
 
-    if (this.damageTaken>=this.hp) this.kill();
+    if (this.damageTaken>=this.hp) {
+        this.kill();
+        if (Math.random()<0.5) this._dropLoot();
+    }
 };
 
 Soldier.prototype.getHpRatio = function () {
