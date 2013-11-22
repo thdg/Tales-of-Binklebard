@@ -1,10 +1,6 @@
 "use strict";
 
-/************************************************************************\
-
- Region class
-
-\************************************************************************/
+// Region class, renders map and checks for collitions on hightmap
 
 function Region(map, heightmap, dynamicObjects) {
 
@@ -98,6 +94,7 @@ Region.prototype.render = function (ctx) {
         }
     }
 
+    // debugger
     if (this.drawHeightmap) {
         var oldAlpha = ctx.globalAlpha;
         var oldStyle = ctx.fillStyle;

@@ -1,13 +1,6 @@
 "use strict";
 
-/*jslint browser: true, devel: true, white: true*/
-
-/************************************************************************\
-
- Character - "inherits" from Entity
- Keeps track of the main character and it's stats and actions
-
-\************************************************************************/
+// Desctioprion for the Humanoid model
 
 function Humanoid(sprite) {
     

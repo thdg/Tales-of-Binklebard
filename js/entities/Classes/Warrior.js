@@ -1,12 +1,6 @@
 "use strict";
 
-/************************************************************************\
-
- Warrior class
-
-\************************************************************************/
-
-// A generic contructor which accepts an arbitrary descriptor object
+// Warrior class
 
 function Warrior(descr) {
     

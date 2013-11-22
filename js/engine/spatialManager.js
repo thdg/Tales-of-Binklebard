@@ -1,22 +1,22 @@
 "use strict";
 
-/************************************************************************\
+/*
 
  A module which handles spatial lookup, as required for...
  e.g. general collision detection.
 
-\************************************************************************/
+*/
 
 var spatialManager = {
 
     // "PRIVATE" DATA
 
-    _nextSpatialID : 1, // make all valid IDs non-falsey (i.e. don't start at 0)
+    _nextSpatialID : 1,   // make all valid IDs non-falsey (i.e. don't start at 0)
 
-    _divider : 128,     // size of each space
+    _divider : 128,       // size of each space
     _collisionMargin : 1, // how many frames from entities frame
-    _entities : [[]],   // NxM matrix of lists of entities
-                        // where N is whereorlds height/divider and M is worlds width/divider
+    _entities : [[]],     // NxM matrix of lists of entities
+                          // where N is worlds height/divider and M is worlds width/divider
 
     // "PRIVATE" METHODS
 
@@ -36,7 +36,7 @@ var spatialManager = {
     // PUBLIC METHODS
 
     init : function() {
-        // nothing yet
+        // nothing
     },
 
     getNewSpatialID : function() {

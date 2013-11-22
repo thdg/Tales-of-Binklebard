@@ -1,10 +1,10 @@
  "use strict";
 
-/************************************************************************\
+/*
 
  A module which handles arbitrary entity-management for the simulation
 
-\************************************************************************/
+*/
 
 var entityManager = {
 

@@ -1,6 +1,6 @@
-// ----------
+"use strict"
+
 // SPELL BOOK
-// ----------
 
 var _inFrontOf = function(that,distance) {
     var rad      = util.getRadFromDir(that.direction);

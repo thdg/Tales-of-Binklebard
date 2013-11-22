@@ -1,11 +1,6 @@
 "use strict";
 
-/************************************************************************\
-
- Character - "inherits" from Entity
- Keeps track of the main character and it's stats and actions
-
-\************************************************************************/
+// Description for the soldier model
 
 function GreenSoldier(sprite) {
 

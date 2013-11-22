@@ -1,8 +1,6 @@
 "use strict";
 
-// ----------------
 // current tilesheet in use
-// ----------------
 
 var tilesheet = {
 

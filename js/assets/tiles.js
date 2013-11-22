@@ -11,17 +11,17 @@ var tiles = {
     GRASS2: 2,
 
     WATER: {
-        FILL: 3,
-        B: 4,
-        T: 5,
-        L: 6,
-        R: 7,
-        TL: 8,
-        TR: 9,
+        FILL: 3,    // Full tile
+        B: 4,       // Bottom
+        T: 5,       // Top
+        L: 6,       // Left
+        R: 7,       // Right
+        TL: 8,      // Top-Right
+        TR: 9,      // ..
         BL: 10,
         BR: 11,
-        ITL: 12,
-        ITR: 13,
+        ITL: 12,    // Inner Top-Left
+        ITR: 13,    // ..
         IBL: 14,
         IBR: 15,
     },
@@ -63,12 +63,12 @@ var tiles = {
     init: function() {
 
         // GRASS
-        this.addTile(new Tile([0]));              //  0: Grass
-        this.addTile(new Tile([1]));              //  1: Flowers
-        this.addTile(new Tile([2]));              //  2: Grass2
+        this.addTile(new Tile([0]));               //  0: Grass
+        this.addTile(new Tile([1]));               //  1: Flowers
+        this.addTile(new Tile([2]));               //  2: Grass2
 
         // WATER
-        this.addTile(new Tile([3,11,19,27],500)); //  3: FILL
+        this.addTile(new Tile([3,11,19,27],500));  //  3: FILL
         this.addTile(new Tile([5]));               //  4: B
         this.addTile(new Tile([21]));              //  5: T
         this.addTile(new Tile([14]));              //  6: L
@@ -79,8 +79,8 @@ var tiles = {
         this.addTile(new Tile([31]));              //  11: BR
         this.addTile(new Tile([22]));              //  12: ITL
         this.addTile(new Tile([20]));              //  13: ITR
-        this.addTile(new Tile([6]));              //  14: IBL
-        this.addTile(new Tile([4]));              //  15: IBR
+        this.addTile(new Tile([6]));               //  14: IBL
+        this.addTile(new Tile([4]));               //  15: IBR
 
         // MUD
         this.addTile(new Tile([17]));              //  16: FILL
@@ -88,7 +88,7 @@ var tiles = {
         this.addTile(new Tile([9]));               //  18: T
         this.addTile(new Tile([16]));              //  19: L
         this.addTile(new Tile([18]));              //  20: R
-        this.addTile(new Tile([8]));              //  21: TL
+        this.addTile(new Tile([8]));               //  21: TL
         this.addTile(new Tile([10]));              //  22: TR
         this.addTile(new Tile([24]));              //  23: BL
         this.addTile(new Tile([26]));              //  24: BR
@@ -98,19 +98,19 @@ var tiles = {
         this.addTile(new Tile([35]));              //  28: IBR
 
         // FOREST
-        this.addTile(new Tile([53]));                //  29: FILL
-        this.addTile(new Tile([62]));                //  30: B
-        this.addTile(new Tile([63]));                //  31: T
-        this.addTile(new Tile([54]));                //  32: L
-        this.addTile(new Tile([55]));                //  33: R
-        this.addTile(new Tile([36]));                //  34: TL
-        this.addTile(new Tile([37]));                //  35: TR
-        this.addTile(new Tile([44]));                //  36: BL
-        this.addTile(new Tile([45]));                //  37: BR
-        this.addTile(new Tile([53]));                //  38: ITL
-        this.addTile(new Tile([53]));                //  39: ITR
-        this.addTile(new Tile([53]));                //  40: IBL
-        this.addTile(new Tile([53]));               //  41: IBR
+        this.addTile(new Tile([53]));              //  29: FILL
+        this.addTile(new Tile([62]));              //  30: B
+        this.addTile(new Tile([63]));              //  31: T
+        this.addTile(new Tile([54]));              //  32: L
+        this.addTile(new Tile([55]));              //  33: R
+        this.addTile(new Tile([36]));              //  34: TL
+        this.addTile(new Tile([37]));              //  35: TR
+        this.addTile(new Tile([44]));              //  36: BL
+        this.addTile(new Tile([45]));              //  37: BR
+        this.addTile(new Tile([53]));              //  38: ITL
+        this.addTile(new Tile([53]));              //  39: ITR
+        this.addTile(new Tile([53]));              //  40: IBL
+        this.addTile(new Tile([53]));              //  41: IBR
 
     },
 

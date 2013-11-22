@@ -1,12 +1,6 @@
 "use strict";
 
-/************************************************************************\
-
- Rogue class
-
-\************************************************************************/
-
-// A generic contructor which accepts an arbitrary descriptor object
+// Rogue class
 
 function Rogue(descr) {
     

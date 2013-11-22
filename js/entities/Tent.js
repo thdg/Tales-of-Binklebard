@@ -1,6 +1,6 @@
-// --------
+"use strict"
+
 // BASECAMP
-// --------
 
 function Tent(descr)
 {

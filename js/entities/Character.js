@@ -1,14 +1,13 @@
 "use strict";
 
-/************************************************************************\
+/*
 
  Character - "inherits" from Entity
  Keeps track of the main character and it's stats and actions
 
-\************************************************************************/
+*/
 
-function Character(descr) {
-}
+function Character(descr) { }
 
 Character.prototype = new Entity();
 
@@ -89,7 +88,7 @@ Character.prototype.strike = function(){
     var target = spatialManager.findEntityInRange(this.cx+strikeX,this.cy+strikeY,15);
 
     if ( target && this.doingDamage <= 0){
-        g_audio.strike.play()
+        if (!g_mute) g_audio.strike.play();
         var totalDamage = this.critCheck();
         this.doingDamage = 0.5*SECS_TO_NOMINALS;
         target.takeDamage(totalDamage);

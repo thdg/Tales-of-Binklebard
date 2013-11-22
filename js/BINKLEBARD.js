@@ -26,11 +26,12 @@ function updateSimulation(du) {
 // GAME-SPECIFIC DIAGNOSTICS
 
 var g_renderSpatialDebug = false;
-
+var g_mute = false;
 
 var KEY_SPATIAL = keyCode('X');
-var KEY_FLYING = keyCode('F');
+var KEY_FLYING = keyCode('O');
 var KEY_HEIGHTMAP = keyCode('H');
+var KEY_MUTE = keyCode('M');
 
 var KEY_0 = keyCode('0');
 
@@ -42,6 +43,7 @@ var KEY_K = keyCode('K');
 function processDiagnostics() {
 
     if (eatKey(KEY_SPATIAL)) g_renderSpatialDebug = !g_renderSpatialDebug;
+    if (eatKey(KEY_MUTE)) g_mute = !g_mute;
     if (eatKey(KEY_FLYING)) camera.flyingMode = !camera.flyingMode;
     if (eatKey(KEY_HEIGHTMAP)) world._activeRegion.drawHeightmap = !world._activeRegion.drawHeightmap;
 

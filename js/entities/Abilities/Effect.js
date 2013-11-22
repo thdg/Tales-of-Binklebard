@@ -1,6 +1,6 @@
-// ==================
+"use strict"
+
 // SPELLEFFECT OBJECT
-// ==================
 
 function Effect(descr) {
     this.setup(descr);
@@ -26,8 +26,8 @@ Effect.prototype.update = function(du) {
 
     this.model.update(du);
 
-    if ( target = this.findTarget() )
-    {
+    var target = this.findTarget();
+    if (target) {
         this.target(target);
     }
 

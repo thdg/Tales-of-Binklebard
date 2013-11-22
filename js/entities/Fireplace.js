@@ -1,6 +1,6 @@
-// ---------
+"use strict"
+
 // FIREPLACE
-// ---------
 
 function Fireplace(descr)
 {
@@ -15,7 +15,9 @@ Fireplace.prototype.update = function(du)
 {
     spatialManager.unregister(this);
     renderingManager.unregister(this);
+
     this.animation.update(du);
+    
     renderingManager.register(this);
     spatialManager.register(this);
 };

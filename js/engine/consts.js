@@ -1,10 +1,6 @@
 "use strict";
 
-/************************************************************************\
-
- A module of generic constants
-
-\************************************************************************/
+// A module of generic constants
 
 var consts = {
     FULL_CIRCLE: Math.PI * 2,

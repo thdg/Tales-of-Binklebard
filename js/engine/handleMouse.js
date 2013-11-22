@@ -2,7 +2,6 @@
 
 // MOUSE HANDLING
 
-
 var g_mouseX = 0,
     g_mouseY = 0;
 

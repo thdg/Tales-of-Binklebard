@@ -1,20 +1,20 @@
 "use strict";
 
-// A generic contructor which accepts an arbitrary descriptor object
+// Soldier object - agent
+
 function Soldier(descr) {
 
-    // Common inherited setup logic from Entity
     this.setup(descr);
+
     this.direction = 0;
-
-    this.randomizePos();
-    this.randomizeVelocity();
-
     this.hp = 100;
     this.armor = 75;
     this.damageTaken = 0;
     this.expReward = 500;
     this.regen = 0.1;
+
+    this.randomizePos();
+    this.randomizeVelocity();
 
 }
 

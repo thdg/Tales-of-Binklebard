@@ -1,6 +1,6 @@
 "use strict";
 
-/************************************************************************\
+/*
 
 MAINLOOP
 
@@ -12,7 +12,7 @@ of having them begin with a leading underscore. A more robust form of privacy,
 with genuine name-hiding *is* possible in JavaScript (via closures), but I 
 haven't adopted it here.
 
-\************************************************************************/
+*/
 
 
 var main = {

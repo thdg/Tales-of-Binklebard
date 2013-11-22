@@ -1,10 +1,7 @@
 "use strict";
 
-/************************************************************************\
-
- A module which handles world in the simulation
-
-\************************************************************************/
+// A module which handles world in the simulation
+// and renders/updates the current active Region
 
 var world = {
 
@@ -12,10 +9,6 @@ var world = {
 
     _regions : [],
     _activeRegion : undefined,
-
-    // "PRIVATE" METHODS
-
-
 
     // PUBLIC METHODS
 

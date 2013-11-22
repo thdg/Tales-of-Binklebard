@@ -1,12 +1,6 @@
 "use strict";
 
-/*jslint browser: true, devel: true, white: true */
-
-/************************************************************************\
-
- A module that handles the camera
-
-\************************************************************************/
+// A module that handles the camera view and position
 
 var camera = {
 
@@ -104,7 +98,8 @@ var camera = {
             return;
         }
 
-        if (!this._centerdEntity) return;
+        // if not in flying mode nor centered, stay pot
+        if (!this._centerdEntity) return; 
         
         var pos = this._centerdEntity.getPos();
         this._posX = util.keepBetween(

@@ -30,8 +30,6 @@ Sprite.prototype.drawCentredAt = function (ctx, cx, cy, rotation, reflect) {
     ctx.rotate(rotation);
     ctx.globalAlpha = this.alpha;
 
-//    ctx.scale(this.scale,this.scale);
-
     if (reflect) ctx.scale(-this.scale, this.scale);
     else ctx.scale(this.scale, this.scale);
     

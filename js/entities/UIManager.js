@@ -1,5 +1,7 @@
 "use strict";
 
+// A module to handle the UI in the game
+
 var UIManager = {
 
     init : function() {

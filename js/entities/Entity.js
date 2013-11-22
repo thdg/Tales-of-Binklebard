@@ -1,6 +1,6 @@
 "use strict";
 
-/*************************************************************************\
+/*
 
 Provides a set of common functions which can be "inherited" by all other
 game Entities.
@@ -9,7 +9,7 @@ JavaScript's prototype-based inheritance system is unusual, and requires
 some care in use. In particular, this "base" should only provide shared
 functions... shared data properties are potentially quite confusing.
 
-\************************************************************************/
+*/
 
 function Entity() { }
 
