@@ -72,4 +72,5 @@ Cleric.prototype.abilities = function(du) {
             this.isCasting = false;
         }
     }
+
 };
