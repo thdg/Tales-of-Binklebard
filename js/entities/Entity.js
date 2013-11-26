@@ -41,13 +41,16 @@ Entity.prototype.setPos = function (cx, cy) {
 
 Entity.prototype.randomizePos = function () {
     
+    spatialManager.unregister(this);
     this.cx = this.cx || Math.random() * world.getWidth();
     this.cy = this.cy || Math.random() * world.getHeight();
 
-    while (world.collidesWith(this.cx, this.cy, this.getRadius())) {
+    while (world.collidesWith(this.cx, this.cy, this.getRadius()) || 
+           spatialManager.findEntityInRange(this.cx, this.cy, this.getRadius())) {
         this.cx = Math.random() * world.getWidth();
         this.cy = Math.random() * world.getHeight();
     }
+    spatialManager.register(this);
 
 };
 

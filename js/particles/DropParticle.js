@@ -6,9 +6,9 @@ function DropParticle() {}
 
 DropParticle.prototype = new Particle();
 
-DropParticle.prototype.setup = function(posX, posY, style, radius, lifespan) {
+DropParticle.prototype.setup = function(posX, posY, style, radius, lifespan, gravity) {
     
-    this.setupSuper(posX, posY, lifespan);
+    this.setupSuper(posX, posY, lifespan, gravity);
 
     if (style===undefined) style = 'red';
     if (radius===undefined) radius = 2; 

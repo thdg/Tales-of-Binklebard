@@ -8,9 +8,10 @@
 
 function Particle() { }
 
-Particle.prototype.setupSuper = function (posX, posY, lifespan) {
+Particle.prototype.setupSuper = function (posX, posY, lifespan, gravity) {
 
     if (lifespan===undefined) lifespan = 500;
+    if (gravity===undefined) gravity = true;
 
     this.posX = posX;
     this.posY = posY;
@@ -22,7 +23,8 @@ Particle.prototype.setupSuper = function (posX, posY, lifespan) {
 
 Particle.prototype.update = function (du) {
     
-    this.velY += NOMINA_GRAVITY;
+    if (this.gravity)
+        this.velY += NOMINA_GRAVITY;
 
     this.posX += this.velX*du;
     this.posY += this.velY*du;

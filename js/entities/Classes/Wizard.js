@@ -12,9 +12,7 @@ function Wizard(descr) {
     this.str -= 2;
 
     this.lifeRegen  = 0.5 * this.spirit;
-    this.energyRegen = 1  * this.spirit;    
-    this.lifeRegen = 0.5 * this.spirit;
-    this.energyRegen = 1.5 *this.spirit;
+    this.energyRegen = 1  * this.spirit;
 
     this.critChance   = Math.ceil(0.35 * this.dex);
     this.critModifier = Math.ceil(0.2 * this.str);

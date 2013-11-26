@@ -69,8 +69,12 @@ var spellbook =  {
                 this.descr.target = function (entity) {
                     var dmg = caster.spellCritCheck(this.damage,entity.cx,entity.cy);
                     entity.takeDamage(dmg,true);
-                    particleManager.generateSplash(this.cx, this.cy, 20, '#FF00FF');
                 };
+
+                this.descr.kill = function () {
+                    this._isDeadNow = true;
+                    particleManager.generateSplash(this.cx, this.cy, 20, '#FF00FF');
+                }
 
                 var distance = caster.getRadius() + this.descr.aoe + 1;
                 var pos = _inFrontOf(caster,distance);
@@ -261,7 +265,7 @@ var spellbook =  {
                     return spatialManager.findEachEntityInRange(this.cx,this.cy,this.aoe);
                 },
                 target         : function (entities) {
-                    for (key in entities) {
+                    for (var key in entities) {
                         if (entities[key].isEnemy) {
                             entities[key].takeDamage(this.damage);
                         }

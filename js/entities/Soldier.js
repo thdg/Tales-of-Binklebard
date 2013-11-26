@@ -219,7 +219,7 @@ Soldier.prototype._dropLoot = function () {
 
 Soldier.prototype.makeBoss = function () {
     this.hp = 10000;
-    this.armor = 150;
+    this.armor = 750;
     this.damage = 250;
     this.regen = 5;
     this.aggroRange *= 2;
